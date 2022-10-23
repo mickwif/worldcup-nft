@@ -1,0 +1,73 @@
+.btn-connected {
+    padding: 7px 12px;
+    border: 1px solid #503e9d;
+    box-sizing: border-box;
+    border-radius: 6px;
+
+    img {
+        width: 24px;
+        margin-right: 8px;
+    }
+}
+
+.my-wallet-address {
+    padding: 24px !important;
+    background: linear-gradient(180deg, #fffbee 11.88%, #ffffff 66.51%) !important;
+    border: 3px solid #ffffff;
+    border-radius: 16px;
+}
+
+.my-wallet-address-medias {
+    padding: 20px 0 40px 0;
+    border-top: 1px solid #f4f3eb;
+    border-bottom: 1px solid #f4f3eb;
+}
+
+.my-wallet-address-medias-item {
+    &:nth-of-type(n + 2) {
+        margin-top: 20px;
+    }
+}
+
+button.my-wallet-address-btn-follow.ant-btn {
+    width: 60px;
+    height: 24px;
+    background: #f1f7f3;
+    border-radius: 100px;
+    border: none;
+
+    > span {
+        font-family: 'Helvetica Neue';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 14px;
+        text-transform: capitalize;
+        color: #888888;
+    }
+
+    &.active {
+        background: #7fbe8e;
+
+        > span {
+            font-weight: 500;
+            color: #ffffff;
+        }
+    }
+}
+
+button.connect-wallet-btn.ant-btn {
+    background: #fffffe;
+    border: 2px solid #373430;
+    box-shadow: 3px 3px 0px rgba(74, 86, 65, 0.8);
+    border-radius: 8px;
+
+    &:hover {
+        box-shadow: none;
+    }
+}
+
+button.btn-wrongNet.ant-btn {
+    border: 2px solid #546e78;
+    border-radius: 8px;
+}

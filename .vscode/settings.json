@@ -1,0 +1,10 @@
+{
+    "nuxt.isNuxtApp": false,
+    "typescript.suggest.paths": true,
+    "path-intellisense.mappings": {
+        "@": "${workspaceFolder}/src",
+        "@@": "${workspaceFolder}/src/.umi",
+        "project-ui": "${workspaceFolder}/project-ui",
+        "/": "${workspaceFolder}/public"
+    }
+}
