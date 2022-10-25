@@ -1,7 +1,7 @@
 import './index.less';
 import './mobile.less';
 
-import { Big3FlexBox, Big3Footer, Big3Text } from 'big3-styled-base';
+import { Big3FlexBox, Big3Footer, Big3Text, Big3Paragraph, Big3Image } from 'big3-styled-base';
 
 export default () => {
     return (
@@ -11,8 +11,23 @@ export default () => {
                 height="var(--footer-height)"
                 maxWidth="var(--design-draft-width)"
                 margin="0 auto"
+                paddingTop={52}
+                justify="space-between"
             >
-                <Big3Text>Footer</Big3Text>
+                <Big3Paragraph
+                    color="rgba(255, 255, 255, 0.6)"
+                    fontFamily="Helvetica"
+                    fontWeight={400}
+                    fontSize={14}
+                    display="flex"
+                    alignItems="center"
+                >
+                    ©2022 - <Big3Text color="#ffffff">NFooTball</Big3Text> - All Rights Reserved.
+                </Big3Paragraph>
+                <Big3FlexBox align="center">
+                    <Big3Image src="/icon-twitter.svg" height={20} width={24} marginRight={49} />
+                    <Big3Image src="/icon-discord.svg" height={25} width={22} />
+                </Big3FlexBox>
             </Big3FlexBox>
         </Big3Footer>
     );

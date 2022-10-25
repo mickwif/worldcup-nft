@@ -1,0 +1,60 @@
+{
+    "2022-11-20": [
+        {
+            "group": "A",
+            "teamA": "Qatar",
+            "teamB": "Ecuador",
+            "matchTime": "12:00"
+        }
+    ],
+    "2022-11-21": [
+        {
+            "group": "B",
+            "teamA": "England",
+            "teamB": "Yilan",
+            "matchTime": "21:00"
+        }
+    ],
+    "2022-11-22": [
+        {
+            "group": "A",
+            "teamA": "Saineijiaer",
+            "teamB": "Helan",
+            "matchTime": "12:00"
+        },
+        {
+            "group": "B",
+            "teamA": "USA",
+            "teamB": "Wilson",
+            "matchTime": "03:00"
+        }
+    ],
+    "2022-11-23": [
+        {
+            "group": "C",
+            "teamA": "Agenting",
+            "teamB": "Shate",
+            "matchTime": "12:00"
+        },
+        {
+            "group": "D",
+            "teamA": "Danmai",
+            "teamB": "Tunisi",
+            "matchTime": "03:00"
+        }
+    ],
+    "2022-11-24": [
+        {
+            "group": "C",
+            "teamA": "Agenting",
+            "teamB": "Shate",
+            "matchTime": "12:00"
+        },
+        {
+            "group": "D",
+            "teamA": "Danmai",
+            "teamB": "Tunisi",
+            "matchTime": "03:00"
+        }
+    ]
+}

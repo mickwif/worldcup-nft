@@ -36,3 +36,11 @@ export enum EventKey {
     REQUEST_SIGN = 'REQUEST_SIGN',
     SIGN_RESULT = 'SIGN_RESULT',
 }
+
+export enum MatchType {
+    Group,
+    Top8,
+    Top4,
+    SemiFinal,
+    Final,
+}
