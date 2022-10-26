@@ -8,10 +8,11 @@ interface IProps {
     matchResult?: string;
     type: MatchType;
     [key: string]: any;
+    cardLarge?: boolean;
 }
 
 export default (props: IProps) => {
-    const { matchTime, matchResult, type, ...rest } = props;
+    const { matchTime, matchResult, type, cardLarge, ...rest } = props;
     const [time, setTime] = useState({ h: '00', m: '00', s: '00' });
     let interval;
     let timeLeft;
@@ -70,30 +71,44 @@ export default (props: IProps) => {
         <Big3FlexBox column align="center" {...rest}>
             <>
                 {status === 'NotStart' && (
-                    <Big3Text fontFamily="Lilita One" fontWeight={400} fontSize={32} color="#4A4A60" marginBottom={27}>
+                    <Big3Text
+                        fontFamily="Lilita One"
+                        fontWeight={400}
+                        fontSize={cardLarge ? 56 : 32}
+                        color="#4A4A60"
+                        marginBottom={cardLarge ? 57 : 27}
+                        lineHeight={cardLarge ? 64 : 37}
+                    >
                         VS
                     </Big3Text>
                 )}
                 {status === 'Full' && (
-                    <Big3FlexBox marginBottom={27} align="center">
+                    <Big3FlexBox marginBottom={cardLarge ? 57 : 27} align="center">
                         <Big3Text
                             fontFamily="Lilita One"
                             fontWeight={400}
-                            fontSize={32}
+                            fontSize={cardLarge ? 56 : 32}
                             color="#FFFFFF"
                             marginRight={24}
+                            lineHeight={cardLarge ? 64 : 37}
                         >
                             {matchResult?.split(':')[0]}
                         </Big3Text>
-                        <Big3Text fontFamily="Lilita One" fontWeight={400} fontSize={32} color="#4A4A60">
+                        <Big3Text
+                            fontFamily="Lilita One"
+                            fontWeight={400}
+                            fontSize={cardLarge ? 56 : 32}
+                            color="#4A4A60"
+                        >
                             :
                         </Big3Text>
                         <Big3Text
                             fontFamily="Lilita One"
                             fontWeight={400}
-                            fontSize={32}
+                            fontSize={cardLarge ? 56 : 32}
                             color="#FFFFFF"
-                            marginLeft={24}
+                            marginRight={24}
+                            lineHeight={cardLarge ? 64 : 37}
                         >
                             {matchResult?.split(':')[1]}
                         </Big3Text>
@@ -102,7 +117,7 @@ export default (props: IProps) => {
             </>
             <>
                 {status === 'NotStart' && (
-                    <div className={'timer-container'} {...rest}>
+                    <Big3Box marginBottom={cardLarge ? 5 : 0} className={'timer-container'} {...rest}>
                         {/* <div className={'timer-item'}>{time.d}</div>
             <span>:</span> */}
                         <span className={'timer-item'}>{time.h}</span>
@@ -110,7 +125,7 @@ export default (props: IProps) => {
                         <span className={'timer-item'}>{time.m}</span>
                         <span>:</span>
                         <span className={'timer-item'}>{time.s}</span>
-                    </div>
+                    </Big3Box>
                 )}
                 {status === 'Live' && (
                     <Big3Text color="#FF1515" fontSize={16} fontWeight={400} fontFamily="Helvetica">
@@ -123,7 +138,7 @@ export default (props: IProps) => {
                     </Big3Text>
                 )}
             </>
-            {type === MatchType.Group && <Button className="btn-bet btn-draw">Draw</Button>}
+            {!cardLarge && type === MatchType.Group && <Button className="btn-bet btn-draw">Draw</Button>}
         </Big3FlexBox>
     );
 };

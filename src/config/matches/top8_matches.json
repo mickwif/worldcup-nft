@@ -1,0 +1,43 @@
+{
+    "2022-12-03": [
+        {
+            "type": 1,
+            "typeText": "1/8",
+            "teamA": "Qatar",
+            "teamB": "Ecuador",
+            "matchTime": "12:00"
+        }
+    ],
+    "2022-12-04": [
+        {
+            "type": 1,
+            "typeText": "1/8",
+            "teamA": "Qatar",
+            "teamB": "Ecuador",
+            "matchTime": "12:00"
+        },
+        {
+            "type": 1,
+            "typeText": "1/8",
+            "teamA": "Qatar",
+            "teamB": "Ecuador",
+            "matchTime": "12:00"
+        }
+    ],
+    "2022-12-05": [
+        {
+            "type": 1,
+            "typeText": "1/8",
+            "teamA": "Qatar",
+            "teamB": "Ecuador",
+            "matchTime": "12:00"
+        },
+        {
+            "type": 1,
+            "typeText": "1/8",
+            "teamA": "Qatar",
+            "teamB": "Ecuador",
+            "matchTime": "12:00"
+        }
+    ]
+}

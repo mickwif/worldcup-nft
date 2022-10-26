@@ -34,6 +34,18 @@ const routes = [
                 path: '/faq',
                 component: '@/pages/faq',
             },
+            {
+                exact: true,
+                name: 'FAQ',
+                path: '/results',
+                component: '@/pages/results',
+            },
+            {
+                exact: true,
+                name: 'FAQ',
+                path: '/positions',
+                component: '@/pages/positions',
+            },
         ],
     },
 ];

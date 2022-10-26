@@ -1,7 +1,8 @@
-.betting-card {
-    background: linear-gradient(90deg, #121222 0%, #0d0d19 100%);
+.betting-card-large {
+    background: url('/betting-card-bg.png') no-repeat, linear-gradient(90deg, #121222 0%, #0d0d19 100%);
+    background-size: cover;
     border-radius: 24px;
-    min-width: 584px;
+    width: 1200px;
     height: 260px;
     padding: 20px 24px;
     .match-type {
@@ -19,6 +20,10 @@
         text-align: center;
         justify-content: center;
         color: #7e829d;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .btn-bet {
@@ -26,7 +31,7 @@
         border: 1px solid rgba(255, 255, 255, 0.03);
         border-radius: 8px;
         // transform: skew(15deg);
-        width: 168px;
+        width: 200px;
         height: 40px;
         margin-top: 16px;
         font-family: 'Codec Pro';

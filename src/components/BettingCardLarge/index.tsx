@@ -19,8 +19,8 @@ export default (props: IProps) => {
     const matchType = useMemo(() => {}, [type]);
 
     return (
-        <Big3Box className="betting-card">
-            <Big3FlexBox marginBottom={30} justify="space-between" align="center">
+        <Big3Box className="betting-card-large">
+            <Big3FlexBox marginBottom={30} justify="space-between" align="center" position="relative">
                 <Big3FlexBox align="center" fontFamily="Helvetica" fontWeight={700} fontSize={12}>
                     <Big3Icon src="/football-token.svg" marginRight={6} />
                     <Big3Text color="#7E829D" marginRight={3}>
@@ -38,7 +38,7 @@ export default (props: IProps) => {
                 </Big3FlexBox>
             </Big3FlexBox>
 
-            <Big3FlexBox justify="space-between" align="flex-end">
+            <Big3FlexBox justify="space-between" align="flex-end" paddingLeft={120} paddingRight={120}>
                 <Big3FlexBox column align="center">
                     <Big3Image src={`/nations/${teamA.toLowerCase()}.png`} width={72} height={72} marginBottom={10} />
                     <Big3Text fontFamily="Codec Pro" fontWeight={600} fontSize={20} color="#ffffff" lineHeight={17}>
@@ -46,7 +46,7 @@ export default (props: IProps) => {
                     </Big3Text>
                     <Button className="btn-bet btn-bet-left">Win</Button>
                 </Big3FlexBox>
-                <TimeCountDown matchResult={matchResult} matchTime={matchTime} type={type} />
+                <TimeCountDown matchResult={matchResult} matchTime={matchTime} type={type} cardLarge={true} />
 
                 <Big3FlexBox column align="center">
                     <Big3Image src={`/nations/${teamB.toLowerCase()}.png`} width={80} height={80} marginBottom={10} />

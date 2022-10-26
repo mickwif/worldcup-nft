@@ -794,7 +794,52 @@ export const AntRatioGroup = styled(Radio.Group)`
 export const AntRatioButton = styled(Radio.Button)``;
 
 export const AntTable = styled(Table)`
-    .ant-table-thead {
-        background: #fff;
+    .ant-table {
+        background: transparent;
+        border-radius: 12px;
+        box-shadow: 0px 12px 24px rgba(183, 196, 157, 0.06);
+    }
+    .ant-table table {
+        border-collapse: separate;
+        border-spacing: 0 15px;
+    }
+
+    .ant-table-tbody > tr > td:first-child {
+        border-radius: 12px 0 0 12px;
+        padding-left: 24px;
+    }
+    .ant-table-tbody > tr > td:last-child {
+        border-radius: 0 12px 12px 0;
+    }
+    .ant-table-container table > thead > tr:first-child th:last-child {
+        border-radius: 0 12px 12px 0;
+    }
+    .ant-table-container table > thead > tr:first-child th:first-child {
+        border-radius: 12px 0 0 12px;
+        padding-left: 24px;
+    }
+    .ant-table-thead > tr > th:before {
+        display: none;
+    }
+    .ant-table-thead > tr > th {
+        background: transparent;
+        font-family: 'Codec Pro';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        color: #4a4a60;
+        border-bottom: none;
+    }
+    .ant-table-tbody > tr > td {
+        border: none;
+        padding: 12px;
+    }
+    .ant-table-row {
+        background: linear-gradient(89.96deg, #121222 0.04%, #131325 131.81%);
+        border-radius: 12px;
+    }
+    .ant-table-tbody > tr.ant-table-row:hover > td,
+    .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+        background: #121222;
     }
 `;
