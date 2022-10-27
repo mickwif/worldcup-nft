@@ -20,14 +20,16 @@ import {
     Menu,
     Table,
 } from 'antd';
+import { ModalProps } from 'antd/lib/modal';
 
 import styled, { css, createGlobalStyle } from 'wired-styled-px2vw';
 import { IAntButton, IAntModal, IAntSelect, IAntCheckboxGroup, ISlider, ITag } from '@/components/components';
-import { flexCss, iconCss, settleCss, textCss, bgCss } from './css';
-import { FC, Fragment } from 'react';
+import { flexCss, iconCss, settleCss, textCss, bgCss, baseCss } from './css';
+import { FC, Fragment, useEffect } from 'react';
 import { useAntdModalIndex } from 'antd-enhancer';
 import { WiredBox } from './base';
 import { ModalCloseBtn } from './svg';
+import { Big3FlexBox, Big3Icon, Big3Text } from 'big3-styled-base';
 
 export const AntGlobalStyle = createGlobalStyle`
     /* spin */
@@ -843,3 +845,124 @@ export const AntTable = styled(Table)`
         background: #121222;
     }
 `;
+
+export type TomatoModalProps = ModalProps &
+    Omit<Big3Props<HTMLDivElement>, 'title'> & {
+        circleBg?: boolean;
+        titleStyle?: Big3Props<HTMLDivElement>;
+        dialogStyle?: Big3Props<HTMLDivElement>;
+    };
+export const TomatoModal = styled(Modal).attrs<TomatoModalProps>((props) => ({
+    closeIcon: <Big3Icon margin="8px 8px 0 auto" src="/icon-modal-close.png" size={28} />,
+    ...props,
+}))<TomatoModalProps>`
+    && {
+        ${(props) => baseCss(props.dialogStyle || {})};
+    }
+
+    .ant-modal-header {
+        border: none;
+        background: transparent;
+        border-radius: 16px;
+        padding: 0;
+    }
+
+    .ant-modal-title {
+        font-family: 'Teko';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 36px;
+        line-height: 52px;
+        color: #000000;
+        text-align: center;
+        ${(props) =>
+            props.titleStyle &&
+            baseCss({
+                fontSize: props.titleStyle.fontSize ?? 36,
+                fontWeight: props.titleStyle.fontWeight ?? 500,
+                color: props.titleStyle.color || '#000000',
+                ...props.titleStyle,
+            })}
+    }
+
+    .ant-modal-body {
+        padding: 0;
+    }
+
+    .ant-modal-content {
+        ${(props) =>
+            props.circleBg
+                ? css`
+                      ${bgCss('/bg-modal-circle.png')};
+                      padding: 40px 30px;
+                      background-size: 100% 100%;
+
+                      .ant-modal-close {
+                          padding-top: 30px;
+                          padding-right: 30px;
+                      }
+                  `
+                : css`
+                      background: linear-gradient(180deg, #fffbf1 2.29%, #ffffff 68.07%);
+                      border-radius: 16px;
+                  `}
+        ${(props) => baseCss(props)}
+    }
+`;
+
+export const TomatoFullscreenModal = (props: TomatoModalProps & { onClose: Function; isMobile?: boolean }) => {
+    useEffect(() => {
+        document.addEventListener('keyup', (e) => {
+            if (e.key === 'Escape') {
+                props.onClose();
+            }
+        });
+    }, []);
+    return (
+        <TomatoModal
+            footer={null}
+            top={0}
+            dialogStyle={{ top: 0, width: '100vw !important', position: 'relative' }}
+            closable={false}
+            background="rgba(5, 20, 30, 0.8)"
+            backdropFilter="blur(7px)"
+            /* Note: backdrop-filter has minimal browser support */
+            border="none"
+            boxShadow="none"
+            paddingTop={props.isMobile ? 56 : 88}
+            maskStyle={{ backdropFilter: 'blur(10px)' }}
+            {...(props as any)}
+        >
+            <Big3FlexBox>
+                <Big3FlexBox
+                    position="absolute"
+                    right={0}
+                    top={0}
+                    padding={props.isMobile ? '10px 12px' : '24px 32px'}
+                    align="center"
+                >
+                    <Big3FlexBox
+                        width={77}
+                        height={32}
+                        background="#2B2B40"
+                        color="#FFFFFF"
+                        fontSize={14}
+                        borderRadius={8}
+                        border="none"
+                        onClick={() => props.onClose()}
+                        cursor="pointer"
+                        justify="center"
+                        align="center"
+                    >
+                        <Big3Icon src="/icon-close.svg" width={14} height={14} marginRight={10} />
+                        <Big3Text fontFamily="Codec Pro" fontWeight={500} fontSize={12}>
+                            Close
+                        </Big3Text>
+                    </Big3FlexBox>
+                </Big3FlexBox>
+
+                {props.children}
+            </Big3FlexBox>
+        </TomatoModal>
+    );
+};

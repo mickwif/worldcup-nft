@@ -103,7 +103,7 @@ export const tokenCss = (token: string, type: ErcType, size: number) => {
     if (token && type && !/trade/i.test(type)) {
         token = token.replace(/\s/g, '');
         try {
-            const icon = require('@/assets/images' +
+            const icon = require('' +
                 `/${type.toLowerCase()}` +
                 `/${type.toLowerCase()}-` +
                 `${type === 'erc721' ? token : token.toLowerCase()}.png`);
