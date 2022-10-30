@@ -510,11 +510,13 @@ export const AntButton: FC<IAntButton> = styled(Button)<IAntButton & TextCss>`
         }
 
         &:disabled {
-            filter: grayscale(1);
+            background: rgba(254, 212, 17, 0.3);
+            color: #ffffff;
+            opacity: 0.4;
         }
         &[disabled] {
             &:hover {
-                filter: grayscale(1);
+                // filter: grayscale(1);
             }
         }
 
@@ -522,8 +524,12 @@ export const AntButton: FC<IAntButton> = styled(Button)<IAntButton & TextCss>`
             (!props.$wiredTheme || props.$wiredTheme === 'primary') &&
             css`
                 ${textCss(props, { color: props.theme.SYSTEM.white })};
+                font-family: 'Codec Pro';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 16px;
                 border-radius: 51px;
-                border: 2px solid #7e1f1d;
+                // border: 2px solid #7e1f1d;
                 background-color: ${props.theme.SYSTEM.primary};
                 /* background-image: ${(props) =>
                     props.size === 'small'
@@ -531,12 +537,11 @@ export const AntButton: FC<IAntButton> = styled(Button)<IAntButton & TextCss>`
                         : "url('/btn-bg-tomato-comp01.png'), url('btn-bg-tomato-comp02.png')"};
                 background-size: contain;
                 background-repeat: no-repeat; */
+                color: #000000;
                 &:hover {
                     filter: brightness(120%);
                     background-color: ${props.theme.SYSTEM.primary};
-                    color: ${props.theme.SYSTEM.white};
                 }
-                box-shadow: 0px 12px 24px rgba(255, 131, 125, 0.3);
             `}
 
         ${(props) =>

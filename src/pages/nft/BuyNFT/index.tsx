@@ -11,9 +11,14 @@ import {
 } from 'big3-styled-base';
 import nations from './nations.json';
 import { AntButton } from '@/components';
+import ClaimNFT from '../ClaimNFT';
+import { useState } from 'react';
 export default () => {
+    const [showResult, setShowResult] = useState(true);
     return (
         <Big3FlexBox column align="center" width="100%">
+            {showResult && <ClaimNFT onClaim={()=>setShowResult(false)}/>}
+
             <Big3Image src="./buy-nft-title.png" width={674} height={115} marginBottom={48}></Big3Image>
             <Big3Box className="nation-list">
                 {nations.map((item) => (
