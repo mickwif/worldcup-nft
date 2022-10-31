@@ -459,10 +459,14 @@ export let AntModal: FC<IAntModal>;
                     }
 
                     .ant-modal-content {
-                        background: #fffcf0;
-                        border: 3px solid #ffffff;
-                        border-radius: 16px;
-                        padding: 0 40px 48px 40px;
+                        background: linear-gradient(
+                            180.08deg,
+                            #1d1d2c 0.05%,
+                            #0e1723 67.82%,
+                            rgba(5, 20, 30, 0.46) 99.92%
+                        );
+                        border-radius: 24px;
+                        padding: 50px 40px 48px 40px;
                     }
 
                     .ant-modal-close-x {
@@ -566,13 +570,12 @@ export const AntButton: FC<IAntButton> = styled(Button)<IAntButton & TextCss>`
                 ${textCss(props, { color: props.theme.SYSTEM.primary })};
                 border: #7e1f1d 2px solid;
                 /* background-color: ${settleCss(props.background, 'transparent')};
-                background-image: url('/btn-bg-tomato-pure.png');
                 background-size: contain;
                 background-position: right center;
                 background-repeat: no-repeat; */
 
                 &:hover {
-                    background: ${props.theme.SYSTEM.primary};
+                    // background: ${props.theme.SYSTEM.primary};
                     color: ${props.theme.SYSTEM.white};
                 }
             `}

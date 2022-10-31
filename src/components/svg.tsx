@@ -4,15 +4,15 @@ export type SvgProps = IWiredProps<HTMLOrSVGElement> & BaseCss;
 
 export function ModalCloseBtn({ color = '#4536AF' }) {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 28 28">
-            <circle cx="14" cy="14" r="14" fill="#C5A600" fillOpacity="0.09"></circle>
-            <circle cx="14" cy="14" r="14" fill="#DCBB0B" fillOpacity="0.05"></circle>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="12" fill="#2B2B40" />
+            <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="white" stroke-opacity="0.03" />
             <path
-                fill="#373430"
-                stroke="#373430"
-                strokeWidth="0.5"
-                d="M16.958 18.064L14 15.06l-2.957 3.004a.73.73 0 01-1.043 0 .758.758 0 010-1.06L12.958 14 10 10.996a.758.758 0 010-1.06.73.73 0 011.043 0l2.957 3.004 2.957-3.005a.73.73 0 011.043 0 .758.758 0 010 1.06L15.044 14l2.957 3.004a.758.758 0 010 1.06.73.73 0 01-1.043 0h0z"
-            ></path>
+                d="M7.15615 14.157L6.98053 14.3334L7.15615 14.5098L9.47925 16.8431L9.65641 17.021L9.83358 16.8431L11.9795 14.6877L14.1254 16.8431L14.3026 17.021L14.4798 16.8431L16.8029 14.5098L16.9785 14.3334L16.8029 14.157L14.6554 12L16.8029 9.8431L16.9785 9.66671L16.8029 9.49032L14.4798 7.15699L14.3026 6.97904L14.1254 7.15699L11.9795 9.31237L9.83358 7.15699L9.65641 6.97904L9.47925 7.15699L7.15615 9.49032L6.98053 9.66671L7.15615 9.8431L9.30363 12L7.15615 14.157Z"
+                fill="#7E829D"
+                stroke="black"
+                stroke-width="0.5"
+            />
         </svg>
     );
 }

@@ -9,7 +9,7 @@ import { Fragment, useCallback, useEffect, useState } from 'react';
 import { notification } from 'antd';
 import { CacheKey, EventKey } from '@/config/constant';
 import { eventBus } from '@/utils/eventBus';
-import { WiredBox, WiredFlexBox, WiredIcon, WiredParagraph, WiredText } from '@/components/base';
+import { WiredBox, WiredFlexBox, WiredIcon, WiredParagraph, WiredText, WiredImage } from '@/components/base';
 
 interface IWalletModalProps {
     visible: boolean;
@@ -20,12 +20,28 @@ interface IWalletModalProps {
 type WalletModal = 'yes' | 'no';
 let _handling = false;
 
+const Connectors = [
+    {
+        title: 'Metamask',
+        connectorId: 'Injected',
+        priority: 1,
+        icon: './icon-metamask.svg',
+    },
+    {
+        title: 'WalletConnect',
+        connectorId: 'WalletConnect',
+        priority: 2,
+        icon: './icon-walletconnect.svg',
+    },
+];
+
 const WalletModal = (props: IWalletModalProps) => {
     const { onClose, visible } = props;
     const { account } = useWeb3React();
     const { chain, chainChanged, allNotConnected, accountDisconnected, accountConnected, accountsChanged } =
         useModel('@@chain');
-    const { connect, connectors } = useWallet(chain);
+    const { connect } = useWallet(chain);
+
     const { provider } = useWeb3Provider();
 
     const umiLocation = useLocation();
@@ -76,29 +92,15 @@ const WalletModal = (props: IWalletModalProps) => {
             <AntModal
                 footer={null}
                 title={
-                    <WiredFlexBox column align="center" marginTop={-62}>
-                        <WiredIcon src="/modal-icon-tomato.png" size={132} />
-                        <WiredFlexBox width="100%" justify="center" marginTop={16}>
-                            <WiredText color="var(--black-color)" fontSize={36} fontWeight={600} fontFamily="Teko">
-                                Connect
-                            </WiredText>
-                            <WiredText
-                                color="var(--primary-color)"
-                                fontSize={36}
-                                fontWeight={600}
-                                marginLeft={8}
-                                fontFamily="Teko"
-                            >
-                                Wallet
-                            </WiredText>
-                        </WiredFlexBox>
+                    <WiredFlexBox column align="center">
+                        <WiredImage src="./logo.svg" width={180} height={64} marginBottom={24} />
                         <WiredParagraph
-                            marginTop={2}
+                            fontFamily="Codec Pro"
                             fontSize={16}
                             fontWeight={400}
-                            color="var(--gray-color)"
+                            color="#7E829D"
                             textAlign="center"
-                            lineHeight={24}
+                            lineHeight={20}
                         >
                             Connect with one of our available wallet providers
                         </WiredParagraph>
@@ -112,43 +114,44 @@ const WalletModal = (props: IWalletModalProps) => {
             >
                 <WiredBox className="wallet-list">
                     {!account && (
-                        <WiredFlexBox marginTop={72} column align="center">
-                            {connectors
-                                .filter(({ title }) => !/trust|math/i.test(title))
-                                .map((walletConfig) => {
-                                    // WalletCard
-                                    const { title, icon: WalletIcon } = walletConfig;
+                        <WiredFlexBox marginTop={64} column align="center">
+                            {Connectors.filter(({ title }) => !/trust|math/i.test(title)).map((walletConfig) => {
+                                // WalletCard
+                                const { title, icon } = walletConfig;
 
-                                    return (
-                                        <AntButton
-                                            key={title}
-                                            onClick={(e) => {
-                                                onClose(e);
-                                                if (account) {
-                                                    handleLogin();
-                                                } else {
-                                                    connect(walletConfig);
-                                                }
-                                            }}
-                                            id={`wallet-connect-${title.toLocaleLowerCase()}`}
-                                            width={364}
-                                            height={60}
-                                            className="wallet-list-connect-btn"
-                                            $wiredTheme="pure"
-                                            background="#FFFFFE"
-                                            color="#292725"
-                                        >
-                                            <WiredFlexBox align="center" justify="center">
-                                                <WiredFlexBox width={28}>
-                                                    <WalletIcon />
-                                                </WiredFlexBox>
-                                                <WiredText marginLeft={10} fontSize={16} fontWeight={500}>
-                                                    {title}
-                                                </WiredText>
-                                            </WiredFlexBox>
-                                        </AntButton>
-                                    );
-                                })}
+                                return (
+                                    <AntButton
+                                        key={title}
+                                        onClick={(e) => {
+                                            onClose(e);
+                                            if (account) {
+                                                handleLogin();
+                                            } else {
+                                                connect(walletConfig);
+                                            }
+                                        }}
+                                        id={`wallet-connect-${title.toLocaleLowerCase()}`}
+                                        width={300}
+                                        height={64}
+                                        className="wallet-list-connect-btn"
+                                        $wiredTheme="pure"
+                                        background="#202334"
+                                        color="#FFFFFE"
+                                    >
+                                        <WiredFlexBox align="center">
+                                            <WiredIcon src={icon} size={36} />
+                                            <WiredText
+                                                marginLeft={24}
+                                                fontSize={18}
+                                                fontWeight={500}
+                                                fontFamily="Codec Pro"
+                                            >
+                                                {title}
+                                            </WiredText>
+                                        </WiredFlexBox>
+                                    </AntButton>
+                                );
+                            })}
                         </WiredFlexBox>
                     )}
                 </WiredBox>

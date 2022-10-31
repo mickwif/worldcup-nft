@@ -13,7 +13,7 @@ import { TomatoFullscreenModal } from '@/components/antd';
 import { useState } from 'react';
 import BuyNFT from './BuyNFT';
 const NFT = () => {
-    const [modalShow, setModalShow] = useState(true);
+    const [modalShow, setModalShow] = useState(false);
     return (
         <Big3Page>
             <Big3PortalNode className="nft-bg" container={document.getElementById('content')} />
@@ -24,7 +24,7 @@ const NFT = () => {
                 </Big3Paragraph>
             </Big3FlexBox>
             <Big3FlexBox align="center" justify="center" position="relative">
-                <Big3FlexBox column align="center" className="nft-buy-card">
+                <Big3FlexBox column align="center" className="nft-buy-card" marginRight={96}>
                     <Big3Image
                         src="./nft-bg-left.png"
                         width={552}
