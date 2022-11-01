@@ -44,3 +44,10 @@ export enum MatchType {
     SemiFinal,
     Final,
 }
+
+
+export const Contracts = {
+    '0x5': {
+        GroupNFT: '0x0639Dd5fD365b55e636893cc00e856CD10A4Bd89',
+    },
+}

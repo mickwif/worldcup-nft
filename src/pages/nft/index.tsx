@@ -10,10 +10,65 @@ import {
 } from 'big3-styled-base';
 import { Button } from 'antd';
 import { TomatoFullscreenModal } from '@/components/antd';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import BuyNFT from './BuyNFT';
+import { useGroupNFTContract } from '@/hooks/useContract';
+import { useWeb3React, useWeb3Provider } from 'big3-web3';
+import { ethers } from 'ethers';
+import { message } from 'antd';
+import useRefresh from '@/hooks/useRefresh';
 const NFT = () => {
+    const { account } = useWeb3React();
+    const { provider } = useWeb3Provider();
+    const [freeLeft, setFreeLeft] = useState(0);
+    const [saleLeft, setSaleLeft] = useState(0);
+    const { slowRefresh } = useRefresh();
+    const groupNFTContract = useGroupNFTContract();
+
+    useEffect(() => {
+        getFreeNFTLeft();
+    }, [provider, slowRefresh]);
+
     const [modalShow, setModalShow] = useState(false);
+
+    const getFreeNFTLeft = async () => {
+        if (!provider) return;
+        try {
+            const res = await groupNFTContract.getFreeLeft();
+            const num = res.toNumber();
+            setFreeLeft(num);
+            return num;
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    const handleFreeMint = async () => {
+        const num = await getFreeNFTLeft();
+        if (num < 1) {
+            message.warn('No free NFT left.');
+            return;
+        }
+        try {
+            const tx = await groupNFTContract.mint({ gasLimit: 500000 });
+            const res = await tx.wait();
+            console.log(res);
+            console.log(res.events[0].args['tokenId']);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    const handleSaleMint = async (team: number) => {
+        try {
+            const tx = await groupNFTContract.buy(team, { value: ethers.utils.formatEther(0.05) });
+            const res = await tx.wait();
+            console.log(res);
+            console.log(res.events[0].args['tokenId']);
+        } catch (e) {
+            console.log(e);
+        }
+    };
     return (
         <Big3Page>
             <Big3PortalNode className="nft-bg" container={document.getElementById('content')} />
@@ -50,7 +105,9 @@ const NFT = () => {
                         this series, each round will issue 2880 NFT (32*90, 32 represents different countries, 90
                         represents the total number of players in each country).
                     </Big3Paragraph>
-                    <Button className="btn-mint">Min</Button>
+                    <Button className="btn-mint" onClick={handleFreeMint} disabled={freeLeft < 1}>
+                        Mint
+                    </Button>
                 </Big3FlexBox>
                 <Big3Image className="nft-bg-middle" src="./nft-bg-middle.png" width={264} height={264}></Big3Image>
                 <Big3FlexBox column align="center" className="nft-buy-card">

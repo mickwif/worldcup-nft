@@ -27,7 +27,7 @@ const WalletConnector: FC<IWiredProps<HTMLDivElement> & FlexCss> = (props) => {
     const { matched, setChain } = useModel('@@chain');
     const { switchChain } = useChain({ setChain });
 
-    const [visible, setVisible] = useState(true);
+    const [visible, setVisible] = useState(false);
     const [verifyTipsVisible, setVerifyTipsVisible] = useState(false);
     const { account } = useWeb3React();
     const { chain } = useModel('@@chain');

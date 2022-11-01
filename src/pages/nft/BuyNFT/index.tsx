@@ -13,15 +13,20 @@ import nations from './nations.json';
 import { AntButton } from '@/components';
 import ClaimNFT from '../ClaimNFT';
 import { useState } from 'react';
-export default () => {
+
+interface IProps {
+    onBuy: (team: number) => void;
+}
+export default (props: IProps) => {
+    const { onBuy } = props;
     const [showResult, setShowResult] = useState(true);
     return (
         <Big3FlexBox column align="center" width="100%">
-            {showResult && <ClaimNFT onClaim={()=>setShowResult(false)}/>}
+            {showResult && <ClaimNFT onClaim={() => setShowResult(false)} />}
 
             <Big3Image src="./buy-nft-title.png" width={674} height={115} marginBottom={48}></Big3Image>
             <Big3Box className="nation-list">
-                {nations.map((item) => (
+                {nations.map((item, index) => (
                     <Big3FlexBox column align="center" className="nation-item">
                         <Big3Image
                             src={`./nations/${item.name.toLowerCase()}.png`}
@@ -39,7 +44,13 @@ export default () => {
                         >
                             {item.name}
                         </Big3Text>
-                        <AntButton width={148} height={32} marginBottom={10} disabled={item.left === 0}>
+                        <AntButton
+                            width={148}
+                            height={32}
+                            marginBottom={10}
+                            disabled={item.left === 0}
+                            onClick={() => onBuy(index)}
+                        >
                             Mint
                         </AntButton>
                         <Big3Paragraph
