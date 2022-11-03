@@ -91,7 +91,14 @@ export default () => {
                     </Big3NavLink>
                 </Big3FlexBox>
                 <Big3FlexBox className="header-right" align="center">
-                    <Button className="btn-get-token">Get Free Token</Button>
+                    <Button
+                        className="btn-get-token"
+                        onClick={() => {
+                            window.open('https://www.premint.xyz/nfootball-nft/', '_blank');
+                        }}
+                    >
+                        Get Free Token
+                    </Button>
                     <WalletConnector />
                 </Big3FlexBox>
             </Big3FlexBox>

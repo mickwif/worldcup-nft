@@ -12,9 +12,31 @@
 
 .my-wallet-address {
     padding: 24px !important;
-    background: linear-gradient(180deg, #fffbee 11.88%, #ffffff 66.51%) !important;
-    border: 3px solid #ffffff;
-    border-radius: 16px;
+    border-radius: 24px;
+}
+
+.my-wallet-address-popover {
+    .ant-popover-arrow {
+        display: none;
+    }
+    .ant-popover-inner {
+        background: url('/popover-bg.png') no-repeat;
+        background-size: cover;
+        border-radius: 24px;
+    }
+}
+
+.my-wallet-card {
+    background: linear-gradient(180.95deg, #1e1e37 0.71%, #191931 99.01%);
+    border-radius: 8px;
+    cursor: pointer;
+    width: 90px;
+    padding: 10px 0;
+    font-family: 'Codec Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: #7e829d;
 }
 
 .my-wallet-address-medias {
@@ -57,17 +79,47 @@ button.my-wallet-address-btn-follow.ant-btn {
 }
 
 button.connect-wallet-btn.ant-btn {
-    background: #fffffe;
-    border: 2px solid #373430;
-    box-shadow: 3px 3px 0px rgba(74, 86, 65, 0.8);
+    background: #f2ca0e;
     border-radius: 8px;
-
+    padding: 11px 17px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Codec Pro';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    color: #00000f;
+    border: none;
     &:hover {
         box-shadow: none;
+        color: #00000f;
+        filter: brightness(120%);
     }
 }
 
 button.btn-wrongNet.ant-btn {
     border: 2px solid #546e78;
     border-radius: 8px;
+}
+
+.btn-address-display {
+    padding: 0 16px;
+    height: 40px;
+    color: #ffffff;
+    border-radius: 8px;
+    font-family: 'Codec Pro';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    background: linear-gradient(90deg, #242443 0%, #242443 100%),
+        linear-gradient(90.08deg, rgba(255, 255, 255, 0.12) -2.34%, rgba(255, 255, 255, 0.1) 102.48%);
+    border: 2px solid;
+    border-image-source: linear-gradient(90.08deg, rgba(255, 255, 255, 0.12) -2.34%, rgba(255, 255, 255, 0.1) 102.48%);
+
+    &:hover {
+        border: 2px solid #fed411;
+        color: #fed411;
+        background: linear-gradient(90deg, #242443 0%, #242443 100%);
+    }
 }

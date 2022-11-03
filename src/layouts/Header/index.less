@@ -15,7 +15,7 @@
 }
 
 .btn-get-token {
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    // background: linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
     border-radius: 8px;
     width: 144px;
     height: 40px;
@@ -26,4 +26,16 @@
     font-size: 16px;
     line-height: 14px;
     margin-right: 16px;
+    background: linear-gradient(90deg, #242443 0%, #242443 100%),
+        linear-gradient(90.08deg, rgba(255, 255, 255, 0.12) -2.34%, rgba(255, 255, 255, 0.1) 102.48%);
+    border: 2px solid;
+    border-image-source: linear-gradient(90.08deg, rgba(255, 255, 255, 0.12) -2.34%, rgba(255, 255, 255, 0.1) 102.48%);
+
+    &:hover {
+        background: linear-gradient(90deg, #242443 0%, #242443 100%),
+            linear-gradient(90.08deg, rgba(255, 255, 255, 0.12) -2.34%, rgba(255, 255, 255, 0.1) 102.48%);
+        // background: linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+        // filter: brightness(120%);
+        color: #fed411;
+    }
 }

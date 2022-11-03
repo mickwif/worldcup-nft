@@ -9,7 +9,7 @@ export const useErc20Contract = (name: string) => {
     const { provider } = useWeb3Provider();
     const { chain } = useModel('@@chain');
     return useMemo(
-        () => getErc20Contract(Contracts[chain.config.chainId][`${name}_CONTRACT_ADDRESS`], provider?.getSigner()),
+        () => getErc20Contract(Contracts[chain.config.chainId]?.[`${name}_CONTRACT_ADDRESS`], provider?.getSigner()),
         [provider, chain],
     );
 };
@@ -18,7 +18,7 @@ export const useGroupNFTContract = () => {
     const { provider } = useWeb3Provider();
     const { chain } = useModel('@@chain');
     return useMemo(
-        () => getContract(GroupNFTAbi.abi, Contracts[chain.config.chainId]['GroupNFT'], provider?.getSigner()),
+        () => getContract(GroupNFTAbi.abi, Contracts[chain.config.chainId]?.['GroupNFT'], provider?.getSigner()),
         [provider, chain],
     );
-}
+};

@@ -364,7 +364,19 @@ export const AntSlider = styled(Slider)<ISlider>`
     }
 `;
 
-export const AntPopover: FC<PopoverProps> = styled(Popover)``;
+export const AntPopover: FC<PopoverProps> = styled(Popover)`
+    & {
+        .ant-popover-inner {
+            background: linear-gradient(180.95deg, #1e1e37 0.71%, #0e0e1d 99.01%);
+        }
+        .ant-popover-inner-content {
+            padding: 0;
+        }
+        .ant-popover-arrow-content::before {
+            background: linear-gradient(180.95deg, #1e1e37 0.71%, #0e0e1d 99.01%);
+        }
+    }
+`;
 
 export let AntModal: FC<IAntModal>;
 {

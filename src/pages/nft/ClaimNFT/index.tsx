@@ -12,10 +12,16 @@ import {
 import NationFlagRect from '@/components/NationFlagRect';
 import { AntButton } from '@/components';
 
+export interface IClaimingNFT {
+    nation: string;
+    tokenId: number;
+}
 interface IProps {
+    nft: IClaimingNFT;
     onClaim: () => void;
 }
 export default (props: IProps) => {
+    const { nft, onClaim } = props;
     const player = {
         name: 'Cristiano Ronaldo dos Santos Aveiro',
         nation: 'Portugal',
@@ -33,13 +39,19 @@ export default (props: IProps) => {
                 >
                     Congratulations
                 </Big3Text>
-                <Big3Image src="./img-player-temp.png" width={200} height={200} marginBottom={40} className="img-player"></Big3Image>
+                <Big3Image
+                    src="./img-player-temp.png"
+                    width={200}
+                    height={200}
+                    marginBottom={40}
+                    className="img-player"
+                ></Big3Image>
                 <Big3Text fontFamily="Codec Pro" fontWeight="600" fontSize={20} color="#ffffff" marginBottom={16}>
                     {player.name}
                 </Big3Text>
                 <Big3FlexBox justify="center" align="center" marginBottom={40}>
-                    <NationFlagRect nation={player.nation} marginRight={12} />
-                    <Big3Text className="nation-name">{player.nation}</Big3Text>
+                    <NationFlagRect nation={nft?.nation} marginRight={12} />
+                    <Big3Text className="nation-name">{nft?.nation}</Big3Text>
                 </Big3FlexBox>
                 <AntButton width={168} height={40} onClick={() => props.onClaim()}>
                     Claim

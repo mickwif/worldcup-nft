@@ -8,11 +8,11 @@ import { AntButton, AntModal, AntPopover } from '..';
 import classNames from 'classnames';
 import { message as AntMessage } from 'antd';
 import { debounce } from 'lodash';
-import { useModel } from 'umi';
+import { useModel, history } from 'umi';
 import { WiredFlexBox, WiredImage, WiredIcon, WiredText, WiredHeading, WiredLink } from '../base';
 import { IWiredProps } from '@/components/components';
 import { eventBus } from '@/utils/eventBus';
-
+import { Button } from 'antd';
 import { formatAddress } from '@/utils';
 import { useWallet, useChain } from 'big3-web3';
 export const connectedKey = 'connected';
@@ -42,9 +42,14 @@ const WalletConnector: FC<IWiredProps<HTMLDivElement> & FlexCss> = (props) => {
         disconnect();
     };
 
+    const handleSwitch = () => {
+        disconnect();
+        setVisible(true);
+    };
+
     const addressDisplay = useMemo(() => {
         if (account) {
-            return account.substr(0, 5) + '...' + account.substr(-5);
+            return account.substr(0, 6) + '...' + account.substr(-2);
         }
     }, [account]);
 
@@ -57,41 +62,83 @@ const WalletConnector: FC<IWiredProps<HTMLDivElement> & FlexCss> = (props) => {
             {matched && !account && (
                 <AntButton
                     onClick={handleConnect}
-                    width={156}
-                    height={44}
                     fontSize={16}
                     fontWeight={400}
                     color="var(--black-color)"
                     $wiredTheme="pure"
                     className="connect-wallet-btn"
                 >
-                    <WiredText>Connect Wallet</WiredText>
+                    <WiredImage src="./icon-wallet.svg" width={22} height={18} marginRight={10}></WiredImage>
+                    <WiredText>Wallet</WiredText>
                 </AntButton>
             )}
             {matched && account && (
                 <AntPopover
-                    trigger="hover"
-                    placement="bottomRight"
+                    overlayClassName="my-wallet-address-popover"
+                    trigger="click"
+                    placement="bottom"
+                    arrowContent={null}
                     content={
                         <WiredFlexBox className="my-wallet-address" column align="center">
                             <WiredHeading
-                                color="var(--black-color)"
-                                fontSize={22}
+                                color="var(--white-color)"
+                                fontSize={18}
                                 fontWeight={500}
-                                lineHeight={32}
+                                lineHeight={15}
                                 headingType="h3"
+                                fontFamily="Codec Pro"
                             >
                                 My Wallet Address
                             </WiredHeading>
                             <WiredText
+                                fontFamily="Codec Pro"
                                 fontSize={16}
                                 fontWeight={400}
-                                lineHeight={19}
+                                lineHeight={14}
                                 color="var(--gray-color)"
-                                marginTop={2}
+                                marginTop={8}
+                                marginBottom={20}
                             >
-                                {formatAddress(account)}
+                                （{addressDisplay})
                             </WiredText>
+
+                            <Big3FlexBox align="center" justify="center" marginBottom={35}>
+                                <Big3FlexBox
+                                    align="center"
+                                    justify="center"
+                                    column
+                                    marginRight={12}
+                                    className="my-wallet-card"
+                                    onClick={() => history.push('/my-asset')}
+                                >
+                                    <WiredImage
+                                        src="./icon-my-asset.svg"
+                                        width={18}
+                                        height={18}
+                                        marginBottom={10}
+                                    ></WiredImage>
+                                    <Big3Text fontFamily="Codec Pro" color="#7E829D" fontWeight={400} fontSize={14}>
+                                        Asset
+                                    </Big3Text>
+                                </Big3FlexBox>
+                                <Big3FlexBox
+                                    align="center"
+                                    justify="center"
+                                    column
+                                    className="my-wallet-card"
+                                    onClick={handleSwitch}
+                                >
+                                    <WiredImage
+                                        src="./icon-switch-wallet.svg"
+                                        width={15}
+                                        height={15}
+                                        marginBottom={11}
+                                    ></WiredImage>
+                                    <Big3Text fontFamily="Codec Pro" color="#7E829D" fontWeight={400} fontSize={14}>
+                                        Switch
+                                    </Big3Text>
+                                </Big3FlexBox>
+                            </Big3FlexBox>
 
                             <WiredLink
                                 align="center"
@@ -107,17 +154,7 @@ const WalletConnector: FC<IWiredProps<HTMLDivElement> & FlexCss> = (props) => {
                         </WiredFlexBox>
                     }
                 >
-                    <AntButton
-                        height={44}
-                        fontSize={16}
-                        fontWeight={400}
-                        background="var(--white-color)"
-                        border="2px solid #000000"
-                        color="var(--black-color)"
-                        borderRadius={8}
-                    >
-                        <WiredText>{addressDisplay}</WiredText>
-                    </AntButton>
+                    <Button className="btn-address-display">{addressDisplay}</Button>
                 </AntPopover>
             )}
         </WiredFlexBox>

@@ -17,11 +17,17 @@ import { useWeb3React, useWeb3Provider } from 'big3-web3';
 import { ethers } from 'ethers';
 import { message } from 'antd';
 import useRefresh from '@/hooks/useRefresh';
+import ClaimNFT from './ClaimNFT';
+import teams from '@/config/team.json';
+
 const NFT = () => {
     const { account } = useWeb3React();
     const { provider } = useWeb3Provider();
     const [freeLeft, setFreeLeft] = useState(0);
     const [saleLeft, setSaleLeft] = useState(0);
+    const [loading, setLoading] = useState(false);
+    const [showResult, setShowResult] = useState(false);
+    const [claimingNFT, setClaimingNFT] = useState<any>(null);
     const { slowRefresh } = useRefresh();
     const groupNFTContract = useGroupNFTContract();
 
@@ -50,25 +56,29 @@ const NFT = () => {
             return;
         }
         try {
+            setLoading(true);
             const tx = await groupNFTContract.mint({ gasLimit: 500000 });
             const res = await tx.wait();
             console.log(res);
             console.log(res.events[0].args['tokenId']);
+            const tokenId = res.events[0].args['tokenId'];
+            // setClaimingNFT({
+            //     nation: teams[team],
+            //     tokenId,
+            // });
+            // setShowResult(true);
         } catch (e) {
             console.log(e);
+            if (e && e.code === 4001) {
+                message.warn('User canceled.');
+            } else {
+                message.error('Mint failed. Please try later.');
+            }
+        } finally {
+            setLoading(false);
         }
     };
 
-    const handleSaleMint = async (team: number) => {
-        try {
-            const tx = await groupNFTContract.buy(team, { value: ethers.utils.formatEther(0.05) });
-            const res = await tx.wait();
-            console.log(res);
-            console.log(res.events[0].args['tokenId']);
-        } catch (e) {
-            console.log(e);
-        }
-    };
     return (
         <Big3Page>
             <Big3PortalNode className="nft-bg" container={document.getElementById('content')} />
@@ -105,7 +115,7 @@ const NFT = () => {
                         this series, each round will issue 2880 NFT (32*90, 32 represents different countries, 90
                         represents the total number of players in each country).
                     </Big3Paragraph>
-                    <Button className="btn-mint" onClick={handleFreeMint} disabled={freeLeft < 1}>
+                    <Button className="btn-mint" onClick={handleFreeMint} disabled={freeLeft < 1} loading={loading}>
                         Mint
                     </Button>
                 </Big3FlexBox>
@@ -148,6 +158,7 @@ const NFT = () => {
             <TomatoFullscreenModal visible={modalShow} onClose={() => setModalShow(false)}>
                 <BuyNFT />
             </TomatoFullscreenModal>
+            {showResult && <ClaimNFT nft={claimingNFT} onClaim={() => setShowResult(false)} />}
         </Big3Page>
     );
 };
