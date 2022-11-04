@@ -495,6 +495,24 @@ export let AntModal: FC<IAntModal>;
                         }
                     }
                 `}
+                ${(props) =>
+                props.$wiredTheme === 'tip' &&
+                css`
+                    .ant-modal-title {
+                        color: var(--black-color);
+                        overflow: visible;
+                    }
+
+                    .ant-modal-content {
+                        background: linear-gradient(0.27deg, #1d1d2c -5.75%, #0d1522 99.77%);
+                        border-radius: 24px;
+                        padding: 40px 48px;
+                    }
+
+                    .ant-modal-close-x {
+                        display: none;
+                    }
+                `}
         }
     `;
     AntModal = (props: IAntModal) => {
@@ -544,19 +562,36 @@ export const AntButton: FC<IAntButton> = styled(Button)<IAntButton & TextCss>`
                 font-style: normal;
                 font-weight: 500;
                 font-size: 16px;
-                border-radius: 51px;
+                border-radius: 8px;
                 // border: 2px solid #7e1f1d;
                 background-color: ${props.theme.SYSTEM.primary};
-                /* background-image: ${(props) =>
-                    props.size === 'small'
-                        ? "url('/btn-bg-tomato-comp05.png')"
-                        : "url('/btn-bg-tomato-comp01.png'), url('btn-bg-tomato-comp02.png')"};
-                background-size: contain;
-                background-repeat: no-repeat; */
                 color: #000000;
                 &:hover {
                     filter: brightness(120%);
                     background-color: ${props.theme.SYSTEM.primary};
+                }
+            `}
+
+        ${(props) =>
+            props.$wiredTheme === 'black' &&
+            css`
+                ${textCss(props, { color: props.theme.SYSTEM.white })};
+                font-family: 'Codec Pro';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 16px;
+                background: #2b2b40;
+                border-radius: 8px;
+                color: #ffffff;
+                &:hover {
+                    filter: brightness(120%);
+                    background: #2b2b40;
+                }
+                &:disabled {
+                    background: rgba(43, 43, 64, 0.4);
+                    border: 1px solid rgba(255, 255, 255, 0.03);
+                    border-radius: 8px;
+                    color: rgba(255, 255, 255, 0.4);
                 }
             `}
 

@@ -32,7 +32,6 @@ const WalletConnector: FC<IWiredProps<HTMLDivElement> & FlexCss> = (props) => {
     const { account } = useWeb3React();
     const { chain } = useModel('@@chain');
     const { disconnect } = useWallet(chain);
-    const outlink = useRef<string>(null);
 
     const handleConnect = () => {
         setVisible(true);
@@ -75,7 +74,7 @@ const WalletConnector: FC<IWiredProps<HTMLDivElement> & FlexCss> = (props) => {
             {matched && account && (
                 <AntPopover
                     overlayClassName="my-wallet-address-popover"
-                    trigger="click"
+                    trigger="hover"
                     placement="bottom"
                     arrowContent={null}
                     content={

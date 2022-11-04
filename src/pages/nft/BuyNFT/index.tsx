@@ -17,12 +17,14 @@ import { useGroupNFTContract } from '@/hooks/useContract';
 import teams from '@/config/team.json';
 import { ethers } from 'ethers';
 import { message } from 'antd';
+import { decodeMintEvent } from '@/utils';
 interface IProps {}
 export default (props: IProps) => {
     const [showResult, setShowResult] = useState(false);
     const [claimingNFT, setClaimingNFT] = useState<any>(null);
     const [nationNFTs, setNationNFTs] = useState<any[]>(nations);
     const [loading, setLoading] = useState(false);
+    const [buyingTeam, setBuyingTeam] = useState();
     const groupNFTContract = useGroupNFTContract();
 
     const getSaleLeft = async () => {
@@ -44,16 +46,23 @@ export default (props: IProps) => {
     const handleSaleMint = async (team: number) => {
         try {
             setLoading(true);
+            setBuyingTeam(team);
             const tx = await groupNFTContract.buy(team, { value: ethers.utils.parseUnits('0.05', 'ether') });
             const res = await tx.wait();
             console.log(res);
-            const tokenId = res.events[0].args['tokenId'];
-            console.log(res.events[0].args['tokenId']);
-            setClaimingNFT({
-                nation: teams[team],
-                tokenId,
-            });
-            setShowResult(true);
+            getSaleLeft();
+            const result = decodeMintEvent(res, 'Buy');
+            if (result) {
+                const tokenId = result._tokenId;
+                const team = result._team;
+                // const nationId = tokenId % 32;
+                console.log('result: ', team, tokenId);
+                setClaimingNFT({
+                    nation: teams[team],
+                    tokenId,
+                });
+                setShowResult(true);
+            }
         } catch (e) {
             console.log(e);
             if (e && e.code === 4001) {
@@ -63,6 +72,7 @@ export default (props: IProps) => {
             }
         } finally {
             setLoading(false);
+            setBuyingTeam(null);
         }
     };
     useEffect(() => {
@@ -99,7 +109,7 @@ export default (props: IProps) => {
                             marginBottom={10}
                             disabled={item.left === 0}
                             onClick={() => handleSaleMint(index)}
-                            loading={loading}
+                            loading={loading && buyingTeam === index}
                         >
                             Mint
                         </AntButton>

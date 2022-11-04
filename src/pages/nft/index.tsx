@@ -8,8 +8,7 @@ import {
     Big3Paragraph,
     Big3Text,
 } from 'big3-styled-base';
-import { Button } from 'antd';
-import { TomatoFullscreenModal } from '@/components/antd';
+import { TomatoFullscreenModal, AntButton, AntModal } from '@/components/antd';
 import { useState, useEffect } from 'react';
 import BuyNFT from './BuyNFT';
 import { useGroupNFTContract } from '@/hooks/useContract';
@@ -19,13 +18,17 @@ import { message } from 'antd';
 import useRefresh from '@/hooks/useRefresh';
 import ClaimNFT from './ClaimNFT';
 import teams from '@/config/team.json';
-
+import { decodeMintEvent } from '@/utils';
+import proof from '@/config/proof.json';
 const NFT = () => {
     const { account } = useWeb3React();
     const { provider } = useWeb3Provider();
     const [freeLeft, setFreeLeft] = useState(0);
     const [saleLeft, setSaleLeft] = useState(0);
     const [loading, setLoading] = useState(false);
+    const [wlLoading, setWLLoading] = useState(false);
+    const [errorText, setErrorText] = useState('');
+
     const [showResult, setShowResult] = useState(false);
     const [claimingNFT, setClaimingNFT] = useState<any>(null);
     const { slowRefresh } = useRefresh();
@@ -60,13 +63,18 @@ const NFT = () => {
             const tx = await groupNFTContract.mint({ gasLimit: 500000 });
             const res = await tx.wait();
             console.log(res);
-            console.log(res.events[0].args['tokenId']);
-            const tokenId = res.events[0].args['tokenId'];
-            // setClaimingNFT({
-            //     nation: teams[team],
-            //     tokenId,
-            // });
-            // setShowResult(true);
+            const result = decodeMintEvent(res, 'Mint');
+            if (result) {
+                const tokenId = result._tokenId;
+                const team = result._team;
+                // const nationId = tokenId % 32;
+                console.log('result: ', team, tokenId);
+                setClaimingNFT({
+                    nation: teams[team],
+                    tokenId,
+                });
+                setShowResult(true);
+            }
         } catch (e) {
             console.log(e);
             if (e && e.code === 4001) {
@@ -76,6 +84,44 @@ const NFT = () => {
             }
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleWLMint = async () => {
+        if (!account || !proof[account]) {
+            setErrorText('You do not have the right of Whitelist; please wait for the  public mint.');
+            return;
+        }
+        try {
+            setWLLoading(true);
+            const tx = await groupNFTContract.mintByWhiteList(proof[account]);
+            const res = await tx.wait();
+            console.log(res);
+            const result = decodeMintEvent(res, 'MintByWhiteList');
+            if (result) {
+                const tokenId = result._tokenId;
+                const team = result._team;
+                // const nationId = tokenId % 32;
+                console.log('result: ', team, tokenId);
+                setClaimingNFT({
+                    nation: teams[team],
+                    tokenId,
+                });
+                setShowResult(true);
+            }
+        } catch (e) {
+            console.log(e);
+            if (e && e.code === 4001) {
+                message.warn('User canceled.');
+            } else if (e && e.message && e.message.includes('mint limit for whitelist')) {
+                setErrorText('Only three Simpsons per account for whitelist mint.');
+            } else if (e && e.message && e.message.includes('mint limit for free')) {
+                setErrorText('Only three Simpsons per account for public mint.');
+            } else {
+                message.error('Mint failed. Please try later.');
+            }
+        } finally {
+            setWLLoading(false);
         }
     };
 
@@ -115,9 +161,27 @@ const NFT = () => {
                         this series, each round will issue 2880 NFT (32*90, 32 represents different countries, 90
                         represents the total number of players in each country).
                     </Big3Paragraph>
-                    <Button className="btn-mint" onClick={handleFreeMint} disabled={freeLeft < 1} loading={loading}>
-                        Mint
-                    </Button>
+                    <Big3FlexBox>
+                        <AntButton
+                            $wiredTheme="black"
+                            className="btn-mint"
+                            marginRight={24}
+                            onClick={handleFreeMint}
+                            disabled={freeLeft < 1}
+                            loading={loading}
+                        >
+                            Mint
+                        </AntButton>
+                        <AntButton
+                            $wiredTheme="black"
+                            className="btn-mint"
+                            onClick={handleWLMint}
+                            disabled={!account || !proof[account]}
+                            loading={wlLoading}
+                        >
+                            WL Mint
+                        </AntButton>
+                    </Big3FlexBox>
                 </Big3FlexBox>
                 <Big3Image className="nft-bg-middle" src="./nft-bg-middle.png" width={264} height={264}></Big3Image>
                 <Big3FlexBox column align="center" className="nft-buy-card">
@@ -145,19 +209,47 @@ const NFT = () => {
                         This section is paid NFT with a total of 960. If you want to have your favorite team, you can
                         select the corresponding team to pay for mint.
                     </Big3Paragraph>
-                    <Button
+                    <AntButton
                         className="btn-mint"
+                        $wiredTheme="black"
                         onClick={() => {
                             setModalShow(true);
                         }}
                     >
                         Buy
-                    </Button>
+                    </AntButton>
                 </Big3FlexBox>
             </Big3FlexBox>
             <TomatoFullscreenModal visible={modalShow} onClose={() => setModalShow(false)}>
                 <BuyNFT />
             </TomatoFullscreenModal>
+            <AntModal footer={null} width={400} $wiredTheme="tip" visible={errorText !== ''}>
+                <Big3FlexBox column align="center">
+                    <Big3Image src="./icon-modal-tip.svg" width={94} height={92} marginBottom={32}></Big3Image>
+                    <Big3Text fontFamily="Codec Pro" fontWeight={600} color="#ffffff" fontSize={20} marginBottom={16}>
+                        Sorry!
+                    </Big3Text>
+                    <Big3Paragraph
+                        fontFamily="Codec Pro"
+                        fontWeight={400}
+                        color="#7E829D"
+                        fontSize={16}
+                        lineHeight={22}
+                        marginBottom={60}
+                    >
+                        {errorText}
+                    </Big3Paragraph>
+                    <AntButton
+                        width={200}
+                        height={48}
+                        borderRadius={8}
+                        color="#000000"
+                        onClick={() => setErrorText('')}
+                    >
+                        Ok
+                    </AntButton>
+                </Big3FlexBox>
+            </AntModal>
             {showResult && <ClaimNFT nft={claimingNFT} onClaim={() => setShowResult(false)} />}
         </Big3Page>
     );

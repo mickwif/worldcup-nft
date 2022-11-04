@@ -35,7 +35,16 @@ declare interface IAntCheckboxGroup extends CheckboxGroupProps {
 }
 
 declare interface IAntButton extends ButtonProps, TextCss, FlexCss, CursorCss {
-    $wiredTheme?: 'pure' | 'red' | 'gradient' | 'selector' | 'primary' | 'secondary' | 'destructive' | undefined;
+    $wiredTheme?:
+        | 'pure'
+        | 'red'
+        | 'black'
+        | 'gradient'
+        | 'selector'
+        | 'primary'
+        | 'secondary'
+        | 'destructive'
+        | undefined;
 }
 
 declare interface IAntModal extends ModalProps {

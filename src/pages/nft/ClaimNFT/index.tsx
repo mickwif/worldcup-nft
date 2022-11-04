@@ -20,6 +20,7 @@ interface IProps {
     nft: IClaimingNFT;
     onClaim: () => void;
 }
+const IPFS_URL = 'https://ipfs.io/ipfs/QmPRsH1ZVYTeV5VdV4aAPekK33jYvKpJ6PhjjVxg6aWnns';
 export default (props: IProps) => {
     const { nft, onClaim } = props;
     const player = {
@@ -40,7 +41,7 @@ export default (props: IProps) => {
                     Congratulations
                 </Big3Text>
                 <Big3Image
-                    src="./img-player-temp.png"
+                    src={`${IPFS_URL}/nftb${nft?.tokenId}.png`}
                     width={200}
                     height={200}
                     marginBottom={40}

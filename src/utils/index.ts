@@ -235,3 +235,16 @@ export const watchIntersectionRatio = (selector: string, callback: Function, int
         observer.observe(elm);
     }
 };
+
+export const decodeMintEvent = (tx: any, eventName: string) => {
+    if (tx.events && tx.events.length > 0) {
+        const event = tx.events.find((item) => item.event === eventName);
+        if (event) {
+            return {
+                _sender: event.args._sender,
+                _team: event.args._team.toNumber(),
+                _tokenId: event.args._tokenId.toNumber(),
+            };
+        }
+    }
+};
