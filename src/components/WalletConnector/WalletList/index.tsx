@@ -59,10 +59,10 @@ const WalletModal = (props: IWalletModalProps) => {
     }, [account, provider, umiLocation]);
 
     useEffect(() => {
-        // if (chainChanged) {
-        //     window.location.reload();
-        //     return;
-        // }
+        if (chainChanged) {
+            window.location.reload();
+            return;
+        }
 
         // if (allNotConnected || accountDisconnected) {
         //     window.location.reload();

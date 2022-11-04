@@ -29,7 +29,7 @@ const WalletConnector: FC<IWiredProps<HTMLDivElement> & FlexCss> = (props) => {
 
     const [visible, setVisible] = useState(false);
     const [verifyTipsVisible, setVerifyTipsVisible] = useState(false);
-    const { account } = useWeb3React();
+    const { account, deactivate } = useWeb3React();
     const { chain } = useModel('@@chain');
     const { disconnect } = useWallet(chain);
 
@@ -38,11 +38,12 @@ const WalletConnector: FC<IWiredProps<HTMLDivElement> & FlexCss> = (props) => {
     };
 
     const handleDisconnect = () => {
-        disconnect();
+        // disconnect();
+        deactivate();
     };
 
     const handleSwitch = () => {
-        disconnect();
+        deactivate();
         setVisible(true);
     };
 
