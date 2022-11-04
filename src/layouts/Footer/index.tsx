@@ -15,7 +15,7 @@ export default () => {
                 justify="space-between"
             >
                 <Big3Paragraph
-                    color="rgba(255, 255, 255, 0.6)"
+                    color="#4A4A60"
                     fontFamily="Helvetica"
                     fontWeight={400}
                     fontSize={14}
@@ -25,8 +25,15 @@ export default () => {
                     ©2022 - <Big3Text color="#ffffff">NFooTball</Big3Text> - All Rights Reserved.
                 </Big3Paragraph>
                 <Big3FlexBox align="center">
-                    <Big3Image src="/icon-twitter.svg" height={20} width={24} marginRight={49} />
-                    <Big3Image src="/icon-discord.svg" height={25} width={22} />
+                    <Big3Image
+                        cursor="pointer"
+                        src="/icon-twitter.svg"
+                        height={20}
+                        width={24}
+                        marginRight={49}
+                        onClick={() => window.open('https://twitter.com/NFootballl_', '_blank')}
+                    />
+                    {/* <Big3Image src="/icon-discord.svg" height={25} width={22} /> */}
                 </Big3FlexBox>
             </Big3FlexBox>
         </Big3Footer>

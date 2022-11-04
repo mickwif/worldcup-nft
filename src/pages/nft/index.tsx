@@ -116,7 +116,7 @@ const NFT = () => {
             } else if (e && e.message && e.message.includes('mint limit for whitelist')) {
                 setErrorText('Only three Simpsons per account for whitelist mint.');
             } else if (e && e.message && e.message.includes('mint limit for free')) {
-                setErrorText('Only three Simpsons per account for public mint.');
+                setErrorText('The public mint limit reached.');
             } else {
                 message.error('Mint failed. Please try later.');
             }

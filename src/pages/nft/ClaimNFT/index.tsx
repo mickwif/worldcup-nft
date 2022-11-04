@@ -47,9 +47,9 @@ export default (props: IProps) => {
                     marginBottom={40}
                     className="img-player"
                 ></Big3Image>
-                <Big3Text fontFamily="Codec Pro" fontWeight="600" fontSize={20} color="#ffffff" marginBottom={16}>
+                {/* <Big3Text fontFamily="Codec Pro" fontWeight="600" fontSize={20} color="#ffffff" marginBottom={16}>
                     {player.name}
-                </Big3Text>
+                </Big3Text> */}
                 <Big3FlexBox justify="center" align="center" marginBottom={40}>
                     <NationFlagRect nation={nft?.nation} marginRight={12} />
                     <Big3Text className="nation-name">{nft?.nation}</Big3Text>

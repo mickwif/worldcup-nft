@@ -62,21 +62,23 @@ export default () => {
                     </Big3NavLink>
                     <Big3NavLink
                         className={activeStyle(Routers.SYNTHETIC)}
-                        onClick={() => history.push(Routers.SYNTHETIC)}
+                        // onClick={() => history.push(Routers.SYNTHETIC)}
                         fontSize={16}
                         lineHeight={16}
                         fontWeight={500}
                         fontFamily="Codec Pro"
+                        disabled
                     >
                         <Big3Text>SYNTHETIC</Big3Text>
                     </Big3NavLink>
                     <Big3NavLink
                         className={activeStyle(Routers.BETTING)}
-                        onClick={() => history.push(Routers.BETTING)}
+                        // onClick={() => history.push(Routers.BETTING)}
                         fontSize={16}
                         lineHeight={16}
                         fontWeight={500}
                         fontFamily="Codec Pro"
+                        disabled
                     >
                         <Big3Text>BETTING</Big3Text>
                     </Big3NavLink>

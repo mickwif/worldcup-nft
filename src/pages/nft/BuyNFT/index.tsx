@@ -18,6 +18,8 @@ import teams from '@/config/team.json';
 import { ethers } from 'ethers';
 import { message } from 'antd';
 import { decodeMintEvent } from '@/utils';
+import { useWeb3React, useWeb3Provider } from 'big3-web3';
+
 interface IProps {}
 export default (props: IProps) => {
     const [showResult, setShowResult] = useState(false);
@@ -25,6 +27,7 @@ export default (props: IProps) => {
     const [nationNFTs, setNationNFTs] = useState<any[]>(nations);
     const [loading, setLoading] = useState(false);
     const [buyingTeam, setBuyingTeam] = useState();
+    const { provider } = useWeb3Provider();
     const groupNFTContract = useGroupNFTContract();
 
     const getSaleLeft = async () => {
@@ -44,6 +47,13 @@ export default (props: IProps) => {
     };
 
     const handleSaleMint = async (team: number) => {
+        const balance = await provider.getSigner().getBalance();
+        const balanceNum = ethers.utils.formatEther(balance);
+        console.log('balance: ', balanceNum);
+        if (Number(balanceNum) < 0.05) {
+            message.warn('Insufficient balance.');
+            return;
+        }
         try {
             setLoading(true);
             setBuyingTeam(team);
