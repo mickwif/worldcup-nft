@@ -7,10 +7,8 @@ export default defineConfig({
     define: {
         'process.env.HASURA_API': '/api/hasura-cache/v1/graphql',
         'process.env.HASURA_ADMIN_SECRET': '',
-        'process.env.RPC_NODE_1': '',
-        'process.env.RPC_NODE_2': '',
-        'process.env.RPC_NODE_3': '',
-        'process.env.CHAIN_ENV': 'prod',
+        'process.env.RPC_NODE_1': 'https://eth-04.dccn.ankr.com/',
+        'process.env.CHAIN_ENV': 'goerli',
         'process.env.EKS': '',
     },
     hash: true,

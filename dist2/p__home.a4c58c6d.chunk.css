@@ -1,0 +1,1 @@
+@media (min-width:801px){.home-bg{width:var(--big-screen-width);height:var(--big-screen-height);position:absolute;left:50%;transform:translateX(-50%);top:-31px;z-index:-1;background-image:url(/home-bg.png);background-size:1920px 1020px;background-position:center 0,top,top;background-repeat:no-repeat,no-repeat}}

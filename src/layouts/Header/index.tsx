@@ -27,6 +27,7 @@ export default () => {
 
     return (
         <Big3Header width="100%" position="fixed" zIndex={100} top={0} left={0}>
+            <div className="header-bg"></div>
             <Big3FlexBox
                 padding="0 var(--both-spacing)"
                 height="var(--header-height)"
