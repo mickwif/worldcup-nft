@@ -14,12 +14,20 @@ import { useLocation, useHistory } from 'umi';
 import useActivedStyle from '@/hooks/useActivedStyle';
 import { Button } from 'antd';
 import WalletConnector from '@/components/WalletConnector';
+// const Routers = {
+//     HOME: '/',
+//     NFT: '/nft',
+//     SYNTHETIC: '/synthetic',
+//     BETTING: '/betting',
+//     FAQ: '/faq',
+// };
+
 const Routers = {
     HOME: '/',
-    NFT: '/nft',
-    SYNTHETIC: '/synthetic',
-    BETTING: '/betting',
-    FAQ: '/faq',
+    NFT: '/',
+    SYNTHETIC: '/',
+    BETTING: '/',
+    FAQ: '/',
 };
 export default () => {
     const history = useHistory();
@@ -47,6 +55,7 @@ export default () => {
                         lineHeight={16}
                         fontWeight={500}
                         fontFamily="Codec Pro"
+                        disabled
                     >
                         <Big3Text>HOME</Big3Text>
                     </Big3NavLink>
@@ -57,6 +66,7 @@ export default () => {
                         lineHeight={16}
                         fontWeight={500}
                         fontFamily="Codec Pro"
+                        disabled
                     >
                         <Big3Text>NFT</Big3Text>
                     </Big3NavLink>
@@ -67,6 +77,7 @@ export default () => {
                         lineHeight={16}
                         fontWeight={500}
                         fontFamily="Codec Pro"
+                        disabled
                     >
                         <Big3Text>SYNTHETIC</Big3Text>
                     </Big3NavLink>
@@ -77,6 +88,7 @@ export default () => {
                         lineHeight={16}
                         fontWeight={500}
                         fontFamily="Codec Pro"
+                        disabled
                     >
                         <Big3Text>BETTING</Big3Text>
                     </Big3NavLink>
@@ -87,6 +99,7 @@ export default () => {
                         lineHeight={16}
                         fontWeight={500}
                         fontFamily="Teko"
+                        disabled
                     >
                         <Big3Text>FAQ</Big3Text>
                     </Big3NavLink>

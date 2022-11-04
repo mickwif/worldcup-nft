@@ -9,7 +9,7 @@ const Home = () => {
             <Big3FlexBox justify="center" align="center" column>
                 <Big3Image src="/header-title.svg" marginTop={56} />
                 <Big3Image
-                    onClick={() => history.push('/betting')}
+                    onClick={() => history.push('/')}
                     src="/home-btn-betting.png"
                     marginTop={40}
                     width={162}
