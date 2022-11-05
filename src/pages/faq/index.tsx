@@ -16,7 +16,7 @@ const Home = () => {
             <Big3FlexBox className="faq-title">
                 <div className="faq-title-text"></div>
             </Big3FlexBox>
-            <Big3FlexBox marginTop={158}>
+            <Big3FlexBox marginTop={158} marginBottom={168} justify="space-between">
                 <Big3FlexBox column>
                     <p className="part-title">Overview</p>
                     <p className="part-content-white">
@@ -34,7 +34,7 @@ const Home = () => {
                 </Big3FlexBox>
                 <Big3Image src="./faq-img-1.png" width={511} height={272} marginLeft={89}></Big3Image>
             </Big3FlexBox>
-            <Big3FlexBox marginBottom={168}>
+            <Big3FlexBox marginBottom={168} justify="space-between">
                 <Big3FlexBox column>
                     <p className="part-title">Roadmap</p>
                     <p className="part-content-white">
@@ -52,7 +52,7 @@ const Home = () => {
                 </Big3FlexBox>
                 <Big3Image src="./faq-img-2.png" width={511} height={272} marginLeft={89}></Big3Image>
             </Big3FlexBox>
-            <Big3FlexBox marginBottom={168}>
+            <Big3FlexBox marginBottom={168} justify="space-between">
                 <Big3FlexBox column>
                     <p className="part-title">NFT</p>
                     <p className="part-content-white">
@@ -63,7 +63,7 @@ const Home = () => {
                 </Big3FlexBox>
                 <Big3Image src="./faq-img-3.png" width={511} height={248} marginLeft={89}></Big3Image>
             </Big3FlexBox>
-            <Big3FlexBox marginBottom={168}>
+            <Big3FlexBox marginBottom={168} justify="space-between">
                 <Big3FlexBox column>
                     <p className="part-title">Game Guide</p>
                     <p className="part-title-sub">
@@ -92,7 +92,7 @@ const Home = () => {
                 </Big3FlexBox>
                 <Big3Image src="./faq-img-4.png" width={511} height={357} marginLeft={89}></Big3Image>
             </Big3FlexBox>
-            <Big3FlexBox marginBottom={168}>
+            <Big3FlexBox marginBottom={168} justify="space-between">
                 <Big3FlexBox column>
                     <p className="part-title">Advance</p>
                     <p className="part-content-white">
@@ -107,7 +107,7 @@ const Home = () => {
                 <Big3Image src="./faq-img-5.png" width={511} height={272} marginLeft={89}></Big3Image>
             </Big3FlexBox>
 
-            <Big3FlexBox marginBottom={168}>
+            <Big3FlexBox marginBottom={168} justify="space-between">
                 <Big3FlexBox column>
                     <p className="part-title">Resurrect</p>
                     <p className="part-content-gray">
