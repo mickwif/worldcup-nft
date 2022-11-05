@@ -110,7 +110,7 @@ const Home = () => {
             <Big3FlexBox marginBottom={168} justify="space-between">
                 <Big3FlexBox column>
                     <p className="part-title">Resurrect</p>
-                    <p className="part-content-gray">
+                    <p className="part-content-white">
                         If you hold the NFT of a team headed home, you can choose to resurrect it. 3/4th * 3 + $nftb
                         300,000 = 1st/2nd in Round Of 16
                     </p>
