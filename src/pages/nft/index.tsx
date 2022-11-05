@@ -20,6 +20,7 @@ import ClaimNFT from './ClaimNFT';
 import teams from '@/config/team.json';
 import { decodeMintEvent } from '@/utils';
 import proof from '@/config/proof.json';
+import TipModal from '@/components/TipModal';
 const NFT = () => {
     const { account } = useWeb3React();
     const { provider } = useWeb3Provider();
@@ -237,33 +238,12 @@ const NFT = () => {
             <TomatoFullscreenModal visible={modalShow} onClose={() => setModalShow(false)}>
                 <BuyNFT />
             </TomatoFullscreenModal>
-            <AntModal footer={null} width={400} $wiredTheme="tip" visible={errorText !== ''}>
-                <Big3FlexBox column align="center">
-                    <Big3Image src="./icon-modal-tip.svg" width={94} height={92} marginBottom={32}></Big3Image>
-                    <Big3Text fontFamily="Codec Pro" fontWeight={600} color="#ffffff" fontSize={20} marginBottom={16}>
-                        Sorry!
-                    </Big3Text>
-                    <Big3Paragraph
-                        fontFamily="Codec Pro"
-                        fontWeight={400}
-                        color="#7E829D"
-                        fontSize={16}
-                        lineHeight={22}
-                        marginBottom={60}
-                    >
-                        {errorText}
-                    </Big3Paragraph>
-                    <AntButton
-                        width={200}
-                        height={48}
-                        borderRadius={8}
-                        color="#000000"
-                        onClick={() => setErrorText('')}
-                    >
-                        Ok
-                    </AntButton>
-                </Big3FlexBox>
-            </AntModal>
+            <TipModal
+                errorText={errorText}
+                onOk={() => {
+                    setErrorText('');
+                }}
+            />
             {showResult && <ClaimNFT nft={claimingNFT} onClaim={() => setShowResult(false)} />}
         </Big3Page>
     );

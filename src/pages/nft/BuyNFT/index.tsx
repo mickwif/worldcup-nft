@@ -19,14 +19,15 @@ import { ethers } from 'ethers';
 import { message } from 'antd';
 import { decodeMintEvent } from '@/utils';
 import { useWeb3React, useWeb3Provider } from 'big3-web3';
-
+import TipModal from '@/components/TipModal';
 interface IProps {}
 export default (props: IProps) => {
     const [showResult, setShowResult] = useState(false);
+    const [errorText, setErrorText] = useState('');
     const [claimingNFT, setClaimingNFT] = useState<any>(null);
     const [nationNFTs, setNationNFTs] = useState<any[]>(nations);
     const [loading, setLoading] = useState(false);
-    const [buyingTeam, setBuyingTeam] = useState();
+    const [buyingTeam, setBuyingTeam] = useState<number>();
     const { provider } = useWeb3Provider();
     const groupNFTContract = useGroupNFTContract();
 
@@ -52,6 +53,13 @@ export default (props: IProps) => {
         console.log('balance: ', balanceNum);
         if (Number(balanceNum) < 0.05) {
             message.warn('Insufficient balance.');
+            return;
+        }
+        const time = await groupNFTContract._startTime();
+        const WHITELIST_MINT_DURATION = 3600;
+        const startTime = (time.toNumber() + WHITELIST_MINT_DURATION) * 1000;
+        if (Date.now() < startTime) {
+            setErrorText('Public mint not start yet.');
             return;
         }
         try {
@@ -141,6 +149,7 @@ export default (props: IProps) => {
                     </Big3FlexBox>
                 ))}
             </Big3Box>
+            <TipModal errorText={errorText} onOk={() => setErrorText('')} />
         </Big3FlexBox>
     );
 };
