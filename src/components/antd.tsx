@@ -44,18 +44,24 @@ export const AntGlobalStyle = createGlobalStyle`
 
     /* popover */
     .ant-popover {
-        background: transparent;
-        padding: 0;
-
-        .ant-popover-arrow {
-            // display: none;
-        }
         .ant-popover-inner {
-            background: transparent;
-            box-shadow: none;
+            color: #ffffff;
+            border-radius: 8px;
+            background: #2b2b40;
         }
         .ant-popover-inner-content {
-            padding: 0;
+            font-family: 'Codec Pro';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 12px;
+            color: #ffffff;
+        }
+        .ant-popover-arrow-content {
+            background: #2b2b40;
+        }
+        .ant-popover-arrow-content::before {
+            background: #2b2b40;
         }
     }
 `;
