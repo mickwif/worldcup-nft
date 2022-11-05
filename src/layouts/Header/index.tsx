@@ -14,6 +14,7 @@ import { useLocation, useHistory } from 'umi';
 import useActivedStyle from '@/hooks/useActivedStyle';
 import { Button } from 'antd';
 import WalletConnector from '@/components/WalletConnector';
+import { AntPopover } from '@/components';
 // const Routers = {
 //     HOME: '/',
 //     NFT: '/nft',
@@ -55,7 +56,6 @@ export default () => {
                         lineHeight={16}
                         fontWeight={500}
                         fontFamily="Codec Pro"
-                        disabled
                     >
                         <Big3Text>HOME</Big3Text>
                     </Big3NavLink>
@@ -70,28 +70,32 @@ export default () => {
                     >
                         <Big3Text>NFT</Big3Text>
                     </Big3NavLink>
-                    <Big3NavLink
-                        className={activeStyle(Routers.SYNTHETIC)}
-                        onClick={() => history.push(Routers.SYNTHETIC)}
-                        fontSize={16}
-                        lineHeight={16}
-                        fontWeight={500}
-                        fontFamily="Codec Pro"
-                        disabled
-                    >
-                        <Big3Text>SYNTHETIC</Big3Text>
-                    </Big3NavLink>
-                    <Big3NavLink
-                        className={activeStyle(Routers.BETTING)}
-                        onClick={() => history.push(Routers.BETTING)}
-                        fontSize={16}
-                        lineHeight={16}
-                        fontWeight={500}
-                        fontFamily="Codec Pro"
-                        disabled
-                    >
-                        <Big3Text>BETTING</Big3Text>
-                    </Big3NavLink>
+                    <AntPopover content="Coming soon" placement="bottom">
+                        <Big3NavLink
+                            className={activeStyle(Routers.SYNTHETIC)}
+                            onClick={() => history.push(Routers.SYNTHETIC)}
+                            fontSize={16}
+                            lineHeight={16}
+                            fontWeight={500}
+                            fontFamily="Codec Pro"
+                            disabled
+                        >
+                            <Big3Text>SYNTHETIC</Big3Text>
+                        </Big3NavLink>
+                    </AntPopover>
+                    <AntPopover content="Coming soon" placement="bottom">
+                        <Big3NavLink
+                            className={activeStyle(Routers.BETTING)}
+                            onClick={() => history.push(Routers.BETTING)}
+                            fontSize={16}
+                            lineHeight={16}
+                            fontWeight={500}
+                            fontFamily="Codec Pro"
+                            disabled
+                        >
+                            <Big3Text>BETTING</Big3Text>
+                        </Big3NavLink>
+                    </AntPopover>
                     <Big3NavLink
                         className={activeStyle(Routers.FAQ)}
                         onClick={() => history.push(Routers.FAQ)}
