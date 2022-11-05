@@ -158,8 +158,7 @@ const NFT = () => {
                         marginTop={8}
                     >
                         After you complete the initial campaign, you will be eligible for WL. There are three rounds in
-                        this series, each round will issue 2880 NFT (32*90, 32 represents different countries, 90
-                        represents the total number of players in each country).
+                        this series, 960, 1920, and 5760, respectively.
                     </Big3Paragraph>
                     <Big3FlexBox>
                         <AntButton

@@ -7,7 +7,7 @@ import Header from './Header';
 import Footer from './Footer';
 import { useMemo } from 'react';
 import { Big3PortalNode, Big3Layout } from 'big3-styled-base';
-
+import { AntGlobalStyle } from '@/components';
 export default function Layout({ children }: IRouteComponentProps) {
     const { isMobile } = useModel('app');
 
@@ -15,6 +15,7 @@ export default function Layout({ children }: IRouteComponentProps) {
 
     return (
         <ThemeProvider theme={wrappedTheme}>
+            <AntGlobalStyle />
             <Big3Layout id="content">
                 <Big3PortalNode id="layer-1" position="relative" zIndex={10}>
                     <Header />

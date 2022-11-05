@@ -44,18 +44,24 @@ export const AntGlobalStyle = createGlobalStyle`
 
     /* popover */
     .ant-popover {
-        background: transparent;
-        padding: 0;
-
-        .ant-popover-arrow {
-            // display: none;
-        }
         .ant-popover-inner {
-            background: transparent;
-            box-shadow: none;
+            color: #ffffff;
+            border-radius: 8px;
+            background: #2b2b40;
         }
         .ant-popover-inner-content {
-            padding: 0;
+            font-family: 'Codec Pro';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 12px;
+            color: #ffffff;
+        }
+        .ant-popover-arrow-content {
+            background: #2b2b40;
+        }
+        .ant-popover-arrow-content::before {
+            background: #2b2b40;
         }
     }
 `;
@@ -365,15 +371,22 @@ export const AntSlider = styled(Slider)<ISlider>`
 `;
 
 export const AntPopover: FC<PopoverProps> = styled(Popover)`
-    & {
+    .ant-popover {
         .ant-popover-inner {
-            background: linear-gradient(180.95deg, #1e1e37 0.71%, #0e0e1d 99.01%);
+            color: #ffffff;
+            border-radius: 8px;
+            background: #2b2b40;
         }
         .ant-popover-inner-content {
-            padding: 0;
+            font-family: 'Codec Pro';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 12px;
+            color: #ffffff;
         }
         .ant-popover-arrow-content::before {
-            background: linear-gradient(180.95deg, #1e1e37 0.71%, #0e0e1d 99.01%);
+            background: #2b2b40;
         }
     }
 `;
