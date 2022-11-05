@@ -4,7 +4,7 @@ import pxToViewPort from 'postcss-px-to-viewport';
 import { MOBILE_DESIGN_DRAFT_WIDTH, PROJECT, PRIMARY_COLOR } from './constant';
 
 export default defineConfig({
-    title: 'Welcome to use!',
+    title: 'NFootball',
     theme: { '@primary-color': PRIMARY_COLOR },
     plugins: [require.resolve('big3-web3-umi-plugin')],
     nodeModulesTransform: { type: 'none' },

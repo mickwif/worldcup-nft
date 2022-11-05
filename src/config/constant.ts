@@ -49,7 +49,10 @@ export const Contracts = {
     '0x5': {
         GroupNFT: '0xdb2dc33222C46cF82222fff7Ec41f62C8072499C',
     },
+    '0x1': {
+        GroupNFT: '0xC74407208c0b6dc1aa650545e099Df39770Dc88d',
+    },
 };
 
-export const IPFS_URL = 'https://ipfs.io/ipfs/QmPRsH1ZVYTeV5VdV4aAPekK33jYvKpJ6PhjjVxg6aWnns';
-export const META_URL = 'https://bafybeiacetdrnjarh55hmdbgrpvcgi6rfluat3q7xcpi5l4oyclrag4vau.ipfs.nftstorage.link'
+export const IPFS_URL = 'https://nftstorage.link/ipfs/bafybeiezadvcfvdrgc4rfaczqpywzqo6crsrsm7fob3gzz7bbdhkhtstgu';
+export const META_URL = 'https://bafybeiacetdrnjarh55hmdbgrpvcgi6rfluat3q7xcpi5l4oyclrag4vau.ipfs.nftstorage.link';

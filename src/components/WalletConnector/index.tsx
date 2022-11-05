@@ -58,7 +58,18 @@ const WalletConnector: FC<IWiredProps<HTMLDivElement> & FlexCss> = (props) => {
     return (
         <WiredFlexBox {...(rest as any)}>
             <WalletModal visible={visible} onClose={() => setVisible(false)} />
-            {!matched && !account && <AntButton onClick={() => switchChain('ETH')}>Connect Wallet</AntButton>}
+            {!matched && !account && (
+                <AntButton
+                    fontSize={16}
+                    fontWeight={400}
+                    color="var(--black-color)"
+                    $wiredTheme="pure"
+                    className="connect-wallet-btn"
+                    onClick={() => switchChain('ETH')}
+                >
+                    Connect Wallet
+                </AntButton>
+            )}
             {matched && !account && (
                 <AntButton
                     onClick={handleConnect}

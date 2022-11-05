@@ -5,7 +5,7 @@ import { Big3FlexBox, Big3Footer, Big3Text, Big3Paragraph, Big3Image } from 'big
 
 export default () => {
     return (
-        <Big3Footer width="100%" position="fixed" zIndex={100} bottom={0} left={0} transition="all 0.2s">
+        <Big3Footer width="100%" zIndex={100} bottom={0} left={0} transition="all 0.2s">
             <Big3FlexBox
                 padding="0 var(--both-spacing)"
                 height="var(--footer-height)"
@@ -32,6 +32,22 @@ export default () => {
                         width={24}
                         marginRight={49}
                         onClick={() => window.open('https://twitter.com/NFootballl_', '_blank')}
+                    />
+                    <Big3Image
+                        cursor="pointer"
+                        src="/icon-opensea.svg"
+                        height={20}
+                        width={24}
+                        marginRight={49}
+                        onClick={() => window.open('https://opensea.io/collection/nfootball-group', '_blank')}
+                    />
+                    <Big3Image
+                        cursor="pointer"
+                        src="/icon-etherscan.svg"
+                        height={20}
+                        width={24}
+                        marginRight={49}
+                        onClick={() => window.open('https://etherscan.io/address/0x7937a01a6cce3509f6e554162b6668ea170c7cab', '_blank')}
                     />
                     {/* <Big3Image src="/icon-discord.svg" height={25} width={22} /> */}
                 </Big3FlexBox>

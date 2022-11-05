@@ -150,7 +150,7 @@ const NFT = () => {
                     You need to mint a football player that will take your player to a game.{' '}
                 </Big3Paragraph>
             </Big3FlexBox>
-            <Big3FlexBox align="center" justify="center" position="relative">
+            <Big3FlexBox align="center" justify="center" position="relative" >
                 <Big3FlexBox column align="center" className="nft-buy-card" marginRight={96}>
                     <Big3Image
                         src="./nft-bg-left.png"
