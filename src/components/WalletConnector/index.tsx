@@ -109,7 +109,7 @@ const WalletConnector: FC<IWiredProps<HTMLDivElement> & FlexCss> = (props) => {
                                     column
                                     marginRight={12}
                                     className="my-wallet-card"
-                                    // onClick={() => history.push('/my-asset')}
+                                    onClick={() => history.push('/my-asset')}
                                 >
                                     <WiredImage
                                         src="./icon-my-asset.svg"

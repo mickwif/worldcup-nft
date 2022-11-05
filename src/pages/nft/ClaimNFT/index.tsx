@@ -11,7 +11,7 @@ import {
 } from 'big3-styled-base';
 import NationFlagRect from '@/components/NationFlagRect';
 import { AntButton } from '@/components';
-
+import { IPFS_URL } from '@/config/constant';
 export interface IClaimingNFT {
     nation: string;
     tokenId: number;
@@ -20,7 +20,6 @@ interface IProps {
     nft: IClaimingNFT;
     onClaim: () => void;
 }
-const IPFS_URL = 'https://ipfs.io/ipfs/QmPRsH1ZVYTeV5VdV4aAPekK33jYvKpJ6PhjjVxg6aWnns';
 export default (props: IProps) => {
     const { nft, onClaim } = props;
     const player = {

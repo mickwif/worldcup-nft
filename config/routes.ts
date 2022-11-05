@@ -36,13 +36,19 @@ const routes = [
             },
             {
                 exact: true,
-                name: 'FAQ',
+                name: 'MyAssets',
+                path: '/my-asset',
+                component: '@/pages/my',
+            },
+            {
+                exact: true,
+                name: 'Results',
                 path: '/results',
                 component: '@/pages/results',
             },
             {
                 exact: true,
-                name: 'FAQ',
+                name: 'Positions',
                 path: '/positions',
                 component: '@/pages/positions',
             },

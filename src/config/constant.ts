@@ -45,9 +45,10 @@ export enum MatchType {
     Final,
 }
 
-
 export const Contracts = {
     '0x5': {
-        GroupNFT: '0xF3ec86A7A7B68BEbe1bF1272Dc980D52b7be1729',
+        GroupNFT: '0xdb2dc33222C46cF82222fff7Ec41f62C8072499C',
     },
-}
+};
+
+export const IPFS_URL = 'https://ipfs.io/ipfs/QmPRsH1ZVYTeV5VdV4aAPekK33jYvKpJ6PhjjVxg6aWnns';

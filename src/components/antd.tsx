@@ -19,6 +19,8 @@ import {
     Dropdown,
     Menu,
     Table,
+    Pagination,
+    PaginationProps,
 } from 'antd';
 import { ModalProps } from 'antd/lib/modal';
 
@@ -30,7 +32,8 @@ import { useAntdModalIndex } from 'antd-enhancer';
 import { WiredBox } from './base';
 import { ModalCloseBtn } from './svg';
 import { Big3FlexBox, Big3Icon, Big3Text } from 'big3-styled-base';
-
+import ArrowLeft from '@/assets/images/icon-pagination-prev.png';
+import ArrowRight from '@/assets/images/icon-pagination-next.png';
 export const AntGlobalStyle = createGlobalStyle`
     /* spin */
     .ant-spin-nested-loading,
@@ -1034,3 +1037,27 @@ export const TomatoFullscreenModal = (props: TomatoModalProps & { onClose: Funct
         </TomatoModal>
     );
 };
+
+export const AntPagination: FC<PaginationProps> = styled(Pagination)<PaginationProps>`
+    & {
+        .ant-pagination-item,
+        .ant-pagination-prev .ant-pagination-item-link,
+        .ant-pagination-next .ant-pagination-item-link .ant-pagination-item-link,
+        .ant-pagination-prev,
+        .ant-pagination-next .ant-pagination-item-link {
+            background-color: #2b2b40;
+            font-family: 'Codec Pro';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            color: #ffffff;
+            border: none;
+        }
+        .ant-pagination-item a {
+            color: #ffffff;
+        }
+        .ant-pagination-item-active a {
+            color: var(--primary-color);
+        }
+    }
+`;
