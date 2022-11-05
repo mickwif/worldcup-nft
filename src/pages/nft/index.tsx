@@ -46,6 +46,7 @@ const NFT = () => {
             const res = await groupNFTContract.getFreeLeft();
             const num = res.toNumber();
             setFreeLeft(num);
+            console.log(num);
             return num;
         } catch (e) {
             console.log(e);
@@ -58,6 +59,14 @@ const NFT = () => {
             message.warn('No free NFT left.');
             return;
         }
+        const time = await groupNFTContract._startTime();
+        const WHITELIST_MINT_DURATION = 3600;
+        const startTime = (time.toNumber() + WHITELIST_MINT_DURATION) * 1000;
+        if (Date.now() < startTime) {
+            setErrorText('Free mint not start yet.');
+            return;
+        }
+
         try {
             setLoading(true);
             const tx = await groupNFTContract.mint({ gasLimit: 500000 });
@@ -89,7 +98,13 @@ const NFT = () => {
 
     const handleWLMint = async () => {
         if (!account || !proof[account]) {
-            setErrorText('You do not have the right of Whitelist; please wait for the  public mint.');
+            setErrorText('You do not have the right of Whitelist; please wait for the public mint.');
+            return;
+        }
+        const time = await groupNFTContract._startTime();
+        const startTime = time.toNumber() * 1000;
+        if (Date.now() < startTime) {
+            setErrorText('Whitelist mint not start yet.');
             return;
         }
         try {

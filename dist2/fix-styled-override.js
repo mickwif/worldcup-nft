@@ -1,1 +1,0 @@
-document.addEventListener("DOMContentLoaded",(()=>{const e=document.querySelectorAll('style[data-styled-version="5.3.5"]'),t=document.querySelector('script[src="/fix-styled-override.js"]');e.forEach((e=>{document.head.insertBefore(e,t)}))}));
