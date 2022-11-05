@@ -9,7 +9,7 @@ import {
     Big3Text,
 } from 'big3-styled-base';
 import { TomatoFullscreenModal, AntButton, AntModal } from '@/components/antd';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import BuyNFT from './BuyNFT';
 import { useGroupNFTContract } from '@/hooks/useContract';
 import { useWeb3React, useWeb3Provider } from 'big3-web3';
@@ -38,6 +38,15 @@ const NFT = () => {
     useEffect(() => {
         getFreeNFTLeft();
     }, [provider, slowRefresh]);
+
+    const hasWLRight = useMemo(() => {
+        if (account) {
+            return Object.keys(proof)
+                .map((key) => key.toLowerCase())
+                .includes(account.toLowerCase());
+        }
+        return false;
+    }, [account]);
 
     const [modalShow, setModalShow] = useState(false);
 
@@ -98,7 +107,7 @@ const NFT = () => {
     };
 
     const handleWLMint = async () => {
-        if (!account || !proof[account]) {
+        if (!hasWLRight) {
             setErrorText('You do not have the right of Whitelist; please wait for the public mint.');
             return;
         }
@@ -150,7 +159,7 @@ const NFT = () => {
                     You need to mint a football player that will take your player to a game.{' '}
                 </Big3Paragraph>
             </Big3FlexBox>
-            <Big3FlexBox align="center" justify="center" position="relative" >
+            <Big3FlexBox align="center" justify="center" position="relative">
                 <Big3FlexBox column align="center" className="nft-buy-card" marginRight={96}>
                     <Big3Image
                         src="./nft-bg-left.png"
@@ -191,7 +200,7 @@ const NFT = () => {
                             $wiredTheme="black"
                             className="btn-mint"
                             onClick={handleWLMint}
-                            disabled={!account || !proof[account]}
+                            // disabled={hasWLRight}
                             loading={wlLoading}
                         >
                             WL Mint
