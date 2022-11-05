@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { KeyboardEvent } from 'react';
+import { META_URL } from '@/config/constant';
 
 export const formatDate = (ts) => {
     const date = new Date(ts);
@@ -246,5 +247,16 @@ export const decodeMintEvent = (tx: any, eventName: string) => {
                 _tokenId: event.args._tokenId.toNumber(),
             };
         }
+    }
+};
+
+export const fetchPlayerName = async (tokenId: number) => {
+    const url = `${META_URL}/${tokenId}`;
+    const res = await fetch(url);
+    const json = await res.json();
+    console.log(json);
+    const item = json.attributes.find((item) => item.trait_type === 'Name');
+    if (item) {
+        return item.value;
     }
 };

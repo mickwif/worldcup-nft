@@ -15,6 +15,7 @@ import { useState, useEffect } from 'react';
 import { IPFS_URL } from '@/config/constant';
 import NationFlagRect from '@/components/NationFlagRect';
 import { AntPagination } from '@/components';
+import { fetchPlayerName } from '@/utils';
 const PAGE_SIZE = 10;
 export default () => {
     const { account } = useWeb3React();
@@ -28,6 +29,7 @@ export default () => {
         if (!account || !provider) {
             return;
         }
+        await fetchPlayerName(2);
         try {
             const res = await groupNFTContract.getTokenIds(account, pageNum, PAGE_SIZE);
             const total = res[0].toNumber();
@@ -38,6 +40,10 @@ export default () => {
                 nation: teams[id % 32],
                 tokenId: id,
             }));
+            const players = await Promise.all(list.map((item) => fetchPlayerName(item.tokenId)));
+            players.forEach((name, index) => {
+                list[index].name = name;
+            });
             setList(list);
         } catch (e) {
             console.log(e);
@@ -64,6 +70,18 @@ export default () => {
                                 borderRadius={14}
                                 className="img-player"
                             ></Big3Image>
+                            <Big3Paragraph
+                                width={204}
+                                fontFamily="Codec Pro"
+                                fontWeight="600"
+                                fontSize={14}
+                                lineHeight={12}
+                                color="#ffffff"
+                                marginBottom={12}
+                                textAlign="center"
+                            >
+                                {item.name}
+                            </Big3Paragraph>
                             <Big3FlexBox justify="center" align="center" width="100%">
                                 <NationFlagRect nation={item?.nation} marginRight={7} />
                                 <Big3Text className="nation-name">{item?.nation}</Big3Text>

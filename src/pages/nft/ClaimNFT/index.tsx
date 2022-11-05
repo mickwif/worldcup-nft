@@ -12,6 +12,8 @@ import {
 import NationFlagRect from '@/components/NationFlagRect';
 import { AntButton } from '@/components';
 import { IPFS_URL } from '@/config/constant';
+import { fetchPlayerName } from '@/utils';
+import { useEffect, useState } from 'react';
 export interface IClaimingNFT {
     nation: string;
     tokenId: number;
@@ -22,10 +24,15 @@ interface IProps {
 }
 export default (props: IProps) => {
     const { nft, onClaim } = props;
-    const player = {
-        name: 'Cristiano Ronaldo dos Santos Aveiro',
-        nation: 'Portugal',
-    };
+    const [name, setName] = useState('');
+
+    useEffect(() => {
+        if (nft) {
+            fetchPlayerName(nft.tokenId).then((name) => {
+                setName(name);
+            });
+        }
+    }, [nft]);
     return (
         <Big3FlexBox className="buy-nft-result" paddingTop={75} justify="center">
             <Big3FlexBox column align="center" width="100%" className="nft-result">
@@ -46,9 +53,9 @@ export default (props: IProps) => {
                     marginBottom={40}
                     className="img-player"
                 ></Big3Image>
-                {/* <Big3Text fontFamily="Codec Pro" fontWeight="600" fontSize={20} color="#ffffff" marginBottom={16}>
-                    {player.name}
-                </Big3Text> */}
+                <Big3Text fontFamily="Codec Pro" fontWeight="600" fontSize={20} color="#ffffff" marginBottom={16}>
+                    {name}
+                </Big3Text>
                 <Big3FlexBox justify="center" align="center" marginBottom={40}>
                     <NationFlagRect nation={nft?.nation} marginRight={12} />
                     <Big3Text className="nation-name">{nft?.nation}</Big3Text>

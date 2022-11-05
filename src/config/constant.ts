@@ -52,3 +52,4 @@ export const Contracts = {
 };
 
 export const IPFS_URL = 'https://ipfs.io/ipfs/QmPRsH1ZVYTeV5VdV4aAPekK33jYvKpJ6PhjjVxg6aWnns';
+export const META_URL = 'https://bafybeiacetdrnjarh55hmdbgrpvcgi6rfluat3q7xcpi5l4oyclrag4vau.ipfs.nftstorage.link'
