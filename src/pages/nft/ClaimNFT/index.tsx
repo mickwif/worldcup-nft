@@ -47,7 +47,7 @@ export default (props: IProps) => {
                     Congratulations
                 </Big3Text>
                 <Big3Image
-                    src={`${IPFS_URL}/nftb${nft?.tokenId}.png`}
+                    src={`${IPFS_URL}/${nft?.tokenId}.png`}
                     width={200}
                     height={200}
                     marginBottom={40}

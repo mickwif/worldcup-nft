@@ -63,7 +63,7 @@ export default () => {
                     {list.map((item) => (
                         <Big3FlexBox column key={item.tokenId}>
                             <Big3Image
-                                src={`${IPFS_URL}/nftb${item?.tokenId}.png`}
+                                src={`${IPFS_URL}/${item?.tokenId}.png`}
                                 width={204}
                                 height={204}
                                 marginBottom={16}
