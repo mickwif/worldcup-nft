@@ -119,7 +119,12 @@ const NFT = () => {
         }
         try {
             setWLLoading(true);
-            const tx = await groupNFTContract.mintByWhiteList(proof[account]);
+            const proofValue = Object.entries(proof).reduce((prev, curr) => {
+                const [key, value] = curr;
+                prev[key.toLowerCase()] = value;
+                return prev;
+            }, {})[account.toLowerCase()];
+            const tx = await groupNFTContract.mintByWhiteList(proofValue);
             const res = await tx.wait();
             console.log(res);
             const result = decodeMintEvent(res, 'MintByWhiteList');
