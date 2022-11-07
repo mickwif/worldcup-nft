@@ -79,7 +79,7 @@ const NFT = () => {
 
         try {
             setLoading(true);
-            const tx = await groupNFTContract.mint({ gasLimit: 500000 });
+            const tx = await groupNFTContract.mint();
             const res = await tx.wait();
             console.log(res);
             const result = decodeMintEvent(res, 'Mint');
@@ -98,6 +98,8 @@ const NFT = () => {
             console.log(e);
             if (e && e.code === 4001) {
                 message.warn('User canceled.');
+            } else if (e && e.message && e.message.includes('mint limit for free')) {
+                setErrorText('The public mint limit reached.');
             } else {
                 message.error('Mint failed. Please try later.');
             }
