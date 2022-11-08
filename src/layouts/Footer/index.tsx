@@ -1,11 +1,21 @@
 import './index.less';
 import './mobile.less';
+import { useLocation } from 'umi';
 
 import { Big3FlexBox, Big3Footer, Big3Text, Big3Paragraph, Big3Image } from 'big3-styled-base';
 
 export default () => {
+    const location = useLocation();
+    console.log(location.pathname);
     return (
-        <Big3Footer width="100%" zIndex={100} bottom={0} left={0} transition="all 0.2s">
+        <Big3Footer
+            width="100%"
+            position={location.pathname === '/' ? 'fixed' : ''}
+            zIndex={100}
+            bottom={0}
+            left={0}
+            transition="all 0.2s"
+        >
             <Big3FlexBox
                 padding="0 var(--both-spacing)"
                 height="var(--footer-height)"
@@ -15,7 +25,7 @@ export default () => {
                 justify="space-between"
             >
                 <Big3Paragraph
-                    color="#4A4A60"
+                    color="rgba(255, 255, 255, 0.7)"
                     fontFamily="Helvetica"
                     fontWeight={400}
                     fontSize={14}

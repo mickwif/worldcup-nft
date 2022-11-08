@@ -12,6 +12,7 @@ import { useModel, history } from 'umi';
 import { WiredFlexBox, WiredImage, WiredIcon, WiredText, WiredHeading, WiredLink } from '../base';
 import { IWiredProps } from '@/components/components';
 import { eventBus } from '@/utils/eventBus';
+import { EventKey } from '@/config/constant';
 import { Button } from 'antd';
 import { formatAddress } from '@/utils';
 import { useWallet, useChain } from 'big3-web3';
@@ -32,6 +33,20 @@ const WalletConnector: FC<IWiredProps<HTMLDivElement> & FlexCss> = (props) => {
     const { account, deactivate } = useWeb3React();
     const { chain } = useModel('@@chain');
     const { disconnect } = useWallet(chain);
+
+    useEffect(() => {
+        eventBus.$on(EventKey.UNCONNECTED, () => {
+            if (matched) {
+                setVisible(true);
+            } else {
+                setTimeout(async () => {
+                    await switchChain('ETH');
+                    setVisible(true);
+                }, 200);
+            }
+        });
+        return () => eventBus.$off(EventKey.UNCONNECTED);
+    }, []);
 
     const handleConnect = () => {
         setVisible(true);

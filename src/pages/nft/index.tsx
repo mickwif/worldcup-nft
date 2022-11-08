@@ -20,7 +20,10 @@ import ClaimNFT from './ClaimNFT';
 import teams from '@/config/team.json';
 import { decodeMintEvent } from '@/utils';
 import proof from '@/config/proof.json';
+import { eventBus } from '@/utils/eventBus';
+import { EventKey } from '@/config/constant';
 import TipModal from '@/components/TipModal';
+
 const NFT = () => {
     const { account } = useWeb3React();
     const { provider } = useWeb3Provider();
@@ -64,6 +67,10 @@ const NFT = () => {
     };
 
     const handleFreeMint = async () => {
+        if (!account) {
+            eventBus.$emit(EventKey.UNCONNECTED);
+            return;
+        }
         const num = await getFreeNFTLeft();
         if (num < 1) {
             message.warn('No free NFT left.');
@@ -167,16 +174,16 @@ const NFT = () => {
                 </Big3Paragraph>
             </Big3FlexBox>
             <Big3FlexBox align="center" justify="center" position="relative">
-                <Big3FlexBox column align="center" className="nft-buy-card" marginRight={96}>
-                    <Big3Image
+                <Big3FlexBox column align="center" className="nft-buy-card nft-buy-card-left" marginRight={96}>
+                    {/* <Big3Image
                         src="./nft-bg-left.png"
                         width={552}
                         height={392}
                         position="absolute"
                         top={0}
                         left={0}
-                    ></Big3Image>
-                    <Big3Text fontFamily="Lilita One" fontWeight={400} fontSize={32} color="#1ECEF0">
+                    ></Big3Image> */}
+                    <Big3Text fontFamily="Lilita One" fontWeight={400} fontSize={32} lineHeight={48} color="#1ECEF0">
                         Free mint NFTs
                     </Big3Text>
                     <Big3Paragraph
@@ -186,7 +193,7 @@ const NFT = () => {
                         lineHeight={24}
                         textAlign="center"
                         color="#7E829D"
-                        marginBottom={28}
+                        marginBottom={68}
                         marginTop={8}
                     >
                         After you complete the initial campaign, you will be eligible for WL. There are three rounds in
@@ -198,12 +205,12 @@ const NFT = () => {
                             className="btn-mint"
                             marginRight={24}
                             onClick={handleFreeMint}
-                            disabled={freeLeft < 1}
+                            // disabled={freeLeft < 1}
                             loading={loading}
                         >
                             Mint
                         </AntButton>
-                        <AntButton
+                        {/* <AntButton
                             $wiredTheme="black"
                             className="btn-mint"
                             onClick={handleWLMint}
@@ -211,20 +218,12 @@ const NFT = () => {
                             loading={wlLoading}
                         >
                             WL Mint
-                        </AntButton>
+                        </AntButton> */}
                     </Big3FlexBox>
                 </Big3FlexBox>
                 <Big3Image className="nft-bg-middle" src="./nft-bg-middle.png" width={264} height={264}></Big3Image>
-                <Big3FlexBox column align="center" className="nft-buy-card">
-                    <Big3Image
-                        src="./nft-bg-right.png"
-                        width={552}
-                        height={392}
-                        position="absolute"
-                        top={0}
-                        left={0}
-                    ></Big3Image>
-                    <Big3Text fontFamily="Lilita One" fontWeight={400} fontSize={32} color="#FED411">
+                <Big3FlexBox column align="center" className="nft-buy-card nft-buy-card-right">
+                    <Big3Text fontFamily="Lilita One" fontWeight={400} fontSize={32} lineHeight={48} color="#FED411">
                         Buy mint NFTs
                     </Big3Text>
                     <Big3Paragraph
@@ -234,7 +233,7 @@ const NFT = () => {
                         lineHeight={24}
                         textAlign="center"
                         color="#7E829D"
-                        marginBottom={56}
+                        marginBottom={68}
                         marginTop={8}
                     >
                         This section is paid NFT with a total of 960. If you want to have your favorite team, you can
