@@ -1,0 +1,450 @@
+{
+  "1": {
+    "id": 1,
+    "homeTeamId": 0,
+    "awayTeamId": 1,
+    "deadline": 1668960000,
+    "type": 0
+  },
+  "2": {
+    "id": 2,
+    "homeTeamId": 4,
+    "awayTeamId": 5,
+    "deadline": 1669035600,
+    "type": 0
+  },
+  "3": {
+    "id": 3,
+    "homeTeamId": 2,
+    "awayTeamId": 3,
+    "deadline": 1669046400,
+    "type": 0
+  },
+  "4": {
+    "id": 4,
+    "homeTeamId": 6,
+    "awayTeamId": 7,
+    "deadline": 1669057200,
+    "type": 0
+  },
+  "5": {
+    "id": 5,
+    "homeTeamId": 8,
+    "awayTeamId": 9,
+    "deadline": 1669111200,
+    "type": 0
+  },
+  "6": {
+    "id": 6,
+    "homeTeamId": 14,
+    "awayTeamId": 15,
+    "deadline": 1669122000,
+    "type": 0
+  },
+  "7": {
+    "id": 7,
+    "homeTeamId": 10,
+    "awayTeamId": 11,
+    "deadline": 1669132800,
+    "type": 0
+  },
+  "8": {
+    "id": 8,
+    "homeTeamId": 12,
+    "awayTeamId": 13,
+    "deadline": 1669143600,
+    "type": 0
+  },
+  "9": {
+    "id": 9,
+    "homeTeamId": 22,
+    "awayTeamId": 21,
+    "deadline": 1669197600,
+    "type": 0
+  },
+  "10": {
+    "id": 10,
+    "homeTeamId": 18,
+    "awayTeamId": 19,
+    "deadline": 1669208400,
+    "type": 0
+  },
+  "11": {
+    "id": 11,
+    "homeTeamId": 16,
+    "awayTeamId": 17,
+    "deadline": 1669219200,
+    "type": 0
+  },
+  "12": {
+    "id": 12,
+    "homeTeamId": 20,
+    "awayTeamId": 21,
+    "deadline": 1669230000,
+    "type": 0
+  },
+  "13": {
+    "id": 13,
+    "homeTeamId": 26,
+    "awayTeamId": 27,
+    "deadline": 1669284000,
+    "type": 0
+  },
+  "14": {
+    "id": 14,
+    "homeTeamId": 30,
+    "awayTeamId": 31,
+    "deadline": 1669294800,
+    "type": 0
+  },
+  "15": {
+    "id": 15,
+    "homeTeamId": 28,
+    "awayTeamId": 29,
+    "deadline": 1669305600,
+    "type": 0
+  },
+  "16": {
+    "id": 16,
+    "homeTeamId": 24,
+    "awayTeamId": 25,
+    "deadline": 1669316400,
+    "type": 0
+  },
+  "17": {
+    "id": 17,
+    "homeTeamId": 7,
+    "awayTeamId": 5,
+    "deadline": 1669370400,
+    "type": 0
+  },
+  "18": {
+    "id": 18,
+    "homeTeamId": 0,
+    "awayTeamId": 2,
+    "deadline": 1669381200,
+    "type": 0
+  },
+  "19": {
+    "id": 19,
+    "homeTeamId": 3,
+    "awayTeamId": 1,
+    "deadline": 1669392000,
+    "type": 0
+  },
+  "20": {
+    "id": 20,
+    "homeTeamId": 4,
+    "awayTeamId": 6,
+    "deadline": 1669402800,
+    "type": 0
+  },
+  "21": {
+    "id": 21,
+    "homeTeamId": 15,
+    "awayTeamId": 13,
+    "deadline": 1669456800,
+    "type": 0
+  },
+  "22": {
+    "id": 22,
+    "homeTeamId": 11,
+    "awayTeamId": 9,
+    "deadline": 1669467600,
+    "type": 0
+  },
+  "23": {
+    "id": 23,
+    "homeTeamId": 12,
+    "awayTeamId": 14,
+    "deadline": 1669478400,
+    "type": 0
+  },
+  "24": {
+    "id": 24,
+    "homeTeamId": 8,
+    "awayTeamId": 10,
+    "deadline": 1669489200,
+    "type": 0
+  },
+  "25": {
+    "id": 25,
+    "homeTeamId": 19,
+    "awayTeamId": 17,
+    "deadline": 1669543200,
+    "type": 0
+  },
+  "26": {
+    "id": 26,
+    "homeTeamId": 20,
+    "awayTeamId": 22,
+    "deadline": 1669554000,
+    "type": 0
+  },
+  "27": {
+    "id": 27,
+    "homeTeamId": 23,
+    "awayTeamId": 21,
+    "deadline": 1669564800,
+    "type": 0
+  },
+  "28": {
+    "id": 28,
+    "homeTeamId": 16,
+    "awayTeamId": 18,
+    "deadline": 1669575600,
+    "type": 0
+  },
+  "29": {
+    "id": 29,
+    "homeTeamId": 27,
+    "awayTeamId": 25,
+    "deadline": 1669629600,
+    "type": 0
+  },
+  "30": {
+    "id": 30,
+    "homeTeamId": 31,
+    "awayTeamId": 29,
+    "deadline": 1669640400,
+    "type": 0
+  },
+  "31": {
+    "id": 31,
+    "homeTeamId": 24,
+    "awayTeamId": 26,
+    "deadline": 1669651200,
+    "type": 0
+  },
+  "32": {
+    "id": 32,
+    "homeTeamId": 28,
+    "awayTeamId": 30,
+    "deadline": 1669662000,
+    "type": 0
+  },
+  "33": {
+    "id": 33,
+    "homeTeamId": 1,
+    "awayTeamId": 2,
+    "deadline": 1669734000,
+    "type": 0
+  },
+  "34": {
+    "id": 34,
+    "homeTeamId": 3,
+    "awayTeamId": 0,
+    "deadline": 1669734000,
+    "type": 0
+  },
+  "35": {
+    "id": 35,
+    "homeTeamId": 5,
+    "awayTeamId": 6,
+    "deadline": 1669748400,
+    "type": 0
+  },
+  "36": {
+    "id": 36,
+    "homeTeamId": 7,
+    "awayTeamId": 4,
+    "deadline": 1669748400,
+    "type": 0
+  },
+  "37": {
+    "id": 37,
+    "homeTeamId": 15,
+    "awayTeamId": 12,
+    "deadline": 1669820400,
+    "type": 0
+  },
+  "38": {
+    "id": 38,
+    "homeTeamId": 13,
+    "awayTeamId": 14,
+    "deadline": 1669820400,
+    "type": 0
+  },
+  "39": {
+    "id": 39,
+    "homeTeamId": 11,
+    "awayTeamId": 8,
+    "deadline": 1669834800,
+    "type": 0
+  },
+  "40": {
+    "id": 40,
+    "homeTeamId": 9,
+    "awayTeamId": 10,
+    "deadline": 1669834800,
+    "type": 0
+  },
+  "41": {
+    "id": 41,
+    "homeTeamId": 23,
+    "awayTeamId": 20,
+    "deadline": 1669906800,
+    "type": 0
+  },
+  "42": {
+    "id": 42,
+    "homeTeamId": 21,
+    "awayTeamId": 22,
+    "deadline": 1669906800,
+    "type": 0
+  },
+  "43": {
+    "id": 43,
+    "homeTeamId": 19,
+    "awayTeamId": 16,
+    "deadline": 1669921200,
+    "type": 0
+  },
+  "44": {
+    "id": 44,
+    "homeTeamId": 17,
+    "awayTeamId": 18,
+    "deadline": 1669921200,
+    "type": 0
+  },
+  "45": {
+    "id": 45,
+    "homeTeamId": 31,
+    "awayTeamId": 28,
+    "deadline": 1669993200,
+    "type": 0
+  },
+  "46": {
+    "id": 46,
+    "homeTeamId": 29,
+    "awayTeamId": 30,
+    "deadline": 1669993200,
+    "type": 0
+  },
+  "47": {
+    "id": 47,
+    "homeTeamId": 25,
+    "awayTeamId": 26,
+    "deadline": 1670007600,
+    "type": 0
+  },
+  "48": {
+    "id": 48,
+    "homeTeamId": 27,
+    "awayTeamId": 24,
+    "deadline": 1670007600,
+    "type": 0
+  },
+  "49": {
+    "id": 49,
+    "homeTeamId": -1,
+    "awayTeamId": -1,
+    "deadline": 0,
+    "type": 1
+  },
+  "50": {
+    "id": 50,
+    "homeTeamId": -1,
+    "awayTeamId": -1,
+    "deadline": 0,
+    "type": 1
+  },
+  "51": {
+    "id": 51,
+    "homeTeamId": -1,
+    "awayTeamId": -1,
+    "deadline": 0,
+    "type": 1
+  },
+  "52": {
+    "id": 52,
+    "homeTeamId": -1,
+    "awayTeamId": -1,
+    "deadline": 0,
+    "type": 1
+  },
+  "53": {
+    "id": 53,
+    "homeTeamId": -1,
+    "awayTeamId": -1,
+    "deadline": 0,
+    "type": 1
+  },
+  "54": {
+    "id": 54,
+    "homeTeamId": -1,
+    "awayTeamId": -1,
+    "deadline": 0,
+    "type": 1
+  },
+  "55": {
+    "id": 55,
+    "homeTeamId": -1,
+    "awayTeamId": -1,
+    "deadline": 0,
+    "type": 1
+  },
+  "56": {
+    "id": 56,
+    "homeTeamId": -1,
+    "awayTeamId": -1,
+    "deadline": 0,
+    "type": 1
+  },
+  "57": {
+    "id": 57,
+    "homeTeamId": -1,
+    "awayTeamId": -1,
+    "deadline": 0,
+    "type": 2
+  },
+  "58": {
+    "id": 58,
+    "homeTeamId": -1,
+    "awayTeamId": -1,
+    "deadline": 0,
+    "type": 2
+  },
+  "59": {
+    "id": 59,
+    "homeTeamId": -1,
+    "awayTeamId": -1,
+    "deadline": 0,
+    "type": 2
+  },
+  "60": {
+    "id": 60,
+    "homeTeamId": -1,
+    "awayTeamId": -1,
+    "deadline": 0,
+    "type": 2
+  },
+  "61": {
+    "id": 61,
+    "homeTeamId": -1,
+    "awayTeamId": -1,
+    "deadline": 0,
+    "type": 3
+  },
+  "62": {
+    "id": 62,
+    "homeTeamId": -1,
+    "awayTeamId": -1,
+    "deadline": 0,
+    "type": 3
+  },
+  "63": {
+    "id": 63,
+    "homeTeamId": -1,
+    "awayTeamId": -1,
+    "deadline": 0,
+    "type": 4
+  },
+  "64": {
+    "id": 64,
+    "homeTeamId": -1,
+    "awayTeamId": -1,
+    "deadline": 0,
+    "type": 5
+  }
+}

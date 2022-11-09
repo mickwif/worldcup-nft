@@ -3,15 +3,16 @@ import { Big3Page, Big3PortalNode, Big3FlexBox, Big3Image, Big3Heading, Big3Para
 import BettingHeader from './BettingHeader';
 import BettingCard from '@/components/BettingCard';
 import BettingCardLarge from '@/components/BettingCardLarge';
-import GroupMatches from '@/config/matches/group_matches.json';
+// import GroupMatches from '@/config/matches/group_matches.json';
 import Top8Matches from '@/config/matches/top8_matches.json';
-
+import { getGroupByTeamId } from '@/utils/matches';
 import { MatchType } from '@/config/constant';
 import { useState, useEffect, useRef } from 'react';
-
+import GroupMatches from '@/utils/matches';
 const Betting = () => {
     const [matchType, setMatchType] = useState(MatchType.Group);
     const internalRef = useRef(null);
+    console.log('GroupMatches: ', GroupMatches);
     useEffect(() => {
         internalRef.current = setInterval(() => {
             const now = Date.now();
@@ -37,6 +38,7 @@ const Betting = () => {
     }, []);
     return (
         <Big3Page>
+            <Big3PortalNode className="betting-head-bg" container={document.getElementById('content')} />
             <Big3PortalNode className="betting-bg" container={document.getElementById('content')} />
             <BettingHeader />
             <Big3FlexBox column align="center">
@@ -51,11 +53,13 @@ const Betting = () => {
                             <Big3FlexBox className="group-match-list">
                                 {GroupMatches[key].map((item: any) => (
                                     <BettingCard
+                                        id={item.id}
                                         type={MatchType.Group}
-                                        typeText={'Group ' + item.group}
-                                        teamA={item.teamA}
-                                        teamB={item.teamB}
-                                        matchTime={`${key} ${item.matchTime}`}
+                                        typeText={'Group ' + getGroupByTeamId(item.homeTeamId)}
+                                        teamA={item.homeTeamId}
+                                        teamB={item.awayTeamId}
+                                        deadline={item.deadline * 1000}
+                                        date={key}
                                         matchResult={null}
                                     />
                                 ))}

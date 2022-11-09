@@ -42,15 +42,18 @@ export enum MatchType {
     Top8,
     Top4,
     SemiFinal,
+    ThirdFinal,
     Final,
 }
 
 export const Contracts = {
     '0x5': {
         GroupNFT: '0xdb2dc33222C46cF82222fff7Ec41f62C8072499C',
+        GroupGame: '',
     },
     '0x1': {
         GroupNFT: '0xC74407208c0b6dc1aa650545e099Df39770Dc88d',
+        GroupGame: '',
     },
 };
 

@@ -44,7 +44,7 @@ export default (props: IProps) => {
                     <Big3Text fontFamily="Codec Pro" fontWeight={600} fontSize={20} color="#ffffff" lineHeight={17}>
                         {teamA}
                     </Big3Text>
-                    <Button className="btn-bet btn-bet-left">Win</Button>
+                    <Button className="btn-bet btn-bet-left-large">Win</Button>
                 </Big3FlexBox>
                 <TimeCountDown matchResult={matchResult} matchTime={matchTime} type={type} cardLarge={true} />
 
@@ -53,7 +53,7 @@ export default (props: IProps) => {
                     <Big3Text fontFamily="Codec Pro" fontWeight={600} fontSize={20} color="#ffffff" lineHeight={17}>
                         {teamB}
                     </Big3Text>
-                    <Button className="btn-bet btn-bet-right">Win</Button>
+                    <Button className="btn-bet btn-bet-right-large">Win</Button>
                 </Big3FlexBox>
             </Big3FlexBox>
         </Big3Box>
