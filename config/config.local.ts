@@ -10,7 +10,7 @@ export default defineConfig({
         'process.env.RPC_NODE_1': '',
         'process.env.RPC_NODE_2': '',
         'process.env.RPC_NODE_3': '',
-        'process.env.CHAIN_ENV': 'prod',
+        'process.env.CHAIN_ENV': 'goerli',
         'process.env.EKS': '',
     },
     fastRefresh: {},

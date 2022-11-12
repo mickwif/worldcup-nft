@@ -46,14 +46,25 @@ export enum MatchType {
     Final,
 }
 
+// GameResult.None：还没有⽐赛结果，值为0
+// GameResult.Win：主队获胜，值为1
+// GameResult.Draw：⽐赛平局，值为2
+// GameResult.Lose：：客队获胜，值为3
+export enum GameResult {
+    None,
+    Win,
+    Draw,
+    Lose,
+}
+
 export const Contracts = {
     '0x5': {
         GroupNFT: '0xdb2dc33222C46cF82222fff7Ec41f62C8072499C',
-        GroupGame: '',
+        GroupGame: '0x7BA2743950C812476cDfcD3038e768d557Bc4D87',
     },
     '0x1': {
         GroupNFT: '0xC74407208c0b6dc1aa650545e099Df39770Dc88d',
-        GroupGame: '',
+        GroupGame: '0x7BA2743950C812476cDfcD3038e768d557Bc4D87',
     },
 };
 

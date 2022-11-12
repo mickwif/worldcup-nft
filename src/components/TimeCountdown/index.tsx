@@ -9,10 +9,11 @@ interface IProps {
     type: MatchType;
     [key: string]: any;
     cardLarge?: boolean;
+    handleDraw?: Function;
 }
 
 export default (props: IProps) => {
-    const { matchTime, matchResult, type, cardLarge, ...rest } = props;
+    const { matchTime, matchResult, type, cardLarge, handleDraw, ...rest } = props;
     const [time, setTime] = useState({ h: '00', m: '00', s: '00' });
     let interval;
     let timeLeft;
@@ -138,7 +139,11 @@ export default (props: IProps) => {
                     </Big3Text>
                 )}
             </>
-            {!cardLarge && type === MatchType.Group && <Button className="btn-bet btn-draw">Draw</Button>}
+            {!cardLarge && type === MatchType.Group && (
+                <Button className="btn-bet btn-draw" onClick={handleDraw}>
+                    Draw
+                </Button>
+            )}
         </Big3FlexBox>
     );
 };

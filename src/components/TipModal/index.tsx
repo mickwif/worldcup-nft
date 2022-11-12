@@ -13,9 +13,12 @@ import {
 interface IProps {
     errorText: string;
     onOk: () => void;
+    onCancel?: () => void;
+    okText?: string;
+    cancelText?: string;
 }
 export default (props: IProps) => {
-    const { errorText, onOk } = props;
+    const { errorText, onOk, onCancel, okText = 'Ok', cancelText } = props;
     return (
         <AntModal
             footer={null}
@@ -40,9 +43,23 @@ export default (props: IProps) => {
                 >
                     {errorText}
                 </Big3Paragraph>
-                <AntButton width={200} height={48} borderRadius={8} color="#000000" onClick={onOk}>
-                    Ok
+                <AntButton width={200} height={48} color="#000000" onClick={onOk}>
+                    {okText}
                 </AntButton>
+                {cancelText && (
+                    <AntButton
+                        $wiredTheme="black"
+                        width={200}
+                        height={48}
+                        color="#ffffff"
+                        background="#2B2B40"
+                        onClick={onCancel}
+                        marginTop={16}
+                        border="1px solid rgba(254, 212, 17, 0.03)"
+                    >
+                        {cancelText}
+                    </AntButton>
+                )}
             </Big3FlexBox>
         </AntModal>
     );

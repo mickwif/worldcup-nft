@@ -599,6 +599,7 @@ export const AntButton: FC<IAntButton> = styled(Button)<IAntButton & TextCss>`
                 background: #2b2b40;
                 border-radius: 8px;
                 color: #ffffff;
+                border: 1px solid rgba(254, 212, 17, 0.03);
                 &:hover {
                     filter: brightness(120%);
                     background: #2b2b40;

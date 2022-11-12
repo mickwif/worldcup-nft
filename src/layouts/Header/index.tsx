@@ -100,7 +100,7 @@ export default () => {
                     <Button
                         className="btn-get-token"
                         onClick={() => {
-                            window.open('https://www.premint.xyz/nfootball-nft/', '_blank');
+                            window.open('https://galxe.com/NFootball/campaign/GCfsVUw7EU', '_blank');
                         }}
                     >
                         Get Free Token
