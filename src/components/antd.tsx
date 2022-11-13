@@ -916,6 +916,15 @@ export const AntTable = styled(Table)`
     .ant-table-tbody > tr > td.ant-table-cell-row-hover {
         background: #121222;
     }
+    .ant-empty-normal {
+        color: #fefefe;
+        &:hover {
+            background: transparent;
+        }
+    }
+    .ant-table-tbody > tr.ant-table-placeholder:hover > td {
+        background: transparent;
+    }
 `;
 
 export type TomatoModalProps = ModalProps &

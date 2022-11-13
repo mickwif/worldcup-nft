@@ -12,22 +12,57 @@ import {
 
 import { AntTable } from '@/components/antd';
 import BackButton from '@/components/BackButton';
+import { useGroupGameContract } from '@/hooks/useContract';
+import { useWeb3React, useWeb3Provider } from 'big3-web3';
+import GameDates from '@/config/matches/game_dates.json';
+import Games from '@/config/matches/games.json';
+import Teams from '@/config/team.json';
+import { formatTimestamp } from '@/utils';
 const MatchResults = () => {
+    const { provider } = useWeb3Provider();
+    const groupGameContract = useGroupGameContract();
     const [list, setList] = useState([]);
+
+    const fetchGameResults = async () => {
+        let ids = [];
+        for (const key of Object.keys(GameDates)) {
+            if (new Date(key).getTime() < Date.now() + 24 * 3600 * 1000) {
+                ids = ids.concat(GameDates[key]);
+            }
+        }
+        try {
+            const res: any[] = await groupGameContract.getGameByIds(ids);
+            const list = res.map((item) => ({
+                match: 'Group Stage',
+                time: formatTimestamp(item.deadline * 1000, 'MMM.DD HH:mm'),
+                result: `${item.homeScore}:${item.awayScore}`,
+                teamA: Teams[item.homeTeam],
+                teamB: Teams[item.awayTeam],
+                poll: 0,
+                reward: 0,
+                bet: 0,
+            }));
+            setList(list);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
     useEffect(() => {
-        const item = {
-            match: 'Group Stage · matchday 1 ',
-            time: 'Nov.21 00:00',
-            result: '3:0',
-            teamA: 'South Korea',
-            teamB: 'Qatar',
-            poll: 3000,
-            reward: 3000,
-            bet: 400000,
-        };
-        const list = new Array(10).fill(item);
-        setList(list);
-    }, []);
+        // const item = {
+        //     match: 'Group Stage · matchday 1 ',
+        //     time: 'Nov.21 00:00',
+        //     result: '3:0',
+        //     teamA: 'South Korea',
+        //     teamB: 'Qatar',
+        //     poll: 3000,
+        //     reward: 3000,
+        //     bet: 400000,
+        // };
+        // const list = new Array(10).fill(item);
+        // setList(list);
+        fetchGameResults();
+    }, [provider]);
     const columns = [
         {
             title: 'Match',

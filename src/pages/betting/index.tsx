@@ -43,7 +43,7 @@ const Betting = () => {
             <BettingHeader />
             <Big3FlexBox column align="center">
                 <Big3Heading className="balance-heading">The Simpsons NFTfi Game</Big3Heading>
-                <Big3Paragraph className="balance-match-text">Group Stage · matchday 1 of 3</Big3Paragraph>
+                <Big3Paragraph className="balance-match-text">Group Stage</Big3Paragraph>
             </Big3FlexBox>
             <Big3FlexBox column>
                 {matchType === MatchType.Group &&

@@ -15,13 +15,15 @@ export function allSettled(promises) {
     );
 }
 
-export const formatTimestamp = (timestamp: number | string) => {
-    return dayjs(timestamp).format('YYYY/MM/DD');
+export const formatTimestamp = (timestamp: number | string, format?: string) => {
+    return dayjs(timestamp).format(format || 'YYYY/MM/DD');
 };
 
 export const formatAddress = (address: string, left: number = 6, right: number = -7) => {
     return address && `${address.slice(0, left)}...${address.slice(right)}`;
 };
+
+
 
 // ✅ Promise check
 export function isPromise(p) {

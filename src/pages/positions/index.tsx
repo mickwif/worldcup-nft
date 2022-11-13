@@ -12,25 +12,87 @@ import {
 import { Button } from 'antd';
 import { AntTable } from '@/components/antd';
 import BackButton from '@/components/BackButton';
+import { useGroupGameContract } from '@/hooks/useContract';
+import { useWeb3React, useWeb3Provider } from 'big3-web3';
+import { AntPagination } from '@/components';
+import Teams from '@/config/team.json';
+import { formatTimestamp } from '@/utils';
+import { GameResult } from '@/config/constant';
+const PAGE_SIZE = 10;
+
 const MyPositions = () => {
     const [list, setList] = useState([]);
+    const { provider } = useWeb3Provider();
+    const { account } = useWeb3React();
+    const groupGameContract = useGroupGameContract();
+    const [pageNum, setPageNum] = useState(1);
+    const [total, setTotal] = useState(0);
+
+    const getBetTeam = (item: any) => {
+        if (item.result === GameResult.Win) {
+            return Teams[item.homeTeamId];
+        } else if (item.result === GameResult.Lose) {
+            return Teams[item.awayTeamId];
+        } else {
+            return '';
+        }
+    };
+    const getBetType = (item: any) => {
+        if (item.result === GameResult.Win) {
+            return 'Win';
+        } else if (item.result === GameResult.Lose) {
+            return 'Win';
+        } else if (item.result === GameResult.Draw) {
+            return 'Draw';
+        } else {
+            return '';
+        }
+    };
+    const fetchUserPositions = async () => {
+        if (!account || !provider) {
+            return;
+        }
+        try {
+            const res = await groupGameContract.getPredictsByUser(account, pageNum, PAGE_SIZE);
+            const total = res[0].toNumber();
+            const list = res[1].map((item) => ({
+                id: item.id,
+                betTime: formatTimestamp(item.time, 'YYYY.MM.DD HH:mm'),
+                teamA: Teams[item.homeTeamId],
+                teamB: Teams[item.awayTeamId],
+                result: `${item.homeScore}:${item.awayScore}`,
+                betTeam: getBetTeam(item),
+                betType: getBetType(item),
+                stakeToken: item.count,
+                reward: item.reward,
+                isClaimed: item.isClaimed,
+            }));
+            setList(list);
+            setTotal(total);
+        } catch (e) {
+            console.log(e);
+        }
+    };
     useEffect(() => {
-        const item = {
-            betTime: '2022.11.21 10:00',
-            result: '3:0',
-            teamA: 'South Korea',
-            teamB: 'Qatar',
-            betTeam: 'Qatar',
-            betType: 'Win',
-            stakeEth: 30,
-            stakeToken: 400,
-            stakeNFT: 3,
-            win: 4000,
-            reward: 3000,
-        };
-        const list = new Array(10).fill(item);
-        setList(list);
-    }, []);
+        fetchUserPositions();
+    }, [account, pageNum, provider]);
+    // useEffect(() => {
+    //     const item = {
+    //         betTime: '2022.11.21 10:00',
+    //         result: '3:0',
+    //         teamA: 'South Korea',
+    //         teamB: 'Qatar',
+    //         betTeam: 'Qatar',
+    //         betType: 'Win',
+    //         stakeEth: 30,
+    //         stakeToken: 400,
+    //         stakeNFT: 3,
+    //         win: 4000,
+    //         reward: 3000,
+    //     };
+    //     const list = new Array(10).fill(item);
+    //     setList(list);
+    // }, []);
     const columns = [
         {
             title: 'Bet Time',
@@ -105,9 +167,9 @@ const MyPositions = () => {
             render: (text, item) => (
                 <Big3FlexBox align="center">
                     <Big3Text marginRight={6} fontFamily="Codec Pro" fontWeight={500} fontSize={14} color="#F2DA0E">
-                        {item.stakeEth} ETH
+                        {item.stakeToken} NFT
                     </Big3Text>
-                    <Big3Paragraph>
+                    {/* <Big3Paragraph>
                         <Big3Text marginRight={2} fontFamily="Codec Pro" fontWeight={500} fontSize={14} color="#4A4A60">
                             (
                         </Big3Text>
@@ -117,28 +179,28 @@ const MyPositions = () => {
                         <Big3Text fontFamily="Codec Pro" fontWeight={500} fontSize={14} color="#4A4A60">
                             )
                         </Big3Text>
-                    </Big3Paragraph>
+                    </Big3Paragraph> */}
                 </Big3FlexBox>
             ),
         },
-        {
-            title: 'Win',
-            dataIndex: 'win',
-            key: 'win',
-            render: (text) => (
-                <Big3FlexBox align="center">
-                    <Big3Text
-                        fontFamily="Codec Pro"
-                        fontWeight={500}
-                        fontSize={14}
-                        color={Number(text) >= 0 ? '#2FB773' : '#FA4A27'}
-                    >
-                        {Number(text) > 0 ? '' : '-'}
-                        {text} ETH
-                    </Big3Text>
-                </Big3FlexBox>
-            ),
-        },
+        // {
+        //     title: 'Win',
+        //     dataIndex: 'win',
+        //     key: 'win',
+        //     render: (text) => (
+        //         <Big3FlexBox align="center">
+        //             <Big3Text
+        //                 fontFamily="Codec Pro"
+        //                 fontWeight={500}
+        //                 fontSize={14}
+        //                 color={Number(text) >= 0 ? '#2FB773' : '#FA4A27'}
+        //             >
+        //                 {Number(text) > 0 ? '' : '-'}
+        //                 {text} ETH
+        //             </Big3Text>
+        //         </Big3FlexBox>
+        //     ),
+        // },
         {
             title: 'Reward',
             dataIndex: 'reward',
@@ -155,7 +217,9 @@ const MyPositions = () => {
             title: 'Actions',
             dataIndex: 'actions',
             key: 'actions',
-            render: (text, item) => <>{item.reward && <Button className="btn-claim-reward">Claim</Button>}</>,
+            render: (text, item) => (
+                <>{item.reward && !item.isClaimed && <Button className="btn-claim-reward">Claim</Button>}</>
+            ),
         },
     ];
     return (
@@ -176,6 +240,20 @@ const MyPositions = () => {
 
                 <AntTable columns={columns} dataSource={list} className="my-positions-table" pagination={false} />
             </Big3FlexBox>
+            {list.length > 0 && (
+                <Big3FlexBox justify="center" width="100%">
+                    <AntPagination
+                        total={total}
+                        pageSize={PAGE_SIZE}
+                        onChange={(page: number) => {
+                            setPageNum(page);
+                        }}
+                        current={pageNum}
+                        showQuickJumper={false}
+                        showSizeChanger={false}
+                    />
+                </Big3FlexBox>
+            )}
         </Big3Page>
     );
 };

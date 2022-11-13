@@ -37,8 +37,13 @@
     justify-content: center;
     padding: 100px;
 }
-.img-player {
+.betting-img-player {
     object-fit: cover;
+    border: 6px solid #252837;
+    cursor: pointer;
+}
+.betting-img-selected {
+    border: 6px solid #f2ca0e;
 }
 .betting-steps-footer {
     align-items: center;
@@ -49,4 +54,54 @@
     width: 100%;
     height: 171px;
     background: linear-gradient(5.64deg, #06131e 5.26%, rgba(6, 19, 30, 0) 149.49%);
+}
+
+.bet-submit-card {
+    margin-top: 53px;
+    margin-bottom: 27px;
+    background: linear-gradient(0.27deg, rgba(6, 19, 30, 0) 0.23%, #1d1d2c 103.23%);
+    border-radius: 24px;
+    padding: 32px;
+    > .bet-submit-results {
+        border: 1px dashed rgba(43, 43, 64, 0.8);
+        padding-bottom: 38px;
+        margin-bottom: 40px;
+        .bet-result {
+            background: #2b2b40;
+            opacity: 0.6;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+        }
+        .bet-result-selected {
+            border: 1.5px solid #fed411;
+            opacity: 1;
+        }
+        .bet-nation-name {
+            font-family: 'Codec Pro';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 12px;
+            margin-top: 10px;
+            color: #ffffff;
+        }
+    }
+}
+
+.bet-submit-label {
+    font-family: 'Codec Pro';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+
+    color: #7e829d;
+}
+.bet-submit-value {
+    font-family: 'Codec Pro';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
 }

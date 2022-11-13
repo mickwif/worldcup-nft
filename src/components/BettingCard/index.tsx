@@ -71,8 +71,15 @@ export default (props: IProps) => {
             console.log(e);
         }
     };
-    const handleBettingSubmit = async () => {};
-    const handleCancel = async () => {
+    const handleBettingSubmit = async (homeSelected: number[], awaySelected: number[]) => {
+        try {
+            debugger;
+            const res = await groupGameContract.predict(id, homeSelected, awaySelected, betType);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+    const handleCancel = () => {
         setSelectModalShow(false);
     };
     return (
@@ -154,7 +161,6 @@ export default (props: IProps) => {
                     betType={betType}
                     onOK={handleBettingSubmit}
                     onCancel={handleCancel}
-                    visible={selectModalShow}
                 />
             </TomatoFullscreenModal>
         </Big3Box>
