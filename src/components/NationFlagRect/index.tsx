@@ -8,7 +8,7 @@ interface IProps {
 }
 
 export default (props: IProps) => {
-    const { nation, width, height, ...rest } = props;
+    const { nation = '', width, height, ...rest } = props;
 
     return (
         <Big3Image

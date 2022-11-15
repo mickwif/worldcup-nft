@@ -18,6 +18,7 @@ import { AntPagination } from '@/components';
 import Teams from '@/config/team.json';
 import { formatTimestamp } from '@/utils';
 import { GameResult } from '@/config/constant';
+import { message } from 'antd';
 const PAGE_SIZE = 10;
 
 const MyPositions = () => {
@@ -56,15 +57,15 @@ const MyPositions = () => {
             const res = await groupGameContract.getPredictsByUser(account, pageNum, PAGE_SIZE);
             const total = res[0].toNumber();
             const list = res[1].map((item) => ({
-                id: item.id,
-                betTime: formatTimestamp(item.time, 'YYYY.MM.DD HH:mm'),
+                id: item.id.toNumber(),
+                betTime: formatTimestamp(item.time.toNumber() * 1000, 'YYYY.MM.DD HH:mm'),
                 teamA: Teams[item.homeTeamId],
                 teamB: Teams[item.awayTeamId],
                 result: `${item.homeScore}:${item.awayScore}`,
                 betTeam: getBetTeam(item),
                 betType: getBetType(item),
-                stakeToken: item.count,
-                reward: item.reward,
+                stakeToken: item.count.toNumber(),
+                reward: item.reward.toNumber(),
                 isClaimed: item.isClaimed,
             }));
             setList(list);
@@ -73,26 +74,22 @@ const MyPositions = () => {
             console.log(e);
         }
     };
+
+    const handleClaim = async (item: any) => {
+        try {
+            const tx = await groupGameContract.predict(item.id);
+            const res = await tx.wait();
+            console.log(res);
+            fetchUserPositions();
+        } catch (e) {
+            console.log(e);
+            message.error('Claim failed. Please try later.');
+        }
+    };
     useEffect(() => {
         fetchUserPositions();
     }, [account, pageNum, provider]);
-    // useEffect(() => {
-    //     const item = {
-    //         betTime: '2022.11.21 10:00',
-    //         result: '3:0',
-    //         teamA: 'South Korea',
-    //         teamB: 'Qatar',
-    //         betTeam: 'Qatar',
-    //         betType: 'Win',
-    //         stakeEth: 30,
-    //         stakeToken: 400,
-    //         stakeNFT: 3,
-    //         win: 4000,
-    //         reward: 3000,
-    //     };
-    //     const list = new Array(10).fill(item);
-    //     setList(list);
-    // }, []);
+
     const columns = [
         {
             title: 'Bet Time',
@@ -218,7 +215,13 @@ const MyPositions = () => {
             dataIndex: 'actions',
             key: 'actions',
             render: (text, item) => (
-                <>{item.reward && !item.isClaimed && <Button className="btn-claim-reward">Claim</Button>}</>
+                <>
+                    {item.reward && !item.isClaimed && (
+                        <Button className="btn-claim-reward" onClick={() => handleClaim(item)}>
+                            Claim
+                        </Button>
+                    )}
+                </>
             ),
         },
     ];
@@ -235,13 +238,13 @@ const MyPositions = () => {
                     color="#FFFFFF"
                     marginBottom={40}
                 >
-                    2022 World Cup Match Results{' '}
+                    My Positions
                 </Big3Heading>
 
                 <AntTable columns={columns} dataSource={list} className="my-positions-table" pagination={false} />
             </Big3FlexBox>
             {list.length > 0 && (
-                <Big3FlexBox justify="center" width="100%">
+                <Big3FlexBox justify="center" width="100%" marginTop={30}>
                     <AntPagination
                         total={total}
                         pageSize={PAGE_SIZE}

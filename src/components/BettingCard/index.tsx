@@ -2,7 +2,7 @@ import './index.less';
 import { Big3Box, Big3FlexBox, Big3Image, Big3Text, Big3Icon } from 'big3-styled-base';
 import { MatchType, GameResult } from '@/config/constant';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { Button } from 'antd';
 import TimeCountDown from '../TimeCountdown';
 import Teams from '@/config/team.json';
@@ -12,6 +12,7 @@ import TipModal from '@/components/TipModal';
 import { history } from 'umi';
 import { TomatoFullscreenModal, AntButton, AntModal } from '@/components/antd';
 import BettingSteps from '../BettingSteps';
+import { ethers } from 'ethers';
 interface IProps {
     id: number;
     type: MatchType;
@@ -32,8 +33,7 @@ export default (props: IProps) => {
     const groupGameContract = useGroupGameContract();
     const [errorText, setErrorText] = useState('');
     const [selectModalShow, setSelectModalShow] = useState(false);
-    const [homeTokenIds, setHomeTokenIds] = useState([]);
-    const [awayTokenIds, setAwayTokenIds] = useState([]);
+    const [tokenIds, setTokenIds] = useState([]);
     const [betType, setBetType] = useState<GameResult>(GameResult.None);
     const teamAName = useMemo(() => {
         return Teams[teamA];
@@ -45,52 +45,58 @@ export default (props: IProps) => {
     const getRewardAmount = async () => {
         try {
             const res = await groupGameContract.getRewardAmount();
+            console.log('reward: ', ethers.utils.formatEther(res));
+            setRewardAmount(Number(ethers.utils.formatEther(res)));
         } catch (e) {
             console.log(e);
         }
     };
     const getTotalPredictCountByGame = async () => {
         try {
-            const res = await groupGameContract.getTotalPredictCountByGame();
+            const res = await groupGameContract.getTotalPredictCountByGame(id);
+            const num = res.toNumber();
+            setTotalPredictCount(num);
         } catch (e) {
             console.log(e);
         }
     };
     // getUserNFTByGameAndNotPredicted
     const handleBet = async (gameId: number, homeTeamId: number, awayTeamId: number, result: GameResult) => {
-        setBetType(result);
-        setHomeTokenIds([teamA * 32 + 1, teamA * 32 + 2, teamA * 32 + 3]);
-        setAwayTokenIds([teamB * 32 + 1, teamB * 32 + 2, teamB * 32 + 3]);
-        setSelectModalShow(true);
-        return;
-        // setErrorText('You must have at least two NFTs to participate in the game; please see FAQ for details.');
         try {
             const res = await groupGameContract.getUserNFTByGameAndNotPredicted(account, gameId);
-            console.log(res);
+            const num = res.map((item) => item.toNumber());
+            console.log(num);
+            if (num.length === 0) {
+                setErrorText('You must have at least two NFTs to participate in the game; please see FAQ for details.');
+                return;
+            }
+            setBetType(result);
+            setTokenIds(num);
+            setSelectModalShow(true);
         } catch (e) {
             console.log(e);
         }
     };
-    const handleBettingSubmit = async (homeSelected: number[], awaySelected: number[]) => {
-        try {
-            debugger;
-            const res = await groupGameContract.predict(id, homeSelected, awaySelected, betType);
-        } catch (e) {
-            console.log(e);
-        }
+    const handleOk = async () => {
+        handleCancel();
     };
     const handleCancel = () => {
         setSelectModalShow(false);
     };
+
+    useEffect(() => {
+        getRewardAmount();
+        getTotalPredictCountByGame();
+    }, [id, provider]);
     return (
         <Big3Box className="betting-card">
             <Big3FlexBox marginBottom={30} justify="space-between" align="center">
                 <Big3FlexBox align="center" fontFamily="Helvetica" fontWeight={700} fontSize={12}>
                     <Big3Icon src="/football-token.svg" marginRight={6} />
                     <Big3Text color="#7E829D" marginRight={3}>
-                        Price Poll:
+                        Prize Poll:
                     </Big3Text>
-                    <Big3Text color="#F2DA0E">{rewardAmount} Token</Big3Text>
+                    <Big3Text color="#F2DA0E">{rewardAmount * totalPredictCount} Token</Big3Text>
                 </Big3FlexBox>
                 <Big3Box className="match-type">{typeText}</Big3Box>
                 <Big3FlexBox align="center" fontFamily="Helvetica" fontWeight={700} fontSize={12}>
@@ -139,7 +145,7 @@ export default (props: IProps) => {
                     </Big3Text>
                     <Button
                         className="btn-bet btn-bet-right"
-                        onClick={() => handleBet(id, teamA, teamB, GameResult.Win)}
+                        onClick={() => handleBet(id, teamA, teamB, GameResult.Lose)}
                     >
                         Win
                     </Button>
@@ -154,12 +160,12 @@ export default (props: IProps) => {
             />
             <TomatoFullscreenModal visible={selectModalShow} onClose={() => setSelectModalShow(false)}>
                 <BettingSteps
+                    gameId={id}
                     homeTeamId={teamA}
                     awayTeamId={teamB}
-                    homeTokenIds={homeTokenIds}
-                    awayTokenIds={awayTokenIds}
+                    tokenIds={tokenIds}
                     betType={betType}
-                    onOK={handleBettingSubmit}
+                    onOK={handleOk}
                     onCancel={handleCancel}
                 />
             </TomatoFullscreenModal>

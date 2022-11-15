@@ -59,8 +59,8 @@ export enum GameResult {
 
 export const Contracts = {
     '0x5': {
-        GroupNFT: '0xdb2dc33222C46cF82222fff7Ec41f62C8072499C',
-        GroupGame: '0x7BA2743950C812476cDfcD3038e768d557Bc4D87',
+        GroupNFT: '0xaD0C7B1df64170C385c665EB6214F370D80f5A85',
+        GroupGame: '0x37173F08AA089c8C1Df8E0249577518564ee31f7',
     },
     '0x1': {
         GroupNFT: '0xC74407208c0b6dc1aa650545e099Df39770Dc88d',

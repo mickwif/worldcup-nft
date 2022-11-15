@@ -9,6 +9,7 @@ import { getGroupByTeamId } from '@/utils/matches';
 import { MatchType } from '@/config/constant';
 import { useState, useEffect, useRef } from 'react';
 import GroupMatches from '@/utils/matches';
+import { formatTimestamp } from '@/utils';
 const Betting = () => {
     const [matchType, setMatchType] = useState(MatchType.Group);
     const internalRef = useRef(null);
@@ -41,7 +42,7 @@ const Betting = () => {
             <Big3PortalNode className="betting-head-bg" container={document.getElementById('content')} />
             <Big3PortalNode className="betting-bg" container={document.getElementById('content')} />
             <BettingHeader />
-            <Big3FlexBox column align="center">
+            <Big3FlexBox column align="center" marginBottom={80}>
                 <Big3Heading className="balance-heading">The Simpsons NFTfi Game</Big3Heading>
                 <Big3Paragraph className="balance-match-text">Group Stage</Big3Paragraph>
             </Big3FlexBox>
@@ -49,7 +50,7 @@ const Betting = () => {
                 {matchType === MatchType.Group &&
                     Object.keys(GroupMatches).map((key: string) => (
                         <Big3FlexBox column align="center" marginBottom={56} width="100%">
-                            <Big3Image src="./img-match-day.png" marginBottom={24} width={235} height={61} />
+                            <div className="match-date">{formatTimestamp(key, 'DD MMM')}- All Match</div>
                             <Big3FlexBox className="group-match-list">
                                 {GroupMatches[key].map((item: any) => (
                                     <BettingCard

@@ -61,6 +61,17 @@ export default () => {
                     >
                         <Big3Text>NFT</Big3Text>
                     </Big3NavLink>
+
+                    <Big3NavLink
+                        className={activeStyle(Routers.BETTING)}
+                        onClick={() => history.push(Routers.BETTING)}
+                        fontSize={16}
+                        lineHeight={16}
+                        fontWeight={500}
+                        fontFamily="Codec Pro"
+                    >
+                        <Big3Text>BETTING</Big3Text>
+                    </Big3NavLink>
                     <AntPopover content="Coming soon" placement="bottom">
                         <Big3NavLink
                             className={activeStyle(Routers.SYNTHETIC)}
@@ -71,18 +82,6 @@ export default () => {
                             fontFamily="Codec Pro"
                         >
                             <Big3Text>SYNTHETIC</Big3Text>
-                        </Big3NavLink>
-                    </AntPopover>
-                    <AntPopover content="Coming soon" placement="bottom">
-                        <Big3NavLink
-                            className={activeStyle(Routers.BETTING)}
-                            // onClick={() => history.push(Routers.BETTING)}
-                            fontSize={16}
-                            lineHeight={16}
-                            fontWeight={500}
-                            fontFamily="Codec Pro"
-                        >
-                            <Big3Text>BETTING</Big3Text>
                         </Big3NavLink>
                     </AntPopover>
                     <Big3NavLink

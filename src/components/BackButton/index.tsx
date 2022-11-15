@@ -3,14 +3,22 @@ import { Button } from 'antd';
 import { history } from 'umi';
 import { Big3Image, Big3FlexBox, Big3Text } from 'big3-styled-base';
 
-export default () => {
+interface IProps {
+    handler?: Function;
+}
+export default (props: IProps) => {
+    const { handler } = props;
     return (
         <Big3FlexBox
             alignItems="center"
             justify="center"
             className="btn-back"
             onClick={() => {
-                history.goBack();
+                if (handler) {
+                    handler();
+                } else {
+                    history.goBack();
+                }
             }}
         >
             <Big3Image src="./icon-btn-back.svg" marginRight={9}></Big3Image>

@@ -18,11 +18,15 @@ import GameDates from '@/config/matches/game_dates.json';
 import Games from '@/config/matches/games.json';
 import Teams from '@/config/team.json';
 import { formatTimestamp } from '@/utils';
+import { AntPagination } from '@/components';
+const PAGE_SIZE = 10;
+
 const MatchResults = () => {
     const { provider } = useWeb3Provider();
     const groupGameContract = useGroupGameContract();
     const [list, setList] = useState([]);
-
+    const [pageNum, setPageNum] = useState(1);
+    const [total, setTotal] = useState(0);
     const fetchGameResults = async () => {
         let ids = [];
         for (const key of Object.keys(GameDates)) {
@@ -31,7 +35,8 @@ const MatchResults = () => {
             }
         }
         try {
-            const res: any[] = await groupGameContract.getGameByIds(ids);
+            const res: any[] = await groupGameContract.getGameByIds([1, 2, 3, 4, 5, 6, 7, 8]);
+            console.log(res);
             const list = res.map((item) => ({
                 match: 'Group Stage',
                 time: formatTimestamp(item.deadline * 1000, 'MMM.DD HH:mm'),

@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { useModel } from 'umi';
 import { useWeb3Provider } from 'big3-web3';
 import GroupNFTAbi from '@/config/abi/GroupNFT.json';
-import GroupGameAbi from '@/config/abi/GroupPredict'
+import GroupGameAbi from '@/config/abi/GroupPredict.json';
 import { Contracts } from '@/config/constant';
 
 export const useErc20Contract = (name: string) => {
@@ -28,7 +28,7 @@ export const useGroupGameContract = () => {
     const { provider } = useWeb3Provider();
     const { chain } = useModel('@@chain');
     return useMemo(
-        () => getContract(GroupGameAbi.abi, Contracts[chain.config.chainId]?.['GroupNFT'], provider?.getSigner()),
+        () => getContract(GroupGameAbi.abi, Contracts[chain.config.chainId]?.['GroupGame'], provider?.getSigner()),
         [provider, chain],
     );
 };

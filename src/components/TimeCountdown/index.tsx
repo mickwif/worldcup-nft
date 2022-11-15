@@ -34,13 +34,13 @@ export default (props: IProps) => {
         return n < 10 ? '0' + n : String(n);
     };
     const countdown = () => {
-        // const _d = Math.floor(timeLeft / (3600 * 1000 * 24));
+        const _d = Math.floor(timeLeft / (3600 * 1000 * 24));
         const _h = Math.floor((timeLeft / (3600 * 1000)) % 24);
         const _m = Math.floor((timeLeft / (60 * 1000)) % 60);
         const _s = Math.floor((timeLeft / 1000) % 60);
         setTime({
             // d: pad(_d),
-            h: pad(_h),
+            h: pad(_h + _d * 24),
             m: pad(_m),
             s: pad(_s),
         });

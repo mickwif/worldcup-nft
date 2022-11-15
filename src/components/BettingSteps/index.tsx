@@ -8,27 +8,45 @@ import NationFlagRect from '../NationFlagRect';
 import NationCircle from '../NationCircle';
 import NationPair from '../NationPair';
 import { fetchPlayerName } from '@/utils';
-
+import { useGroupGameContract } from '@/hooks/useContract';
+import { message } from 'antd';
+import BackButton from '@/components/BackButton';
 interface IProps {
+    gameId: number;
     homeTeamId: number;
     awayTeamId: number;
-    homeTokenIds: number[];
-    awayTokenIds: number[];
+    tokenIds: number[];
     betType: GameResult;
     onCancel: Function;
     onOK: Function;
 }
+const TOKEN_REWARD_UNIT = 10000;
 export default (props: IProps) => {
-    const { homeTeamId, awayTeamId, homeTokenIds, awayTokenIds, betType, onCancel, onOK } = props;
+    const { gameId, homeTeamId, awayTeamId, tokenIds, betType, onCancel, onOK } = props;
+    const groupGameContract = useGroupGameContract();
     const [currentStep, setCurrentStep] = useState(1);
-    const [homeTeamSelected, setHomeTeamSelected] = useState([]);
-    const [awayTeamSelected, setAwayTeamSelected] = useState([]);
+    const [tokenSelected, setTokenSelected] = useState([]);
     const [list, setList] = useState<any[]>([]);
-    const [currentListTeam, setCurrentListTeam] = useState<number>();
+    const [loading, setLoading] = useState(false);
 
+    const handleBettingSubmit = async () => {
+        try {
+            setLoading(true);
+            const tx = await groupGameContract.predict(gameId, tokenSelected, betType);
+            const res = await tx.wait();
+            console.log(res);
+            message.success('Betting successfully。');
+            onOK();
+        } catch (e) {
+            console.log(e);
+            message.error('Betting failed. Please try later.');
+        } finally {
+            setLoading(false);
+        }
+    };
     const fetchPlayerList = async () => {
-        const list: any[] = homeTokenIds.map((id) => ({
-            nation: Teams[id],
+        const list: any[] = tokenIds.map((id) => ({
+            nation: Teams[id % 32],
             tokenId: id,
         }));
         const players = await Promise.all(list.map((item) => fetchPlayerName(item.tokenId)));
@@ -36,40 +54,41 @@ export default (props: IProps) => {
             list[index].name = name;
         });
         setList(list);
-        setCurrentListTeam(homeTeamId);
     };
     const handleSelect = (item: any) => {
-        const _list = homeTeamSelected.slice();
+        const _list = tokenSelected.slice();
         const index = _list.findIndex((id) => id === item.tokenId);
         if (index > -1) {
             _list.splice(index, 1);
         } else {
             _list.push(item.tokenId);
         }
-        setHomeTeamSelected(_list);
+        setTokenSelected(_list);
     };
     useEffect(() => {
         fetchPlayerList();
-    }, [homeTokenIds, awayTokenIds, betType, currentStep]);
+    }, [tokenIds]);
     return (
         <Big3FlexBox width="100%" height="calc(100vh - 88px)" column align="center">
-            {currentStep === 1 && <Big3Image src="./icon-step-1.svg"></Big3Image>}
-            {currentStep === 2 && <Big3Image src="./icon-step-2.svg"></Big3Image>}
-            {currentStep === 3 && <Big3Image src="./icon-step-3.svg"></Big3Image>}
-            {((currentStep === 1 && betType === GameResult.Win) ||
-                (currentStep === 1 && betType === GameResult.Draw)) && (
-                <p className="select-team-token">
-                    Select your Simpson of <NationFlagRect nation={Teams[homeTeamId]} width={36} height={24} />{' '}
-                    Teams[homeTeamId]
-                </p>
+            {currentStep > 1 && (
+                <div className="betting-btn-back">
+                    <BackButton handler={() => setCurrentStep(currentStep - 1)} />
+                </div>
             )}
-            {((currentStep === 1 && betType === GameResult.Lose) ||
-                (currentStep === 2 && betType === GameResult.Draw)) && (
-                <p className="select-team-token">
-                    Select your Simpson of <NationFlagRect nation={Teams[awayTeamId]} width={36} height={24} />{' '}
-                    Teams[awayTeamId]
-                </p>
+            {currentStep === 1 && (
+                <Big3FlexBox column align="center">
+                    <Big3Image src="./icon-step-1.svg"></Big3Image>
+                    <p className="select-team-token">Select your Simpson To Join The NFootball Game</p>
+                </Big3FlexBox>
             )}
+
+            {currentStep === 2 && (
+                <Big3FlexBox column align="center">
+                    <Big3Image src="./icon-step-2.svg"></Big3Image>
+                    <p className="select-team-token">Please Check Your Game Parameters</p>
+                </Big3FlexBox>
+            )}
+
             {currentStep === 1 && (
                 <>
                     <Big3FlexBox className="betting-nft-list">
@@ -82,10 +101,7 @@ export default (props: IProps) => {
                                     marginBottom={16}
                                     borderRadius={14}
                                     className={`betting-img-player ${
-                                        homeTeamSelected.includes(item.tokenId) ||
-                                        awayTeamSelected.includes(item.tokenId)
-                                            ? 'betting-img-selected'
-                                            : ''
+                                        tokenSelected.includes(item.tokenId) ? 'betting-img-selected' : ''
                                     }`}
                                     onClick={() => handleSelect(item)}
                                 ></Big3Image>
@@ -112,7 +128,7 @@ export default (props: IProps) => {
                         <AntButton
                             width={240}
                             height={48}
-                            disabled={homeTeamSelected.length === 0 && awayTeamSelected.length === 0}
+                            disabled={tokenSelected.length === 0}
                             onClick={() => setCurrentStep(currentStep + 1)}
                         >
                             OK
@@ -126,7 +142,7 @@ export default (props: IProps) => {
                         <Big3FlexBox
                             column
                             align="center"
-                            className="bet-result bet-result-selected"
+                            className={`bet-result ${betType === GameResult.Win ? 'bet-result-selected' : ''} `}
                             padding="12px 24px"
                         >
                             <NationCircle nation={Teams[homeTeamId]} width={36} height={36}></NationCircle>
@@ -135,7 +151,7 @@ export default (props: IProps) => {
                         <Big3FlexBox
                             column
                             align="center"
-                            className="bet-result"
+                            className={`bet-result ${betType === GameResult.Draw ? 'bet-result-selected' : ''} `}
                             padding="12px 24px"
                             marginLeft={16}
                             marginRight={16}
@@ -143,29 +159,36 @@ export default (props: IProps) => {
                             <NationPair nation1={Teams[homeTeamId]} nation2={Teams[awayTeamId]}></NationPair>
                             <Big3Text className="bet-nation-name">Draw</Big3Text>
                         </Big3FlexBox>
-                        <Big3FlexBox column align="center" className="bet-result" padding="12px 24px">
-                            <NationCircle nation={Teams[homeTeamId]} width={36} height={36}></NationCircle>
-                            <Big3Text className="bet-nation-name">{Teams[homeTeamId]} Win</Big3Text>
+                        <Big3FlexBox
+                            column
+                            align="center"
+                            className={`bet-result ${betType === GameResult.Lose ? 'bet-result-selected' : ''} `}
+                            padding="12px 24px"
+                        >
+                            <NationCircle nation={Teams[awayTeamId]} width={36} height={36}></NationCircle>
+                            <Big3Text className="bet-nation-name">{Teams[awayTeamId]} Win</Big3Text>
                         </Big3FlexBox>
                     </Big3FlexBox>
 
                     <Big3FlexBox justify="space-between" marginBottom={20} align="center" width="100%">
                         <Big3Text className="bet-submit-label">投注详情</Big3Text>
                         <Big3Paragraph className="bet-submit-value">
-                            3 NFT(
+                            {tokenSelected.length} NFT(
                             <NationCircle nation={Teams[homeTeamId]} width={21.6} /> Win)
                         </Big3Paragraph>
                     </Big3FlexBox>
                     <Big3FlexBox justify="space-between" marginBottom={20} align="center" width="100%">
                         <Big3Text className="bet-submit-label">预计奖励</Big3Text>
-                        <Big3Text className="bet-submit-value">300000 Token</Big3Text>
+                        <Big3Text className="bet-submit-value">
+                            {tokenSelected.length * TOKEN_REWARD_UNIT} Token
+                        </Big3Text>
                     </Big3FlexBox>
                     <Big3FlexBox justify="space-between" marginBottom={70} align="center" width="100%">
                         <Big3Text className="bet-submit-label">锁仓nft总数</Big3Text>
-                        <Big3Text className="bet-submit-value">6 NFT</Big3Text>
+                        <Big3Text className="bet-submit-value">{tokenSelected.length} NFT</Big3Text>
                     </Big3FlexBox>
                     <Big3FlexBox justify="center" width="100%">
-                        <AntButton width={240} height={48} onClick={() => onOK(homeTeamSelected, awayTeamSelected)}>
+                        <AntButton width={240} height={48} onClick={handleBettingSubmit} loading={loading}>
                             OK
                         </AntButton>
                     </Big3FlexBox>
