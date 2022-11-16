@@ -1,7 +1,7 @@
 import './index.less';
 import { Big3Box, Big3FlexBox, Big3Image, Big3Text, Big3Icon, Big3Paragraph } from 'big3-styled-base';
 import { TomatoFullscreenModal, AntButton, AntModal } from '@/components/antd';
-import { GameResult, IPFS_URL } from '@/config/constant';
+import { GameResult, IPFS_URL, Group_Match_Reward } from '@/config/constant';
 import { useState, useEffect, useMemo } from 'react';
 import Teams from '@/config/team.json';
 import NationFlagRect from '../NationFlagRect';
@@ -20,7 +20,7 @@ interface IProps {
     onCancel: Function;
     onOK: Function;
 }
-const TOKEN_REWARD_UNIT = 10000;
+const TOKEN_REWARD_UNIT = Group_Match_Reward;
 export default (props: IProps) => {
     const { gameId, homeTeamId, awayTeamId, tokenIds, betType, onCancel, onOK } = props;
     const groupGameContract = useGroupGameContract();

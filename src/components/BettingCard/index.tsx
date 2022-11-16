@@ -78,6 +78,8 @@ export default (props: IProps) => {
         }
     };
     const handleOk = async () => {
+        getRewardAmount();
+        getTotalPredictCountByGame();
         handleCancel();
     };
     const handleCancel = () => {
@@ -90,7 +92,7 @@ export default (props: IProps) => {
     }, [id, provider]);
     return (
         <Big3Box className="betting-card">
-            <Big3FlexBox marginBottom={30} justify="space-between" align="center">
+            <Big3FlexBox marginBottom={30} justify="space-between" align="center" position="relative">
                 <Big3FlexBox align="center" fontFamily="Helvetica" fontWeight={700} fontSize={12}>
                     <Big3Icon src="/football-token.svg" marginRight={6} />
                     <Big3Text color="#7E829D" marginRight={3}>

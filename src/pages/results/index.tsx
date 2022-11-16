@@ -19,6 +19,7 @@ import Games from '@/config/matches/games.json';
 import Teams from '@/config/team.json';
 import { formatTimestamp } from '@/utils';
 import { AntPagination } from '@/components';
+import { Group_Match_Reward } from '@/config/constant';
 const PAGE_SIZE = 10;
 
 const MatchResults = () => {
@@ -35,19 +36,24 @@ const MatchResults = () => {
             }
         }
         try {
-            const res: any[] = await groupGameContract.getGameByIds([1, 2, 3, 4, 5, 6, 7, 8]);
+            const res: any[] = await groupGameContract.getGameByIds(ids);
             console.log(res);
-            const list = res.map((item) => ({
-                match: 'Group Stage',
-                time: formatTimestamp(item.deadline * 1000, 'MMM.DD HH:mm'),
-                result: `${item.homeScore}:${item.awayScore}`,
-                teamA: Teams[item.homeTeam],
-                teamB: Teams[item.awayTeam],
-                poll: 0,
-                reward: 0,
-                bet: 0,
-            }));
-            setList(list);
+            if (res[0] && res[1]) {
+                const list = res[0].map((item) => ({
+                    match: 'Group Stage',
+                    time: formatTimestamp(item.deadline * 1000, 'MMM.DD HH:mm'),
+                    result: `${item.homeScore}:${item.awayScore}`,
+                    teamA: Teams[item.homeTeam],
+                    teamB: Teams[item.awayTeam],
+                }));
+                const betNums = res[1].map((item) => item.toNumber());
+                list.forEach((item, index) => {
+                    item.bet = betNums[index];
+                    item.reward = Group_Match_Reward;
+                    item.poll = Group_Match_Reward * betNums[index];
+                });
+                setList(list);
+            }
         } catch (e) {
             console.log(e);
         }
@@ -136,7 +142,7 @@ const MatchResults = () => {
             render: (text) => (
                 <Big3FlexBox align="center">
                     <Big3Text fontFamily="Codec Pro" fontWeight={500} fontSize={14} color="#F2DA0E">
-                        {text} ETH
+                        {text} Token
                     </Big3Text>
                 </Big3FlexBox>
             ),
@@ -148,7 +154,7 @@ const MatchResults = () => {
             render: (text) => (
                 <Big3FlexBox align="center">
                     <Big3Text fontFamily="Codec Pro" fontWeight={500} fontSize={14} color="#F2DA0E">
-                        {text} ETH
+                        {text} Token
                     </Big3Text>
                 </Big3FlexBox>
             ),

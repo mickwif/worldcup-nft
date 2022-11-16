@@ -60,7 +60,7 @@ export enum GameResult {
 export const Contracts = {
     '0x5': {
         GroupNFT: '0xaD0C7B1df64170C385c665EB6214F370D80f5A85',
-        GroupGame: '0x37173F08AA089c8C1Df8E0249577518564ee31f7',
+        GroupGame: '0xBD5E795921be7E504A871fc1ACf8F130444bc7F0',
     },
     '0x1': {
         GroupNFT: '0xC74407208c0b6dc1aa650545e099Df39770Dc88d',
@@ -70,3 +70,5 @@ export const Contracts = {
 
 export const IPFS_URL = 'https://nftstorage.link/ipfs/bafybeiezadvcfvdrgc4rfaczqpywzqo6crsrsm7fob3gzz7bbdhkhtstgu';
 export const META_URL = 'https://bafybeiacetdrnjarh55hmdbgrpvcgi6rfluat3q7xcpi5l4oyclrag4vau.ipfs.nftstorage.link';
+
+export const Group_Match_Reward = 10000;

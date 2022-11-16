@@ -2,14 +2,34 @@ import './index.less';
 import { Big3Box, Big3FlexBox, Big3Image, Big3Text, Big3Icon } from 'big3-styled-base';
 import { Button } from 'antd';
 import { history } from 'umi';
+import { useEffect, useState } from 'react';
+import { useWeb3React, useWeb3Provider } from 'big3-web3';
+import { ethers } from 'ethers';
 export default () => {
+    const [ethBalance, setEthBalance] = useState('0.0');
+    const [tokenBalance, setTokenBalance] = useState(0);
+    const { account } = useWeb3React();
+    const { provider } = useWeb3Provider();
+    const fetchBalance = async () => {
+        const balance = await provider.getSigner().getBalance();
+        const balanceNum = ethers.utils.formatEther(balance);
+        console.log('balance: ', balanceNum);
+        setEthBalance(Number(balanceNum).toFixed(2));
+    };
+    const fetchTokenBalance = async () => {};
+    useEffect(() => {
+        if (account && provider) {
+            fetchBalance();
+            fetchTokenBalance();
+        }
+    }, [account, provider]);
     return (
         <Big3FlexBox justify="space-between" align="center" marginTop={10}>
             <Big3FlexBox align="center">
                 <Big3FlexBox className="betting-balance">
                     <Big3Image src="./betting-balance-bg.png" />
                     <Big3FlexBox justify="space-between" align="center" className="betting-balance-tokens">
-                        <Big3Text>0.0 ETH</Big3Text>
+                        <Big3Text>{ethBalance} ETH</Big3Text>
                         <div className="line"></div>
                         <Big3Text>0 Token</Big3Text>
                     </Big3FlexBox>
