@@ -1,5 +1,13 @@
 import './index.less';
-import { Big3Page, Big3PortalNode, Big3FlexBox, Big3Image, Big3Heading, Big3Paragraph } from 'big3-styled-base';
+import {
+    Big3Page,
+    Big3PortalNode,
+    Big3FlexBox,
+    Big3Image,
+    Big3Heading,
+    Big3Paragraph,
+    Big3Text,
+} from 'big3-styled-base';
 import BettingHeader from './BettingHeader';
 import BettingCard from '@/components/BettingCard';
 import BettingCardLarge from '@/components/BettingCardLarge';
@@ -38,7 +46,7 @@ const Betting = () => {
         };
     }, []);
     return (
-        <Big3Page>
+        <Big3Page position="relative">
             <Big3PortalNode className="betting-head-bg" container={document.getElementById('content')} />
             <Big3PortalNode className="betting-bg" container={document.getElementById('content')} />
             <BettingHeader />
@@ -85,6 +93,41 @@ const Betting = () => {
                             </Big3FlexBox>
                         </Big3FlexBox>
                     ))}
+            </Big3FlexBox>
+            <Big3FlexBox column marginTop={80}>
+                <Big3Text fontFamily="Codec Pro" fontWeight={600} fontSize="20px" color="#FFFFFF" marginBottom={24}>
+                    How it Works
+                </Big3Text>
+                <ul className="betting-rules">
+                    <li>
+                        <Big3Text fontFamily="Codec Pro" fontWeight={500} fontSize={16} marginRight={11}>
+                            01
+                        </Big3Text>
+                        <Big3Paragraph fontWeight={400} fontSize={14}>
+                            All games are in line with the World Cup schedule.
+                        </Big3Paragraph>
+                    </li>
+                    <li>
+                        <Big3Text fontFamily="Codec Pro" fontWeight={500} fontSize={16} marginRight={11}>
+                            02
+                        </Big3Text>
+                        <Big3Paragraph fontWeight={400} fontSize={14}>
+                            In the group matches, you only need to hold anyone NFT of both sides to participate in the
+                            game. The winning side will get a bonus. Please see FAQ and Twitter for details.
+                        </Big3Paragraph>
+                    </li>
+                    <li>
+                        <Big3Text fontFamily="Codec Pro" fontWeight={500} fontSize={16} marginRight={11}>
+                            03
+                        </Big3Text>
+                        <Big3Paragraph fontWeight={400} fontSize={14}>
+                            In the knockout stage, you can use the NFT held to predict the outcome of the game; it costs
+                            0.01ETH as the cost of unlocking the prediction; these costs will finally be credited to the
+                            prize pool. If your prediction is correct, you will be eligible for an equal share of the
+                            prize pool.
+                        </Big3Paragraph>
+                    </li>
+                </ul>
             </Big3FlexBox>
         </Big3Page>
     );

@@ -9,9 +9,9 @@ const Home = () => {
             <Big3FlexBox justify="center" align="center" column>
                 <Big3Image src="/header-title.png" marginTop={16} height={100} left={609} />
                 <Big3Image
-                    onClick={() => history.push('/nft')}
+                    onClick={() => history.push('/betting')}
                     // src="/home-btn-betting.png"
-                    src="home-freemint-btn.svg"
+                    src="home-btn-play.png"
                     marginTop={14}
                     width={162}
                     height={51}

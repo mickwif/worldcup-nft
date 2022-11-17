@@ -13,6 +13,8 @@ import { history } from 'umi';
 import { TomatoFullscreenModal, AntButton, AntModal } from '@/components/antd';
 import BettingSteps from '../BettingSteps';
 import { ethers } from 'ethers';
+import { eventBus } from '@/utils/eventBus';
+import { EventKey } from '@/config/constant';
 interface IProps {
     id: number;
     type: MatchType;
@@ -62,6 +64,10 @@ export default (props: IProps) => {
     };
     // getUserNFTByGameAndNotPredicted
     const handleBet = async (gameId: number, homeTeamId: number, awayTeamId: number, result: GameResult) => {
+        if (!account) {
+            eventBus.$emit(EventKey.UNCONNECTED);
+            return;
+        }
         try {
             const res = await groupGameContract.getUserNFTByGameAndNotPredicted(account, gameId);
             const num = res.map((item) => item.toNumber());
@@ -116,6 +122,8 @@ export default (props: IProps) => {
                         src={`/nations/${teamAName.toLowerCase()}.png`}
                         width={72}
                         height={72}
+                        border="4px solid #202C32"
+                        borderRadius="50%"
                         marginBottom={10}
                     />
                     <Big3Text fontFamily="Codec Pro" fontWeight={600} fontSize={20} color="#ffffff" lineHeight={17}>
@@ -138,8 +146,10 @@ export default (props: IProps) => {
                 <Big3FlexBox column align="center">
                     <Big3Image
                         src={`/nations/${teamBName.toLowerCase()}.png`}
-                        width={80}
-                        height={80}
+                        width={72}
+                        height={72}
+                        border="4px solid #202C32"
+                        borderRadius="50%"
                         marginBottom={10}
                     />
                     <Big3Text fontFamily="Codec Pro" fontWeight={600} fontSize={20} color="#ffffff" lineHeight={17}>
@@ -160,7 +170,7 @@ export default (props: IProps) => {
                 okText="Get NFTs"
                 cancelText="Cancel"
             />
-            <TomatoFullscreenModal visible={selectModalShow} onClose={() => setSelectModalShow(false)}>
+            <TomatoFullscreenModal visible={selectModalShow} onClose={() => setSelectModalShow(false)} destroyOnClose>
                 <BettingSteps
                     gameId={id}
                     homeTeamId={teamA}

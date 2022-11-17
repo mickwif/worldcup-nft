@@ -903,6 +903,7 @@ export const AntTable = styled(Table)`
         font-size: 12px;
         color: #4a4a60;
         border-bottom: none;
+        padding-bottom: 0;
     }
     .ant-table-tbody > tr > td {
         border: none;
@@ -924,6 +925,9 @@ export const AntTable = styled(Table)`
     }
     .ant-table-tbody > tr.ant-table-placeholder:hover > td {
         background: transparent;
+    }
+    .ant-empty-description {
+        color: rgba(255, 255, 255, 0.5);
     }
 `;
 

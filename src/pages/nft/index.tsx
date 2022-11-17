@@ -243,6 +243,10 @@ const NFT = () => {
                         className="btn-mint"
                         $wiredTheme="black"
                         onClick={() => {
+                            if (!account) {
+                                eventBus.$emit(EventKey.UNCONNECTED);
+                                return;
+                            }
                             setModalShow(true);
                         }}
                     >

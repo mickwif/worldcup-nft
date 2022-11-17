@@ -1,5 +1,5 @@
 import './index.less';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import {
     Big3Page,
     Big3PortalNode,
@@ -56,6 +56,7 @@ const MyPositions = () => {
         try {
             const res = await groupGameContract.getPredictsByUser(account, pageNum, PAGE_SIZE);
             const total = res[0].toNumber();
+
             const list = res[1].map((item) => ({
                 id: item.id.toNumber(),
                 betTime: formatTimestamp(item.time.toNumber() * 1000, 'YYYY.MM.DD HH:mm'),
@@ -68,6 +69,9 @@ const MyPositions = () => {
                 reward: item.reward.toNumber(),
                 isClaimed: item.isClaimed,
             }));
+            list.sort((a, b) => {
+                return b.id - a.id;
+            });
             setList(list);
             setTotal(total);
         } catch (e) {
@@ -77,15 +81,17 @@ const MyPositions = () => {
 
     const handleClaim = async (item: any) => {
         try {
-            const tx = await groupGameContract.predict(item.id);
+            const tx = await groupGameContract.claim(item.id);
             const res = await tx.wait();
             console.log(res);
             fetchUserPositions();
         } catch (e) {
             console.log(e);
             message.error('Claim failed. Please try later.');
+        } finally {
         }
     };
+
     useEffect(() => {
         fetchUserPositions();
     }, [account, pageNum, provider]);
@@ -109,15 +115,23 @@ const MyPositions = () => {
             key: 'results',
             render: (text, item) => (
                 <Big3FlexBox align="center">
-                    <Big3Text fontFamily="Codec Pro" fontWeight={500} fontSize={14} color="#FFFFFF" marginRight={12}>
-                        {item.teamA}
-                    </Big3Text>
-                    <Big3Image
-                        src={`./nations/${item.teamA.toLowerCase()}.png`}
-                        width={28}
-                        height={28}
-                        marginRight={22}
-                    ></Big3Image>
+                    <Big3FlexBox align="center" width={144} justify="flex-end">
+                        <Big3Text
+                            fontFamily="Codec Pro"
+                            fontWeight={500}
+                            fontSize={14}
+                            color="#FFFFFF"
+                            marginRight={12}
+                        >
+                            {item.teamA}
+                        </Big3Text>
+                        <Big3Image
+                            src={`./nations/${item.teamA.toLowerCase()}.png`}
+                            width={28}
+                            height={28}
+                            marginRight={22}
+                        ></Big3Image>
+                    </Big3FlexBox>
                     <Big3Text fontFamily="Codec Pro" fontWeight={500} fontSize={16} color="#FFFFFF">
                         {item.result.split(':')[0]}
                     </Big3Text>
@@ -145,12 +159,14 @@ const MyPositions = () => {
             key: 'betTeam',
             render: (text, item) => (
                 <Big3FlexBox align="center">
-                    <Big3Image
-                        src={`./nations/${item.betTeam.toLowerCase()}.png`}
-                        width={16}
-                        height={16}
-                        marginRight={8}
-                    ></Big3Image>
+                    {item.betType !== 'Draw' && (
+                        <Big3Image
+                            src={`./nations/${item.betTeam.toLowerCase()}.png`}
+                            width={16}
+                            height={16}
+                            marginRight={8}
+                        ></Big3Image>
+                    )}
                     <Big3Text fontFamily="Codec Pro" fontWeight={500} fontSize={14} color="#FFFFFF">
                         {item.betType}
                     </Big3Text>
@@ -216,7 +232,7 @@ const MyPositions = () => {
             key: 'actions',
             render: (text, item) => (
                 <>
-                    {item.reward && !item.isClaimed && (
+                    {!item.isClaimed && (
                         <Button className="btn-claim-reward" onClick={() => handleClaim(item)}>
                             Claim
                         </Button>

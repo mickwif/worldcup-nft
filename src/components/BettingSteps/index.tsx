@@ -171,20 +171,20 @@ export default (props: IProps) => {
                     </Big3FlexBox>
 
                     <Big3FlexBox justify="space-between" marginBottom={20} align="center" width="100%">
-                        <Big3Text className="bet-submit-label">投注详情</Big3Text>
+                        <Big3Text className="bet-submit-label">Betting details</Big3Text>
                         <Big3Paragraph className="bet-submit-value">
                             {tokenSelected.length} NFT(
                             <NationCircle nation={Teams[homeTeamId]} width={21.6} /> Win)
                         </Big3Paragraph>
                     </Big3FlexBox>
                     <Big3FlexBox justify="space-between" marginBottom={20} align="center" width="100%">
-                        <Big3Text className="bet-submit-label">预计奖励</Big3Text>
+                        <Big3Text className="bet-submit-label">Bonus estimates</Big3Text>
                         <Big3Text className="bet-submit-value">
                             {tokenSelected.length * TOKEN_REWARD_UNIT} Token
                         </Big3Text>
                     </Big3FlexBox>
                     <Big3FlexBox justify="space-between" marginBottom={70} align="center" width="100%">
-                        <Big3Text className="bet-submit-label">锁仓nft总数</Big3Text>
+                        <Big3Text className="bet-submit-label">Total locked</Big3Text>
                         <Big3Text className="bet-submit-value">{tokenSelected.length} NFT</Big3Text>
                     </Big3FlexBox>
                     <Big3FlexBox justify="center" width="100%">

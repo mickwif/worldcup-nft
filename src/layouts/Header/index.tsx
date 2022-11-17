@@ -27,7 +27,7 @@ export default () => {
     const { activeStyle } = useActivedStyle();
 
     return (
-        <Big3Header width="100%" position="fixed" zIndex={100} top={0} left={0}>
+        <Big3Header width="100%" position="fixed" zIndex={100} top={0} left={0} background="#00000F">
             <div className="header-bg"></div>
             <Big3FlexBox
                 padding="0 var(--both-spacing)"

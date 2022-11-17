@@ -1,5 +1,5 @@
 import './index.less';
-import { Big3Box, Big3FlexBox, Big3Image, Big3Text, Big3Icon } from 'big3-styled-base';
+import { Big3Box, Big3FlexBox, Big3Image, Big3Text, Big3Icon, Big3Heading, Big3Paragraph } from 'big3-styled-base';
 import { Button } from 'antd';
 import { history } from 'umi';
 import { useEffect, useState } from 'react';
@@ -24,7 +24,7 @@ export default () => {
         }
     }, [account, provider]);
     return (
-        <Big3FlexBox justify="space-between" align="center" marginTop={10}>
+        <Big3FlexBox justify="space-between" align="center" marginTop={10} className="betting-header">
             <Big3FlexBox align="center">
                 <Big3FlexBox className="betting-balance">
                     <Big3Image src="./betting-balance-bg.png" />
@@ -36,7 +36,7 @@ export default () => {
                 </Big3FlexBox>
                 {/* <Button className="betting-balance-claim">Claim</Button> */}
             </Big3FlexBox>
-
+           
             <Big3FlexBox align="center">
                 <Big3FlexBox
                     onClick={() => {

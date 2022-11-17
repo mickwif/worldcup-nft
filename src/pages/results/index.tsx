@@ -36,7 +36,7 @@ const MatchResults = () => {
             }
         }
         try {
-            const res: any[] = await groupGameContract.getGameByIds(ids);
+            const res: any[] = await groupGameContract.getGameByIds([]);
             console.log(res);
             if (res[0] && res[1]) {
                 const list = res[0].map((item) => ({
