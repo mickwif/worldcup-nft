@@ -29,14 +29,13 @@ const MatchResults = () => {
     const [pageNum, setPageNum] = useState(1);
     const [total, setTotal] = useState(0);
     const fetchGameResults = async () => {
-        let ids = [];
-        for (const key of Object.keys(GameDates)) {
-            if (new Date(key).getTime() < Date.now() + 24 * 3600 * 1000) {
-                ids = ids.concat(GameDates[key]);
-            }
-        }
         try {
-            const res: any[] = await groupGameContract.getGameByIds([]);
+            const endGames = await groupGameContract.getEndGameList();
+            console.log(endGames);
+            if (endGames.length === 0) {
+                return;
+            }
+            const res: any[] = await groupGameContract.getGameByIds(endGames);
             console.log(res);
             if (res[0] && res[1]) {
                 const list = res[0].map((item) => ({
@@ -105,15 +104,23 @@ const MatchResults = () => {
             key: 'results',
             render: (text, item) => (
                 <Big3FlexBox align="center">
-                    <Big3Text fontFamily="Codec Pro" fontWeight={500} fontSize={14} color="#FFFFFF" marginRight={12}>
-                        {item.teamA}
-                    </Big3Text>
-                    <Big3Image
-                        src={`./nations/${item.teamA.toLowerCase()}.png`}
-                        width={28}
-                        height={28}
-                        marginRight={22}
-                    ></Big3Image>
+                    <Big3FlexBox align="center" width={144} justify="flex-end">
+                        <Big3Text
+                            fontFamily="Codec Pro"
+                            fontWeight={500}
+                            fontSize={14}
+                            color="#FFFFFF"
+                            marginRight={12}
+                        >
+                            {item.teamA}
+                        </Big3Text>
+                        <Big3Image
+                            src={`./nations/${item.teamA.toLowerCase()}.png`}
+                            width={28}
+                            height={28}
+                            marginRight={22}
+                        ></Big3Image>
+                    </Big3FlexBox>
                     <Big3Text fontFamily="Codec Pro" fontWeight={500} fontSize={16} color="#FFFFFF">
                         {item.result.split(':')[0]}
                     </Big3Text>

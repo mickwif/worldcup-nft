@@ -3,7 +3,7 @@ import { Big3Box, Big3FlexBox, Big3Image, Big3Text, Big3Icon } from 'big3-styled
 import { MatchType, GameResult } from '@/config/constant';
 
 import { useMemo, useState, useEffect } from 'react';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import TimeCountDown from '../TimeCountdown';
 import Teams from '@/config/team.json';
 import { useGroupGameContract } from '@/hooks/useContract';
@@ -15,6 +15,7 @@ import BettingSteps from '../BettingSteps';
 import { ethers } from 'ethers';
 import { eventBus } from '@/utils/eventBus';
 import { EventKey } from '@/config/constant';
+import { Group_Match_Reward } from '@/config/constant';
 interface IProps {
     id: number;
     type: MatchType;
@@ -44,28 +45,32 @@ export default (props: IProps) => {
         return Teams[teamB];
     }, [teamB]);
 
-    const getRewardAmount = async () => {
-        try {
-            const res = await groupGameContract.getRewardAmount();
-            console.log('reward: ', ethers.utils.formatEther(res));
-            setRewardAmount(Number(ethers.utils.formatEther(res)));
-        } catch (e) {
-            console.log(e);
-        }
-    };
+    // const getRewardAmount = async () => {
+    //     try {
+    //         const res = await groupGameContract.getRewardAmount();
+    //         console.log('reward: ', ethers.utils.formatEther(res));
+    //         setRewardAmount(Number(ethers.utils.formatEther(res)));
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // };
     const getTotalPredictCountByGame = async () => {
         try {
             const res = await groupGameContract.getTotalPredictCountByGame(id);
             const num = res.toNumber();
             setTotalPredictCount(num);
         } catch (e) {
-            console.log(e);
+            // console.log(e);
         }
     };
     // getUserNFTByGameAndNotPredicted
     const handleBet = async (gameId: number, homeTeamId: number, awayTeamId: number, result: GameResult) => {
         if (!account) {
             eventBus.$emit(EventKey.UNCONNECTED);
+            return;
+        }
+        if (deadline * 1000 < Date.now()) {
+            message.warning('Match started, can not bet now.');
             return;
         }
         try {
@@ -84,7 +89,7 @@ export default (props: IProps) => {
         }
     };
     const handleOk = async () => {
-        getRewardAmount();
+        // getRewardAmount();
         getTotalPredictCountByGame();
         handleCancel();
     };
@@ -93,7 +98,7 @@ export default (props: IProps) => {
     };
 
     useEffect(() => {
-        getRewardAmount();
+        // getRewardAmount();
         getTotalPredictCountByGame();
     }, [id, provider]);
     return (
@@ -104,7 +109,7 @@ export default (props: IProps) => {
                     <Big3Text color="#7E829D" marginRight={3}>
                         Prize Poll:
                     </Big3Text>
-                    <Big3Text color="#F2DA0E">{rewardAmount * totalPredictCount} Token</Big3Text>
+                    <Big3Text color="#F2DA0E">{Group_Match_Reward * totalPredictCount} Token</Big3Text>
                 </Big3FlexBox>
                 <Big3Box className="match-type">{typeText}</Big3Box>
                 <Big3FlexBox align="center" fontFamily="Helvetica" fontWeight={700} fontSize={12}>

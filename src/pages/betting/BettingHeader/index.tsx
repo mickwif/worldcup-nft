@@ -5,24 +5,50 @@ import { history } from 'umi';
 import { useEffect, useState } from 'react';
 import { useWeb3React, useWeb3Provider } from 'big3-web3';
 import { ethers } from 'ethers';
+import { useGroupGameContract, useErc20Contract } from '@/hooks/useContract';
+
 export default () => {
     const [ethBalance, setEthBalance] = useState('0.0');
     const [tokenBalance, setTokenBalance] = useState(0);
+    const [unclaimedReward, setUnclaimedReward] = useState(0);
     const { account } = useWeb3React();
     const { provider } = useWeb3Provider();
+    const groupGameContract = useGroupGameContract();
+    const tokenContract = useErc20Contract('RewardToken');
+
     const fetchBalance = async () => {
         const balance = await provider.getSigner().getBalance();
         const balanceNum = ethers.utils.formatEther(balance);
         console.log('balance: ', balanceNum);
         setEthBalance(Number(balanceNum).toFixed(2));
     };
-    const fetchTokenBalance = async () => {};
+
+    const fetchTokenBalance = async () => {
+        try {
+            const res = await tokenContract.balanceOf(account);
+            console.log('token res', ethers.utils.formatEther(res));
+            setTokenBalance(Number(ethers.utils.formatEther(res)));
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    const fetchUnclaimedReward = async () => {
+        try {
+            const res = await groupGameContract.getUnclaimedAmount(account);
+            console.log('reward res: ', res);
+            setUnclaimedReward(Number(ethers.utils.formatEther(res)));
+        } catch (e) {
+            console.log(e);
+        }
+    };
     useEffect(() => {
-        if (account && provider) {
+        if (account && provider && tokenContract) {
             fetchBalance();
             fetchTokenBalance();
+            fetchUnclaimedReward();
         }
-    }, [account, provider]);
+    }, [account, provider, tokenContract]);
     return (
         <Big3FlexBox justify="space-between" align="center" marginTop={10} className="betting-header">
             <Big3FlexBox align="center">
@@ -34,9 +60,15 @@ export default () => {
                         <Big3Text>0 Token</Big3Text>
                     </Big3FlexBox>
                 </Big3FlexBox>
-                {/* <Button className="betting-balance-claim">Claim</Button> */}
+                <Button
+                    className={`betting-balance-claim ${unclaimedReward > 0 && 'betting-balance-unclaimed'}`}
+                    disabled={unclaimedReward === 0}
+                    onClick={() => history.push('/positions')}
+                >
+                    Claim
+                </Button>
             </Big3FlexBox>
-           
+
             <Big3FlexBox align="center">
                 <Big3FlexBox
                     onClick={() => {

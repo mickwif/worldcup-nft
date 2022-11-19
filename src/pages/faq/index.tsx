@@ -100,7 +100,7 @@ const Home = () => {
                         participate in the subsequent games.
                     </p>
                     <p className="part-content-white">
-                        If you hold the NFT that has reached the next stage, you can choose to advance it.1st/2nd +
+                        If you hold the NFT that has reached the next stage, you can choose to advance it. 1st/2nd +
                         300,000 $nftb = 1st/2nd in Round Of 16
                     </p>
                 </Big3FlexBox>

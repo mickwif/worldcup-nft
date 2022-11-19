@@ -55,6 +55,7 @@ const MyPositions = () => {
         }
         try {
             const res = await groupGameContract.getPredictsByUser(account, pageNum, PAGE_SIZE);
+            console.log('positions: ', res);
             const total = res[0].toNumber();
 
             const list = res[1].map((item) => ({
@@ -63,6 +64,7 @@ const MyPositions = () => {
                 teamA: Teams[item.homeTeamId],
                 teamB: Teams[item.awayTeamId],
                 result: `${item.homeScore}:${item.awayScore}`,
+                finalResult: item.finalResult,
                 betTeam: getBetTeam(item),
                 betType: getBetType(item),
                 stakeToken: item.count.toNumber(),
@@ -82,9 +84,11 @@ const MyPositions = () => {
     const handleClaim = async (item: any) => {
         try {
             const tx = await groupGameContract.claim(item.id);
+            message.info('Claim processing.');
             const res = await tx.wait();
             console.log(res);
             fetchUserPositions();
+            message.success('Claim successfully.');
         } catch (e) {
             console.log(e);
             message.error('Claim failed. Please try later.');
@@ -132,15 +136,42 @@ const MyPositions = () => {
                             marginRight={22}
                         ></Big3Image>
                     </Big3FlexBox>
-                    <Big3Text fontFamily="Codec Pro" fontWeight={500} fontSize={16} color="#FFFFFF">
-                        {item.result.split(':')[0]}
-                    </Big3Text>
-                    <Big3Text fontFamily="Codec Pro" fontWeight={400} fontSize={14} color="#4A4A60" margin="0 8px">
-                        :
-                    </Big3Text>
-                    <Big3Text fontFamily="Codec Pro" fontWeight={500} fontSize={16} color="#FFFFFF" marginRight={22}>
-                        {item.result.split(':')[1]}
-                    </Big3Text>
+                    {item.finalResult !== GameResult.None && (
+                        <>
+                            <Big3Text fontFamily="Codec Pro" fontWeight={500} fontSize={16} color="#FFFFFF">
+                                {item.result.split(':')[0]}
+                            </Big3Text>
+                            <Big3Text
+                                fontFamily="Codec Pro"
+                                fontWeight={400}
+                                fontSize={14}
+                                color="#4A4A60"
+                                margin="0 8px"
+                            >
+                                :
+                            </Big3Text>
+                            <Big3Text
+                                fontFamily="Codec Pro"
+                                fontWeight={500}
+                                fontSize={16}
+                                color="#FFFFFF"
+                                marginRight={22}
+                            >
+                                {item.result.split(':')[1]}
+                            </Big3Text>
+                        </>
+                    )}
+                    {item.finalResult === GameResult.None && (
+                        <Big3Text
+                            fontFamily="Codec Pro"
+                            fontWeight={500}
+                            fontSize={16}
+                            color="#FFFFFF"
+                            marginRight={22}
+                        >
+                            vs
+                        </Big3Text>
+                    )}
                     <Big3Image
                         src={`./nations/${item.teamB.toLowerCase()}.png`}
                         width={28}
@@ -232,7 +263,7 @@ const MyPositions = () => {
             key: 'actions',
             render: (text, item) => (
                 <>
-                    {!item.isClaimed && (
+                    {!item.isClaimed && item.finalResult !== GameResult.None && (
                         <Button className="btn-claim-reward" onClick={() => handleClaim(item)}>
                             Claim
                         </Button>

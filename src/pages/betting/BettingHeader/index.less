@@ -3,7 +3,7 @@
     width: 1440px;
     left: 50%;
     /* top: 0; */
-    padding: 0 100px;
+    padding: 0 50px;
     z-index: 100;
     margin: 0 auto;
     transform: translateX(-50%);
@@ -53,6 +53,17 @@
     line-height: 10px;
     text-align: center;
     color: #ffffff;
+    &[disabled]:hover,
+    &:disabled {
+        color: #ffffff;
+        background: rgba(255, 223, 74, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+}
+.betting-balance-unclaimed {
+    background: #fed411;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    color: #00000f;
 }
 .betting-positions-results {
     position: relative;

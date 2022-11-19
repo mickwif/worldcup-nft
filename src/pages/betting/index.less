@@ -10,11 +10,11 @@
 .betting-head-bg {
     width: 100vw;
     height: 743px;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     z-index: -1;
-    background: url('/betting-head-bg.png') no-repeat top center;
+    background: url(/betting-head-bg.png) no-repeat top center;
     background-size: cover;
 }
 .balance-heading {
@@ -37,8 +37,8 @@
 }
 .group-match-list {
     flex-wrap: wrap;
-    width: 100%;
-    justify-items: flex-start;
+    width: 1200px;
+    justify-content: space-between;
     > div {
         margin-right: 32px;
         margin-bottom: 32px;

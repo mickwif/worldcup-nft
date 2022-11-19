@@ -18,10 +18,16 @@ import { MatchType } from '@/config/constant';
 import { useState, useEffect, useRef } from 'react';
 import GroupMatches from '@/utils/matches';
 import { formatTimestamp } from '@/utils';
+import { useGroupGameContract } from '@/hooks/useContract';
+import { useWeb3React, useWeb3Provider } from 'big3-web3';
 const Betting = () => {
     const [matchType, setMatchType] = useState(MatchType.Group);
+    const { provider } = useWeb3Provider();
+    const groupGameContract = useGroupGameContract();
+    const [groupMatches, setGroupMatches] = useState<any>({});
     const internalRef = useRef(null);
     console.log('GroupMatches: ', GroupMatches);
+
     useEffect(() => {
         internalRef.current = setInterval(() => {
             const now = Date.now();
@@ -46,11 +52,12 @@ const Betting = () => {
         };
     }, []);
     return (
-        <Big3Page position="relative">
-            <Big3PortalNode className="betting-head-bg" container={document.getElementById('content')} />
+        <Big3Page>
+            <Big3FlexBox className="betting-head-bg"></Big3FlexBox>
+            {/* <Big3PortalNode className="betting-head-bg" container={document.querySelector('main')} /> */}
             <Big3PortalNode className="betting-bg" container={document.getElementById('content')} />
             <BettingHeader />
-            <Big3FlexBox column align="center" marginBottom={80}>
+            <Big3FlexBox column align="center" marginBottom={110} marginTop={88}>
                 <Big3Heading className="balance-heading">The Simpsons NFTfi Game</Big3Heading>
                 <Big3Paragraph className="balance-match-text">Group Stage</Big3Paragraph>
             </Big3FlexBox>
