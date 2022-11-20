@@ -65,8 +65,8 @@ export const Contracts = {
     },
     '0x1': {
         GroupNFT: '0xC74407208c0b6dc1aa650545e099Df39770Dc88d',
-        GroupGame: '0x7BA2743950C812476cDfcD3038e768d557Bc4D87',
-        RewardToken: '0x7e45Cdff4F495B36F6c53d96D42366bad8FBBD77',
+        GroupGame: '0xa3BB7A5bF10EC374D5f7764cF414D72Dfdf4D77F',
+        RewardToken: '0xBB6f87F033f140DDb16b491256fA9ce38A02aA6b',
     },
 };
 

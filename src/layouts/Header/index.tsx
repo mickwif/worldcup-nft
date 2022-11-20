@@ -96,14 +96,14 @@ export default () => {
                     </Big3NavLink>
                 </Big3FlexBox>
                 <Big3FlexBox className="header-right" align="center">
-                    <Button
+                    {/* <Button
                         className="btn-get-token"
                         onClick={() => {
                             window.open('https://galxe.com/NFootball/campaign/GCfsVUw7EU', '_blank');
                         }}
                     >
                         Get Free Token
-                    </Button>
+                    </Button> */}
                     <WalletConnector />
                 </Big3FlexBox>
             </Big3FlexBox>

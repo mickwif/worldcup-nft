@@ -279,9 +279,9 @@ const MyPositions = () => {
             <Big3FlexBox column align="center">
                 <Big3Heading
                     fontFamily="Lilita One"
-                    font-weight={400}
-                    font-size={40}
-                    line-height={56}
+                    fontWeight={400}
+                    fontSize={40}
+                    lineHeight={56}
                     color="#FFFFFF"
                     marginBottom={40}
                 >
