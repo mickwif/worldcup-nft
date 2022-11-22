@@ -19,6 +19,7 @@ import Teams from '@/config/team.json';
 import { formatTimestamp } from '@/utils';
 import { GameResult } from '@/config/constant';
 import { message } from 'antd';
+import { ethers } from 'ethers';
 const PAGE_SIZE = 10;
 
 const MyPositions = () => {
@@ -68,7 +69,7 @@ const MyPositions = () => {
                 betTeam: getBetTeam(item),
                 betType: getBetType(item),
                 stakeToken: item.count.toNumber(),
-                reward: item.reward.toNumber(),
+                reward: Number(ethers.utils.formatEther(item.reward)),
                 isClaimed: item.isClaimed,
             }));
             list.sort((a, b) => {

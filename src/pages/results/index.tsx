@@ -31,11 +31,12 @@ const MatchResults = () => {
     const fetchGameResults = async () => {
         try {
             const endGames = await groupGameContract.getEndGameList();
-            console.log(endGames);
-            if (endGames.length === 0) {
+            const endGameIds = Array.from(new Set(endGames));
+            console.log(endGameIds);
+            if (endGameIds.length === 0) {
                 return;
             }
-            const res: any[] = await groupGameContract.getGameByIds(endGames);
+            const res: any[] = await groupGameContract.getGameByIds(endGameIds);
             console.log(res);
             if (res[0] && res[1]) {
                 const list = res[0].map((item) => ({

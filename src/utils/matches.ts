@@ -5,12 +5,15 @@ export const getGroupMatches = () => {
     const result = {};
     for (const key of Object.keys(GameDates)) {
         if (new Date(key).getTime() < new Date('2022-12-03').getTime()) {
-            result[key] = GameDates[key]
+            const matches = GameDates[key]
                 .map((id) => {
                     const game = GamesJson[id];
                     return game;
                 })
                 .filter((item) => item.deadline * 1000 > Date.now());
+            if (matches.length > 0) {
+                result[key] = matches;
+            }
         }
     }
     return result;

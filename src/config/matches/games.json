@@ -58,7 +58,7 @@
   "9": {
     "id": 9,
     "homeTeamId": 22,
-    "awayTeamId": 21,
+    "awayTeamId": 23,
     "deadline": 1669197600,
     "type": 0
   },
@@ -337,113 +337,113 @@
   },
   "49": {
     "id": 49,
-    "homeTeamId": -1,
-    "awayTeamId": -1,
+    "homeTeamId": 0,
+    "awayTeamId": 0,
     "deadline": 0,
     "type": 1
   },
   "50": {
     "id": 50,
-    "homeTeamId": -1,
-    "awayTeamId": -1,
+    "homeTeamId": 0,
+    "awayTeamId": 0,
     "deadline": 0,
     "type": 1
   },
   "51": {
     "id": 51,
-    "homeTeamId": -1,
-    "awayTeamId": -1,
+    "homeTeamId": 0,
+    "awayTeamId": 0,
     "deadline": 0,
     "type": 1
   },
   "52": {
     "id": 52,
-    "homeTeamId": -1,
-    "awayTeamId": -1,
+    "homeTeamId": 0,
+    "awayTeamId": 0,
     "deadline": 0,
     "type": 1
   },
   "53": {
     "id": 53,
-    "homeTeamId": -1,
-    "awayTeamId": -1,
+    "homeTeamId": 0,
+    "awayTeamId": 0,
     "deadline": 0,
     "type": 1
   },
   "54": {
     "id": 54,
-    "homeTeamId": -1,
-    "awayTeamId": -1,
+    "homeTeamId": 0,
+    "awayTeamId": 0,
     "deadline": 0,
     "type": 1
   },
   "55": {
     "id": 55,
-    "homeTeamId": -1,
-    "awayTeamId": -1,
+    "homeTeamId": 0,
+    "awayTeamId": 0,
     "deadline": 0,
     "type": 1
   },
   "56": {
     "id": 56,
-    "homeTeamId": -1,
-    "awayTeamId": -1,
+    "homeTeamId": 0,
+    "awayTeamId": 0,
     "deadline": 0,
     "type": 1
   },
   "57": {
     "id": 57,
-    "homeTeamId": -1,
-    "awayTeamId": -1,
+    "homeTeamId": 0,
+    "awayTeamId": 0,
     "deadline": 0,
     "type": 2
   },
   "58": {
     "id": 58,
-    "homeTeamId": -1,
-    "awayTeamId": -1,
+    "homeTeamId": 0,
+    "awayTeamId": 0,
     "deadline": 0,
     "type": 2
   },
   "59": {
     "id": 59,
-    "homeTeamId": -1,
-    "awayTeamId": -1,
+    "homeTeamId": 0,
+    "awayTeamId": 0,
     "deadline": 0,
     "type": 2
   },
   "60": {
     "id": 60,
-    "homeTeamId": -1,
-    "awayTeamId": -1,
+    "homeTeamId": 0,
+    "awayTeamId": 0,
     "deadline": 0,
     "type": 2
   },
   "61": {
     "id": 61,
-    "homeTeamId": -1,
-    "awayTeamId": -1,
+    "homeTeamId": 0,
+    "awayTeamId": 0,
     "deadline": 0,
     "type": 3
   },
   "62": {
     "id": 62,
-    "homeTeamId": -1,
-    "awayTeamId": -1,
+    "homeTeamId": 0,
+    "awayTeamId": 0,
     "deadline": 0,
     "type": 3
   },
   "63": {
     "id": 63,
-    "homeTeamId": -1,
-    "awayTeamId": -1,
+    "homeTeamId": 0,
+    "awayTeamId": 0,
     "deadline": 0,
     "type": 4
   },
   "64": {
     "id": 64,
-    "homeTeamId": -1,
-    "awayTeamId": -1,
+    "homeTeamId": 0,
+    "awayTeamId": 0,
     "deadline": 0,
     "type": 5
   }
