@@ -46,6 +46,15 @@ export enum MatchType {
     Final,
 }
 
+export enum MatchTypeText {
+    Group = 'Group',
+    Top8 = '1/8',
+    Top4 = '1/4',
+    SemiFinal = 'Semi-final',
+    ThirdFinal = 'Third-final',
+    Final = 'Final',
+}
+
 // GameResult.None：还没有⽐赛结果，值为0
 // GameResult.Win：主队获胜，值为1
 // GameResult.Draw：⽐赛平局，值为2

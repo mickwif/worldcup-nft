@@ -30,7 +30,9 @@ interface IProps {
 export default (props: IProps) => {
     const { id, type, typeText, deadline, date, matchResult, teamA, teamB } = props;
     const { account } = useWeb3React();
-    const { provider } = useWeb3Provider();
+    const exclusiveProvider = new ethers.providers.JsonRpcProvider('https://eth-04.dccn.ankr.com/');
+
+    const { provider } = useWeb3Provider(exclusiveProvider);
     const [rewardAmount, setRewardAmount] = useState(0);
     const [totalPredictCount, setTotalPredictCount] = useState(0);
     const groupGameContract = useGroupGameContract();
@@ -56,11 +58,12 @@ export default (props: IProps) => {
     // };
     const getTotalPredictCountByGame = async () => {
         try {
+            console.log(provider);
             const res = await groupGameContract.getTotalPredictCountByGame(id);
             const num = res.toNumber();
             setTotalPredictCount(num);
         } catch (e) {
-            // console.log(e);
+            console.log(e);
         }
     };
     // getUserNFTByGameAndNotPredicted

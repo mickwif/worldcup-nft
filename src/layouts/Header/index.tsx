@@ -72,18 +72,18 @@ export default () => {
                     >
                         <Big3Text>BETTING</Big3Text>
                     </Big3NavLink>
-                    <AntPopover content="Coming soon" placement="bottom">
-                        <Big3NavLink
-                            className={activeStyle(Routers.SYNTHETIC)}
-                            // onClick={() => history.push(Routers.SYNTHETIC)}
-                            fontSize={16}
-                            lineHeight={16}
-                            fontWeight={500}
-                            fontFamily="Codec Pro"
-                        >
-                            <Big3Text>SYNTHETIC</Big3Text>
-                        </Big3NavLink>
-                    </AntPopover>
+
+                    <Big3NavLink
+                        className={activeStyle(Routers.SYNTHETIC)}
+                        onClick={() => history.push(Routers.SYNTHETIC)}
+                        fontSize={16}
+                        lineHeight={16}
+                        fontWeight={500}
+                        fontFamily="Codec Pro"
+                    >
+                        <Big3Text>SYNTHETIC</Big3Text>
+                    </Big3NavLink>
+
                     <Big3NavLink
                         className={activeStyle(Routers.FAQ)}
                         onClick={() => history.push(Routers.FAQ)}

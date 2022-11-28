@@ -14,42 +14,52 @@ import BettingCardLarge from '@/components/BettingCardLarge';
 // import GroupMatches from '@/config/matches/group_matches.json';
 import Top8Matches from '@/config/matches/top8_matches.json';
 import { getGroupByTeamId } from '@/utils/matches';
-import { MatchType } from '@/config/constant';
+import { MatchType, MatchTypeText } from '@/config/constant';
 import { useState, useEffect, useRef } from 'react';
 import GroupMatches from '@/utils/matches';
 import { formatTimestamp } from '@/utils';
 import { useGroupGameContract } from '@/hooks/useContract';
 import { useWeb3React, useWeb3Provider } from 'big3-web3';
 const Betting = () => {
-    const [matchType, setMatchType] = useState(MatchType.Group);
+    const [matchType, setMatchType] = useState(MatchType.Top8);
     const { provider } = useWeb3Provider();
     const groupGameContract = useGroupGameContract();
     const [groupMatches, setGroupMatches] = useState<any>({});
     const internalRef = useRef(null);
     console.log('GroupMatches: ', GroupMatches);
 
+    const finalMatches = [{
+        id: 111,
+        type: MatchType.Top8,
+        typeText: MatchTypeText.Top8,
+        teamA: 1,
+        teamB:2,
+        deadline:1669996800000,
+
+    }]
+
     useEffect(() => {
-        internalRef.current = setInterval(() => {
-            const now = Date.now();
-            const top8Start = new Date('2022-12-03 20:00').getTime();
-            const top4Start = new Date('2022-12-09 20:00').getTime();
-            const semiFinalStart = new Date('2022-12-14 00:00').getTime();
-            const finalStart = new Date('2022-12-17 20:00').getTime();
-            if (now >= top8Start && now < top4Start) {
-                // TODO 时区问题
-                setMatchType(MatchType.Top8);
-            } else if (now >= top4Start && now < semiFinalStart) {
-                setMatchType(MatchType.Top4);
-            } else if (now >= semiFinalStart && now < finalStart) {
-                setMatchType(MatchType.SemiFinal);
-            } else if (now >= finalStart) {
-                setMatchType(MatchType.Final);
-            }
-        }, 10 * 1000);
-        return () => {
-            clearInterval(internalRef.current);
-            internalRef.current = null;
-        };
+        // internalRef.current = setInterval(() => {
+        //     const now = Date.now();
+        //     const top8Start = new Date('2022-12-03 20:00').getTime();
+        //     const top4Start = new Date('2022-12-09 20:00').getTime();
+        //     const semiFinalStart = new Date('2022-12-14 00:00').getTime();
+        //     const finalStart = new Date('2022-12-17 20:00').getTime();
+        //     if (now >= top8Start && now < top4Start) {
+        //         // TODO 时区问题
+        //         setMatchType(MatchType.Top8);
+        //     } else if (now >= top4Start && now < semiFinalStart) {
+        //         setMatchType(MatchType.Top4);
+        //     } else if (now >= semiFinalStart && now < finalStart) {
+        //         setMatchType(MatchType.SemiFinal);
+        //     } else if (now >= finalStart) {
+        //         setMatchType(MatchType.Final);
+        //     }
+        // }, 10 * 1000);
+        // return () => {
+        //     clearInterval(internalRef.current);
+        //     internalRef.current = null;
+        // };
     }, []);
     return (
         <Big3Page>

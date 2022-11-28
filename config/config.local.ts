@@ -7,9 +7,8 @@ export default defineConfig({
         // 'process.env.MOCK_TOKEN': process.env.MOCK_TOKEN, // .env.development
         'process.env.HASURA_API': '/api/hasura-cache/v1/graphql',
         'process.env.HASURA_ADMIN_SECRET': '',
-        'process.env.RPC_NODE_1': '',
-        'process.env.RPC_NODE_2': '',
-        'process.env.RPC_NODE_3': '',
+        // 'process.env.RPC_URL': 'https://goerli.infura.io/v3/5f8cbc2e323b4613b0cab671d1c31ee3',
+        'process.env.RPC_URL': 'https://eth-04.dccn.ankr.com/',
         // 'process.env.CHAIN_ENV': 'goerli',
         'process.env.CHAIN_ENV': 'prod',
         'process.env.EKS': '',

@@ -2,7 +2,7 @@ import { ethers } from 'ethers';
 
 import erc20ABI from '@/config/abi/ERC20.json';
 
-export const exclusiveProvider = new ethers.providers.JsonRpcProvider(process.env.RPC_NODE_1);
+export const exclusiveProvider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
 
 export const getContract = (abi: any, address: string, signer?: ethers.Signer | ethers.providers.Provider) => {
     if (!address || !abi) return null;
