@@ -14,19 +14,44 @@ import BettingCardLarge from '@/components/BettingCardLarge';
 // import GroupMatches from '@/config/matches/group_matches.json';
 import Top8Matches from '@/config/matches/top8_matches.json';
 import { getGroupByTeamId } from '@/utils/matches';
-import { MatchType } from '@/config/constant';
+import { MatchType, GAMES_JSON_URL } from '@/config/constant';
 import { useState, useEffect, useRef } from 'react';
 import GroupMatches from '@/utils/matches';
 import { formatTimestamp } from '@/utils';
 import { useGroupGameContract } from '@/hooks/useContract';
 import { useWeb3React, useWeb3Provider } from 'big3-web3';
+import { getGameDatesJson, getGamesJson } from '@/api/games';
+
 const Betting = () => {
     const [matchType, setMatchType] = useState(MatchType.Group);
     const { provider } = useWeb3Provider();
     const groupGameContract = useGroupGameContract();
     const [groupMatches, setGroupMatches] = useState<any>({});
+    const [finalMatches, setFinalMatches] = useState<any>({});
     const internalRef = useRef(null);
     console.log('GroupMatches: ', GroupMatches);
+
+    const fetchMatches = async () => {
+        const gamesJson = await getGamesJson();
+        const gameDates = await getGameDatesJson();
+        const groupGames = {};
+        for (const key of Object.keys(gameDates)) {
+            const matches = gameDates[key]
+                .map((id) => {
+                    const game = gamesJson[id];
+                    return game;
+                })
+                .filter((item) => item.deadline * 1000 > Date.now());
+            if (matches.length > 0) {
+                groupGames[key] = matches;
+            }
+        }
+        setGroupMatches(groupGames);
+    };
+
+    useEffect(() => {
+        fetchMatches();
+    }, []);
 
     useEffect(() => {
         internalRef.current = setInterval(() => {
@@ -59,47 +84,27 @@ const Betting = () => {
             <BettingHeader />
             <Big3FlexBox column align="center" marginBottom={110} marginTop={88}>
                 <Big3Heading className="balance-heading">The Simpsons NFTfi Game</Big3Heading>
-                <Big3Paragraph className="balance-match-text">Group Stage</Big3Paragraph>
+                {/* <Big3Paragraph className="balance-match-text">Group Stage</Big3Paragraph> */}
             </Big3FlexBox>
             <Big3FlexBox column>
-                {matchType === MatchType.Group &&
-                    Object.keys(GroupMatches).map((key: string) => (
-                        <Big3FlexBox column align="center" marginBottom={56} width="100%">
-                            <div className="match-date">{formatTimestamp(key, 'DD MMM')}- All Match</div>
-                            <Big3FlexBox className="group-match-list">
-                                {GroupMatches[key].map((item: any) => (
-                                    <BettingCard
-                                        id={item.id}
-                                        type={MatchType.Group}
-                                        typeText={'Group ' + getGroupByTeamId(item.homeTeamId)}
-                                        teamA={item.homeTeamId}
-                                        teamB={item.awayTeamId}
-                                        deadline={item.deadline * 1000}
-                                        date={key}
-                                        matchResult={null}
-                                    />
-                                ))}
-                            </Big3FlexBox>
+                {Object.keys(groupMatches).map((key: string) => (
+                    <Big3FlexBox column align="center" marginBottom={56} width="100%">
+                        <div className="match-date">{formatTimestamp(key, 'DD MMM')}- All Match</div>
+                        <Big3FlexBox className="group-match-list">
+                            {groupMatches[key].map((item: any) => (
+                                <BettingCard
+                                    id={item.id}
+                                    type={item.type}
+                                    teamA={item.homeTeamId}
+                                    teamB={item.awayTeamId}
+                                    deadline={item.deadline * 1000}
+                                    date={key}
+                                    matchResult={null}
+                                />
+                            ))}
                         </Big3FlexBox>
-                    ))}
-                {matchType !== MatchType.Group &&
-                    Object.keys(Top8Matches).map((key: string) => (
-                        <Big3FlexBox column align="center" marginBottom={56} width="100%">
-                            <Big3Image src="./img-match-day.png" marginBottom={24} width={235} height={61} />
-                            <Big3FlexBox className="top8-match-list" column>
-                                {Top8Matches[key].map((item: any) => (
-                                    <BettingCardLarge
-                                        type={MatchType.Group}
-                                        typeText={item.typeText}
-                                        teamA={item.teamA}
-                                        teamB={item.teamB}
-                                        matchTime={`${key} ${item.matchTime}`}
-                                        matchResult={null}
-                                    />
-                                ))}
-                            </Big3FlexBox>
-                        </Big3FlexBox>
-                    ))}
+                    </Big3FlexBox>
+                ))}
             </Big3FlexBox>
             <Big3FlexBox column marginTop={80}>
                 <Big3Text fontFamily="Codec Pro" fontWeight={600} fontSize="20px" color="#FFFFFF" marginBottom={24}>

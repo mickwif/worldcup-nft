@@ -1,7 +1,7 @@
 import './index.less';
 import { Big3Box, Big3FlexBox, Big3Image, Big3Text, Big3Icon, Big3Paragraph } from 'big3-styled-base';
 import { TomatoFullscreenModal, AntButton, AntModal } from '@/components/antd';
-import { GameResult, IPFS_URL, Group_Match_Reward } from '@/config/constant';
+import { GameResult, IPFS_URL, Group_Match_Reward, MatchType } from '@/config/constant';
 import { useState, useEffect, useMemo } from 'react';
 import Teams from '@/config/team.json';
 import NationFlagRect from '../NationFlagRect';
@@ -19,10 +19,11 @@ interface IProps {
     betType: GameResult;
     onCancel: Function;
     onOK: Function;
+    type: MatchType;
 }
 const TOKEN_REWARD_UNIT = Group_Match_Reward;
 export default (props: IProps) => {
-    const { gameId, homeTeamId, awayTeamId, tokenIds, betType, onCancel, onOK } = props;
+    const { gameId, homeTeamId, awayTeamId, tokenIds, betType, onCancel, onOK, type } = props;
     const groupGameContract = useGroupGameContract();
     const [currentStep, setCurrentStep] = useState(1);
     const [tokenSelected, setTokenSelected] = useState([]);
@@ -148,17 +149,19 @@ export default (props: IProps) => {
                             <NationCircle nation={Teams[homeTeamId]} width={36} height={36}></NationCircle>
                             <Big3Text className="bet-nation-name">{Teams[homeTeamId]} Win</Big3Text>
                         </Big3FlexBox>
-                        <Big3FlexBox
-                            column
-                            align="center"
-                            className={`bet-result ${betType === GameResult.Draw ? 'bet-result-selected' : ''} `}
-                            padding="12px 24px"
-                            marginLeft={16}
-                            marginRight={16}
-                        >
-                            <NationPair nation1={Teams[homeTeamId]} nation2={Teams[awayTeamId]}></NationPair>
-                            <Big3Text className="bet-nation-name">Draw</Big3Text>
-                        </Big3FlexBox>
+                        {type === MatchType.Group && (
+                            <Big3FlexBox
+                                column
+                                align="center"
+                                className={`bet-result ${betType === GameResult.Draw ? 'bet-result-selected' : ''} `}
+                                padding="12px 24px"
+                                marginLeft={16}
+                                marginRight={16}
+                            >
+                                <NationPair nation1={Teams[homeTeamId]} nation2={Teams[awayTeamId]}></NationPair>
+                                <Big3Text className="bet-nation-name">Draw</Big3Text>
+                            </Big3FlexBox>
+                        )}
                         <Big3FlexBox
                             column
                             align="center"

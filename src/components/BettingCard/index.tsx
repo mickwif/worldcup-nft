@@ -1,6 +1,6 @@
 import './index.less';
 import { Big3Box, Big3FlexBox, Big3Image, Big3Text, Big3Icon } from 'big3-styled-base';
-import { MatchType, GameResult } from '@/config/constant';
+import { MatchType, GameResult, MatchTypeText } from '@/config/constant';
 
 import { useMemo, useState, useEffect } from 'react';
 import { Button, message } from 'antd';
@@ -16,10 +16,13 @@ import { ethers } from 'ethers';
 import { eventBus } from '@/utils/eventBus';
 import { EventKey } from '@/config/constant';
 import { Group_Match_Reward } from '@/config/constant';
+import classnames from 'classnames';
+import { getGroupByTeamId } from '@/utils/matches';
+
 interface IProps {
     id: number;
     type: MatchType;
-    typeText: string;
+    // typeText: string;
     teamA: number;
     teamB: number;
     deadline: number;
@@ -28,7 +31,7 @@ interface IProps {
 }
 
 export default (props: IProps) => {
-    const { id, type, typeText, deadline, date, matchResult, teamA, teamB } = props;
+    const { id, type, deadline, date, matchResult, teamA, teamB } = props;
     const { account } = useWeb3React();
     const { provider } = useWeb3Provider();
     const [rewardAmount, setRewardAmount] = useState(0);
@@ -44,6 +47,14 @@ export default (props: IProps) => {
     const teamBName = useMemo(() => {
         return Teams[teamB];
     }, [teamB]);
+
+    const typeText = useMemo(() => {
+        if (type === MatchType.Group) {
+            return 'Group ' + getGroupByTeamId(teamA);
+        } else {
+            return MatchTypeText[type];
+        }
+    }, [type, teamA]);
 
     // const getRewardAmount = async () => {
     //     try {
@@ -102,7 +113,7 @@ export default (props: IProps) => {
         getTotalPredictCountByGame();
     }, [id, provider]);
     return (
-        <Big3Box className="betting-card">
+        <Big3Box className={classnames('betting-card', { 'betting-card-large': type !== MatchType.Group })}>
             <Big3FlexBox marginBottom={30} justify="space-between" align="center" position="relative">
                 <Big3FlexBox align="center" fontFamily="Helvetica" fontWeight={700} fontSize={12}>
                     <Big3Icon src="/football-token.svg" marginRight={6} />
@@ -121,7 +132,12 @@ export default (props: IProps) => {
                 </Big3FlexBox>
             </Big3FlexBox>
 
-            <Big3FlexBox justify="space-between" align="flex-end">
+            <Big3FlexBox
+                justify="space-between"
+                align="flex-end"
+                paddingLeft={type !== MatchType.Group ? 120 : 0}
+                paddingRight={type !== MatchType.Group ? 120 : 0}
+            >
                 <Big3FlexBox column align="center">
                     <Big3Image
                         src={`/nations/${teamAName.toLowerCase()}.png`}
@@ -135,7 +151,10 @@ export default (props: IProps) => {
                         {teamAName}
                     </Big3Text>
                     <Button
-                        className="btn-bet btn-bet-left"
+                        className={classnames({
+                            'btn-bet btn-bet-left': type === MatchType.Group,
+                            'btn-bet-large btn-bet-left-large': type !== MatchType.Group,
+                        })}
                         onClick={() => handleBet(id, teamA, teamB, GameResult.Win)}
                     >
                         Win
@@ -161,7 +180,10 @@ export default (props: IProps) => {
                         {teamBName}
                     </Big3Text>
                     <Button
-                        className="btn-bet btn-bet-right"
+                        className={classnames({
+                            'btn-bet btn-bet-right': type === MatchType.Group,
+                            'btn-bet-large btn-bet-left-large': type !== MatchType.Group,
+                        })}
                         onClick={() => handleBet(id, teamA, teamB, GameResult.Lose)}
                     >
                         Win
@@ -184,6 +206,7 @@ export default (props: IProps) => {
                     betType={betType}
                     onOK={handleOk}
                     onCancel={handleCancel}
+                    type={type}
                 />
             </TomatoFullscreenModal>
         </Big3Box>

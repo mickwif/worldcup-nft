@@ -46,6 +46,15 @@ export enum MatchType {
     Final,
 }
 
+export const MatchTypeText = {
+    0: 'Group',
+    1: '1/8',
+    2: '1/4',
+    3: '1/2',
+    4: 'Third',
+    5: 'Final',
+};
+
 // GameResult.None：还没有⽐赛结果，值为0
 // GameResult.Win：主队获胜，值为1
 // GameResult.Draw：⽐赛平局，值为2
@@ -74,3 +83,9 @@ export const IPFS_URL = 'https://nftstorage.link/ipfs/bafybeiezadvcfvdrgc4rfaczq
 export const META_URL = 'https://bafybeiacetdrnjarh55hmdbgrpvcgi6rfluat3q7xcpi5l4oyclrag4vau.ipfs.nftstorage.link';
 
 export const Group_Match_Reward = 10000;
+
+export const GAMES_JSON_URL = {
+    GameDates: 'https://www.nfootball.io/data/game_dates.json',
+    GameTypes: 'https://www.nfootball.io/data/game_types.json',
+    Games: 'https://www.nfootball.io/data/games.json',
+};

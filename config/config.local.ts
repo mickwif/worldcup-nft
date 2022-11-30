@@ -26,6 +26,11 @@ export default defineConfig({
             changeOrigin: true,
             secure: false,
         },
+        '/data': {
+            target: 'https://www-test.nfootball.io',
+            changeOrigin: true,
+            secure: false,
+        },
     },
     chainWebpack(memo) {
         withChainWebpack(memo, [

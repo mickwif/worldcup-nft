@@ -8,12 +8,11 @@ interface IProps {
     matchResult?: string;
     type: MatchType;
     [key: string]: any;
-    cardLarge?: boolean;
     handleDraw?: Function;
 }
 
 export default (props: IProps) => {
-    const { matchTime, matchResult, type, cardLarge, handleDraw, ...rest } = props;
+    const { matchTime, matchResult, type, handleDraw, ...rest } = props;
     const [time, setTime] = useState({ h: '00', m: '00', s: '00' });
     let interval;
     let timeLeft;
@@ -29,6 +28,9 @@ export default (props: IProps) => {
             return 'NotStart';
         }
     }, [matchTime, matchResult]);
+    const cardLarge = useMemo(() => {
+        return type !== MatchType.Group;
+    }, [type]);
     const pad = (n: number) => {
         if (n < 0) return '00';
         return n < 10 ? '0' + n : String(n);
@@ -77,7 +79,7 @@ export default (props: IProps) => {
                         fontWeight={400}
                         fontSize={cardLarge ? 56 : 32}
                         color="#4A4A60"
-                        marginBottom={cardLarge ? 57 : 27}
+                        marginBottom={cardLarge ? 53 : 27}
                         lineHeight={cardLarge ? 64 : 37}
                     >
                         VS
@@ -118,7 +120,7 @@ export default (props: IProps) => {
             </>
             <>
                 {status === 'NotStart' && (
-                    <Big3Box marginBottom={cardLarge ? 5 : 0} className={'timer-container'} {...rest}>
+                    <Big3Box marginBottom={cardLarge ? 10 : 0} className={'timer-container'} {...rest}>
                         {/* <div className={'timer-item'}>{time.d}</div>
             <span>:</span> */}
                         <span className={'timer-item'}>{time.h}</span>

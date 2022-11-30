@@ -72,7 +72,7 @@ export default () => {
                     >
                         <Big3Text>BETTING</Big3Text>
                     </Big3NavLink>
-                    <AntPopover content="Coming soon" placement="bottom">
+                    {/* <AntPopover content="Coming soon" placement="bottom">
                         <Big3NavLink
                             className={activeStyle(Routers.SYNTHETIC)}
                             // onClick={() => history.push(Routers.SYNTHETIC)}
@@ -83,7 +83,7 @@ export default () => {
                         >
                             <Big3Text>SYNTHETIC</Big3Text>
                         </Big3NavLink>
-                    </AntPopover>
+                    </AntPopover> */}
                     <Big3NavLink
                         className={activeStyle(Routers.FAQ)}
                         onClick={() => history.push(Routers.FAQ)}
