@@ -145,6 +145,7 @@ export default (props: IProps) => {
                             align="center"
                             className={`bet-result ${betType === GameResult.Win ? 'bet-result-selected' : ''} `}
                             padding="12px 24px"
+                            marginRight={type !== MatchType.Group ? 30 : 0}
                         >
                             <NationCircle nation={Teams[homeTeamId]} width={36} height={36}></NationCircle>
                             <Big3Text className="bet-nation-name">{Teams[homeTeamId]} Win</Big3Text>

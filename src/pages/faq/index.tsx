@@ -66,9 +66,6 @@ const Home = () => {
             <Big3FlexBox marginBottom={168} justify="space-between">
                 <Big3FlexBox column>
                     <p className="part-title">Game Guide</p>
-                    <p className="part-title-sub">
-                        <span>01</span>Group Matches
-                    </p>
                     <p className="part-content-gray">
                         Users can participate in the game of predicting the results of the two teams by holding one NFT
                         for any player.
@@ -77,31 +74,15 @@ const Home = () => {
                         Users can choose between winning and losing, choose the right one to get the token reward, and
                         choose the wrong one to get no bonus.
                     </p>
-                    <p className="part-title-sub" style={{ marginTop: '16px' }}>
-                        <span>02</span>Round Of 16、Quarter- Finals、Semi-Finals、Third Place & Final
-                    </p>
-                    <p className="part-content-gray">
-                        Users who hold the top 16 NFTs can directly use ETH to bet to predict winning or losing. For
-                        each bet of 0.01ETH, you can place any integer bet.
-                    </p>
-                    <p className="part-content-gray">
-                        Other users can call a particular top 16 NFT holder, each bet 0.01ETH, and place any integer
-                        bet. The prediction result must be consistent with the holder.
-                    </p>
                     <p className="part-content-gray">The rest of the game is the same.</p>
                 </Big3FlexBox>
                 <Big3Image src="./faq-img-4.png" width={511} height={357} marginLeft={89}></Big3Image>
             </Big3FlexBox>
             <Big3FlexBox marginBottom={168} justify="space-between">
                 <Big3FlexBox column>
-                    <p className="part-title">Advance</p>
+                    <p className="part-title">Reward</p>
                     <p className="part-content-white">
-                        After the Group Matches, you must synthesize the NFTs you hold. Otherwise, you cannot
-                        participate in the subsequent games.
-                    </p>
-                    <p className="part-content-white">
-                        If you hold the NFT that has reached the next stage, you can choose to advance it. 1st/2nd +
-                        300,000 $nftb = 1st/2nd in Round Of 16
+                        At the end of the World Cup, the lucky prizes will be drawn according to the token ranking.
                     </p>
                 </Big3FlexBox>
                 <Big3Image src="./faq-img-5.png" width={511} height={272} marginLeft={89}></Big3Image>
